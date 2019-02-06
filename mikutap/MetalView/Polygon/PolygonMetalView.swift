@@ -44,13 +44,13 @@ class PolygonMetalView: AbstractMetalView {
         
         vertexBuffer = device!.makeBuffer(
             bytes: vertex_data,
-            length: MemoryLayout<Vertex>.size * vertex_data.count,
+            length: MemoryLayout<Vertex>.stride * vertex_data.count,
             options: []
         )
         
         indexBuffer = device!.makeBuffer(
             bytes: index_data,
-            length: MemoryLayout<UInt16>.size * index_data.count,
+            length: MemoryLayout<UInt16>.stride * index_data.count,
             options: []
         )
         
@@ -64,11 +64,11 @@ class PolygonMetalView: AbstractMetalView {
         }
         offsetBuffer = device!.makeBuffer(
             bytes: offset_data!,
-            length: MemoryLayout<float2>.size * offset_data!.count,
+            length: MemoryLayout<float2>.stride * offset_data!.count,
             options: []
         )
         
-        rateBuffer = device!.makeBuffer(length: MemoryLayout<Float>.size, options: [])
+        rateBuffer = device!.makeBuffer(length: MemoryLayout<Float>.stride, options: [])
     }
     
     private func rate() -> Float {
@@ -80,7 +80,7 @@ class PolygonMetalView: AbstractMetalView {
         timer += 1
         var d = rate()
         let bufferPoint = rateBuffer.contents()
-        memcpy(bufferPoint, &d, MemoryLayout<Float>.size)
+        memcpy(bufferPoint, &d, MemoryLayout<Float>.stride)
     }
     
     override func draw(_ dirtyRect: NSRect) {
@@ -101,7 +101,7 @@ class PolygonMetalView: AbstractMetalView {
                     commandEncoder?.setVertexBuffer(rateBuffer, offset: 0, index: 2)
                     commandEncoder?.drawIndexedPrimitives(
                         type: .triangle,
-                        indexCount: indexBuffer.length / MemoryLayout<UInt16>.size,
+                        indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,
                         indexType: .uint16,
                         indexBuffer: indexBuffer,
                         indexBufferOffset: 0

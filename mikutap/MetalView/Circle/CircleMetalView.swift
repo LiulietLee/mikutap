@@ -98,7 +98,7 @@ class CircleMetalView: AbstractMetalView {
                 commandEncoder?.setFragmentBuffer(fragIndexesBuffer, offset: 0, index: 1)
                 commandEncoder?.drawIndexedPrimitives(
                     type: .triangle,
-                    indexCount: indexBuffer.length / MemoryLayout<UInt16>.size,
+                    indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,
                     indexType: .uint16,
                     indexBuffer: indexBuffer,
                     indexBufferOffset: 0

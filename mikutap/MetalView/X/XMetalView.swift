@@ -59,13 +59,13 @@ class XMetalView: AbstractMetalView {
         
         vertexBuffer = device!.makeBuffer(
             bytes: vertex_data1,
-            length: MemoryLayout<Vertex>.size * vertex_data1.count,
+            length: MemoryLayout<Vertex>.stride * vertex_data1.count,
             options: []
         )
         
         indexBuffer = device!.makeBuffer(
             bytes: index_data1,
-            length: MemoryLayout<UInt16>.size * index_data1.count,
+            length: MemoryLayout<UInt16>.stride * index_data1.count,
             options: []
         )
         
@@ -76,12 +76,12 @@ class XMetalView: AbstractMetalView {
 
         uniformBuffer = device!.makeBuffer(
             bytes: matrix.m,
-            length: MemoryLayout<Float>.size * 16,
+            length: MemoryLayout<Float>.stride * 16,
             options: []
         )
         
         rateBuffer = device!.makeBuffer(
-            length: MemoryLayout<Float>.size,
+            length: MemoryLayout<Float>.stride,
             options: []
         )
     }
@@ -102,12 +102,12 @@ class XMetalView: AbstractMetalView {
                 v[index[1]].position + (v[index[0]].position - v[index[1]].position) * dp
         }
         var bufferPoint = vertexBuffer.contents()
-        memcpy(bufferPoint, v, MemoryLayout<Vertex>.size * v.count)
+        memcpy(bufferPoint, v, MemoryLayout<Vertex>.stride * v.count)
         
         let angle = (d * 5.4 * exp(-1.6 * d) + 0.1667) * Float.pi
         matrix.rotationMatrix(float3(0.0, 0.0, angle))
         bufferPoint = uniformBuffer.contents()
-        memcpy(bufferPoint, matrix.m, MemoryLayout<Float>.size * 16)
+        memcpy(bufferPoint, matrix.m, MemoryLayout<Float>.stride * 16)
     }
     
     override func draw(_ dirtyRect: NSRect) {
@@ -128,7 +128,7 @@ class XMetalView: AbstractMetalView {
                 commandEncoder?.setVertexBuffer(rateBuffer, offset: 0, index: 2)
                 commandEncoder?.drawIndexedPrimitives(
                     type: .triangle,
-                    indexCount: indexBuffer.length / MemoryLayout<UInt16>.size,
+                    indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,
                     indexType: .uint16,
                     indexBuffer: indexBuffer,
                     indexBufferOffset: 0
