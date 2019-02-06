@@ -121,21 +121,19 @@ class XMetalView: AbstractMetalView {
                 let commandBuffer = commandQueue!.makeCommandBuffer()
                 let commandEncoder = commandBuffer?.makeRenderCommandEncoder(descriptor: rpd)
                 commandEncoder?.setRenderPipelineState(rps!)
-//                if timer <= step {
-                    update()
-                    commandEncoder?.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
-                    commandEncoder?.setVertexBuffer(uniformBuffer, offset: 0, index: 1)
-                    commandEncoder?.setVertexBuffer(rateBuffer, offset: 0, index: 2)
-                    commandEncoder?.drawIndexedPrimitives(
-                        type: .triangle,
-                        indexCount: indexBuffer.length / MemoryLayout<UInt16>.size,
-                        indexType: .uint16,
-                        indexBuffer: indexBuffer,
-                        indexBufferOffset: 0
-                    )
-//                } else {
-//                    // removeFromSuperview()
-//                }
+            
+                update()
+                commandEncoder?.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+                commandEncoder?.setVertexBuffer(uniformBuffer, offset: 0, index: 1)
+                commandEncoder?.setVertexBuffer(rateBuffer, offset: 0, index: 2)
+                commandEncoder?.drawIndexedPrimitives(
+                    type: .triangle,
+                    indexCount: indexBuffer.length / MemoryLayout<UInt16>.size,
+                    indexType: .uint16,
+                    indexBuffer: indexBuffer,
+                    indexBufferOffset: 0
+                )
+
                 commandEncoder?.endEncoding()
                 commandBuffer?.present(drawable)
                 commandBuffer?.addCompletedHandler({ cb in
