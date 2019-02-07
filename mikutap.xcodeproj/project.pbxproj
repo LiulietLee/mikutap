@@ -13,7 +13,6 @@
 		4F2479E5220B0553001BD833 /* XAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479E4220B0553001BD833 /* XAnimation.swift */; };
 		4F2479E7220B2196001BD833 /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479E6220B2196001BD833 /* MetalView.swift */; };
 		4F2479E9220B21EA001BD833 /* PolygonAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479E8220B21EA001BD833 /* PolygonAnimation.swift */; };
-		4F3A503322071A6A00E8D7A8 /* AbstractMetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A503222071A6A00E8D7A8 /* AbstractMetalView.swift */; };
 		4F3A503622071C8200E8D7A8 /* PolygonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A503522071C8200E8D7A8 /* PolygonFactory.swift */; };
 		4F3A50382208457D00E8D7A8 /* XShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A50372208457D00E8D7A8 /* XShader.metal */; };
 		4FCCA1D82205B8E9001F26F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA1D72205B8E9001F26F6 /* AppDelegate.swift */; };
@@ -31,7 +30,6 @@
 		4F2479E4220B0553001BD833 /* XAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAnimation.swift; sourceTree = "<group>"; };
 		4F2479E6220B2196001BD833 /* MetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalView.swift; sourceTree = "<group>"; };
 		4F2479E8220B21EA001BD833 /* PolygonAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonAnimation.swift; sourceTree = "<group>"; };
-		4F3A503222071A6A00E8D7A8 /* AbstractMetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractMetalView.swift; sourceTree = "<group>"; };
 		4F3A503522071C8200E8D7A8 /* PolygonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonFactory.swift; sourceTree = "<group>"; };
 		4F3A50372208457D00E8D7A8 /* XShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = XShader.metal; sourceTree = "<group>"; };
 		4FCCA1D42205B8E9001F26F6 /* mikutap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mikutap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,7 +85,6 @@
 			isa = PBXGroup;
 			children = (
 				4F3A503522071C8200E8D7A8 /* PolygonFactory.swift */,
-				4F3A503222071A6A00E8D7A8 /* AbstractMetalView.swift */,
 				4F2479E6220B2196001BD833 /* MetalView.swift */,
 				4F2479E2220B0120001BD833 /* AbstractAnimation.swift */,
 				4F2479D5220AB5D9001BD833 /* Circle */,
@@ -209,7 +206,6 @@
 				4FCCA1EA2205B94D001F26F6 /* MathUtils.swift in Sources */,
 				4FCCA1DA2205B8E9001F26F6 /* ViewController.swift in Sources */,
 				4F2479E9220B21EA001BD833 /* PolygonAnimation.swift in Sources */,
-				4F3A503322071A6A00E8D7A8 /* AbstractMetalView.swift in Sources */,
 				4F2479D7220AB5FD001BD833 /* CircleShader.metal in Sources */,
 				4F2479E3220B0120001BD833 /* AbstractAnimation.swift in Sources */,
 				4F2479E7220B2196001BD833 /* MetalView.swift in Sources */,
