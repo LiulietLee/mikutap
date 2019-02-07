@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		4F2479D7220AB5FD001BD833 /* CircleShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479D6220AB5FD001BD833 /* CircleShader.metal */; };
-		4F2479D9220AB60B001BD833 /* CircleMetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479D8220AB60B001BD833 /* CircleMetalView.swift */; };
-		4F3A503122071A2500E8D7A8 /* XMetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A503022071A2500E8D7A8 /* XMetalView.swift */; };
+		4F2479E1220B0065001BD833 /* CircleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479E0220B0065001BD833 /* CircleAnimation.swift */; };
+		4F2479E3220B0120001BD833 /* AbstractAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479E2220B0120001BD833 /* AbstractAnimation.swift */; };
+		4F2479E5220B0553001BD833 /* XAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479E4220B0553001BD833 /* XAnimation.swift */; };
+		4F2479E7220B2196001BD833 /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479E6220B2196001BD833 /* MetalView.swift */; };
+		4F2479E9220B21EA001BD833 /* PolygonAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479E8220B21EA001BD833 /* PolygonAnimation.swift */; };
 		4F3A503322071A6A00E8D7A8 /* AbstractMetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A503222071A6A00E8D7A8 /* AbstractMetalView.swift */; };
 		4F3A503622071C8200E8D7A8 /* PolygonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A503522071C8200E8D7A8 /* PolygonFactory.swift */; };
 		4F3A50382208457D00E8D7A8 /* XShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A50372208457D00E8D7A8 /* XShader.metal */; };
@@ -17,15 +20,17 @@
 		4FCCA1DA2205B8E9001F26F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA1D92205B8E9001F26F6 /* ViewController.swift */; };
 		4FCCA1DC2205B8EB001F26F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FCCA1DB2205B8EB001F26F6 /* Assets.xcassets */; };
 		4FCCA1DF2205B8EB001F26F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FCCA1DD2205B8EB001F26F6 /* Main.storyboard */; };
-		4FCCA1E82205B90D001F26F6 /* PolygonMetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA1E72205B90D001F26F6 /* PolygonMetalView.swift */; };
 		4FCCA1EA2205B94D001F26F6 /* MathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA1E92205B94D001F26F6 /* MathUtils.swift */; };
 		4FCCA1EC2205B972001F26F6 /* PolygonShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA1EB2205B972001F26F6 /* PolygonShader.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4F2479D6220AB5FD001BD833 /* CircleShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = CircleShader.metal; sourceTree = "<group>"; };
-		4F2479D8220AB60B001BD833 /* CircleMetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMetalView.swift; sourceTree = "<group>"; };
-		4F3A503022071A2500E8D7A8 /* XMetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMetalView.swift; sourceTree = "<group>"; };
+		4F2479E0220B0065001BD833 /* CircleAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleAnimation.swift; sourceTree = "<group>"; };
+		4F2479E2220B0120001BD833 /* AbstractAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractAnimation.swift; sourceTree = "<group>"; };
+		4F2479E4220B0553001BD833 /* XAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAnimation.swift; sourceTree = "<group>"; };
+		4F2479E6220B2196001BD833 /* MetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalView.swift; sourceTree = "<group>"; };
+		4F2479E8220B21EA001BD833 /* PolygonAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonAnimation.swift; sourceTree = "<group>"; };
 		4F3A503222071A6A00E8D7A8 /* AbstractMetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractMetalView.swift; sourceTree = "<group>"; };
 		4F3A503522071C8200E8D7A8 /* PolygonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonFactory.swift; sourceTree = "<group>"; };
 		4F3A50372208457D00E8D7A8 /* XShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = XShader.metal; sourceTree = "<group>"; };
@@ -36,7 +41,6 @@
 		4FCCA1DE2205B8EB001F26F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4FCCA1E02205B8EB001F26F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FCCA1E12205B8EB001F26F6 /* mikutap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = mikutap.entitlements; sourceTree = "<group>"; };
-		4FCCA1E72205B90D001F26F6 /* PolygonMetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonMetalView.swift; sourceTree = "<group>"; };
 		4FCCA1E92205B94D001F26F6 /* MathUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathUtils.swift; sourceTree = "<group>"; };
 		4FCCA1EB2205B972001F26F6 /* PolygonShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = PolygonShader.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -55,8 +59,8 @@
 		4F2479D5220AB5D9001BD833 /* Circle */ = {
 			isa = PBXGroup;
 			children = (
-				4F2479D8220AB60B001BD833 /* CircleMetalView.swift */,
 				4F2479D6220AB5FD001BD833 /* CircleShader.metal */,
+				4F2479E0220B0065001BD833 /* CircleAnimation.swift */,
 			);
 			path = Circle;
 			sourceTree = "<group>";
@@ -64,8 +68,8 @@
 		4F3A502E2207197F00E8D7A8 /* Polygon */ = {
 			isa = PBXGroup;
 			children = (
-				4FCCA1E72205B90D001F26F6 /* PolygonMetalView.swift */,
 				4FCCA1EB2205B972001F26F6 /* PolygonShader.metal */,
+				4F2479E8220B21EA001BD833 /* PolygonAnimation.swift */,
 			);
 			path = Polygon;
 			sourceTree = "<group>";
@@ -73,8 +77,8 @@
 		4F3A502F22071A0E00E8D7A8 /* X */ = {
 			isa = PBXGroup;
 			children = (
-				4F3A503022071A2500E8D7A8 /* XMetalView.swift */,
 				4F3A50372208457D00E8D7A8 /* XShader.metal */,
+				4F2479E4220B0553001BD833 /* XAnimation.swift */,
 			);
 			path = X;
 			sourceTree = "<group>";
@@ -82,8 +86,10 @@
 		4F3A503422071C2B00E8D7A8 /* MetalView */ = {
 			isa = PBXGroup;
 			children = (
-				4F3A503222071A6A00E8D7A8 /* AbstractMetalView.swift */,
 				4F3A503522071C8200E8D7A8 /* PolygonFactory.swift */,
+				4F3A503222071A6A00E8D7A8 /* AbstractMetalView.swift */,
+				4F2479E6220B2196001BD833 /* MetalView.swift */,
+				4F2479E2220B0120001BD833 /* AbstractAnimation.swift */,
 				4F2479D5220AB5D9001BD833 /* Circle */,
 				4F3A502F22071A0E00E8D7A8 /* X */,
 				4F3A502E2207197F00E8D7A8 /* Polygon */,
@@ -200,17 +206,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FCCA1E82205B90D001F26F6 /* PolygonMetalView.swift in Sources */,
 				4FCCA1EA2205B94D001F26F6 /* MathUtils.swift in Sources */,
 				4FCCA1DA2205B8E9001F26F6 /* ViewController.swift in Sources */,
-				4F2479D9220AB60B001BD833 /* CircleMetalView.swift in Sources */,
+				4F2479E9220B21EA001BD833 /* PolygonAnimation.swift in Sources */,
 				4F3A503322071A6A00E8D7A8 /* AbstractMetalView.swift in Sources */,
 				4F2479D7220AB5FD001BD833 /* CircleShader.metal in Sources */,
+				4F2479E3220B0120001BD833 /* AbstractAnimation.swift in Sources */,
+				4F2479E7220B2196001BD833 /* MetalView.swift in Sources */,
 				4FCCA1EC2205B972001F26F6 /* PolygonShader.metal in Sources */,
 				4F3A50382208457D00E8D7A8 /* XShader.metal in Sources */,
 				4FCCA1D82205B8E9001F26F6 /* AppDelegate.swift in Sources */,
-				4F3A503122071A2500E8D7A8 /* XMetalView.swift in Sources */,
 				4F3A503622071C8200E8D7A8 /* PolygonFactory.swift in Sources */,
+				4F2479E1220B0065001BD833 /* CircleAnimation.swift in Sources */,
+				4F2479E5220B0553001BD833 /* XAnimation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

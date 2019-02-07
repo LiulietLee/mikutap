@@ -43,7 +43,7 @@ fragment float4 circle_fragment_func(Vertex v [[stage_in]],
     }
     angle -= indexes.z;
     if (angle < 0) angle += 2 * M_PI_F;
-    if (indexes.y < angle && angle < indexes.x) {
+    if (indexes.y > angle || angle > indexes.x) {
         discard_fragment();
     }
     

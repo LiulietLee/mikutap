@@ -1,14 +1,14 @@
 //
-//  XMetalView.swift
+//  XAnimation.swift
 //  mikutap
 //
-//  Created by Liuliet.Lee on 3/2/2019.
+//  Created by Liuliet.Lee on 6/2/2019.
 //  Copyright © 2019 Liuliet.Lee. All rights reserved.
 //
 
 import MetalKit
 
-class XMetalView: AbstractMetalView {
+class XAnimation: AbstractAnimation {
     
     private var vertexBuffer: MTLBuffer!
     private var indexBuffer: MTLBuffer!
@@ -19,28 +19,22 @@ class XMetalView: AbstractMetalView {
     
     private var timer = 0
     private var step = 40
-
-    private func commonInit() {
+    
+    override init(device: MTLDevice) {
+        super.init(device: device)
         createBuffer()
-        registerShaders(vertexName: "x_vertex_func", fragName: "x_fragment_func")
-    }
-    
-    override init(frame frameRect: CGRect, device: MTLDevice?) {
-        super.init(frame: frameRect, device: device)
-        commonInit()
-    }
-    
-    required init(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
+        renderPipelineState = getRenderPipelineState(
+            vertexFunctionName: "x_vertex_func",
+            fragmentFunctionName: "x_fragment_func"
+        )
     }
     
     private func createBuffer() {
         var vertex_data1 = [Vertex](), index_data1 = [UInt16](),
-            vertex_data2 = [Vertex](), index_data2 = [UInt16]()
+        vertex_data2 = [Vertex](), index_data2 = [UInt16]()
         
         let randw = 0.1 + Float.random(in: 0.0...0.1),
-            randh = 0.8 + Float.random(in: 0.0...0.5)
+        randh = 0.8 + Float.random(in: 0.0...0.5)
         
         (vertex_data1, index_data1) = PolygonFactory.getRectangle(
             withWidth: randw, andHeight: randh
@@ -48,7 +42,7 @@ class XMetalView: AbstractMetalView {
         (vertex_data2, index_data2) = PolygonFactory.getRectangle(
             withWidth: randh, andHeight: randw
         )
-
+        
         for i in 0..<index_data2.count {
             index_data2[i] += 4
         }
@@ -73,7 +67,7 @@ class XMetalView: AbstractMetalView {
         matrix.translationMatrix(float3(
             Float.random(in: -0.2...0.2), Float.random(in: -0.2...0.2), 0.0
         ))
-
+        
         uniformBuffer = device!.makeBuffer(
             bytes: matrix.m,
             length: MemoryLayout<Float>.stride * 16,
@@ -86,14 +80,14 @@ class XMetalView: AbstractMetalView {
         )
     }
     
-    private func update() {
+    private func update() -> Bool {
         timer += 1
         if timer > step * 2 { timer = 0 }
         let d = Float(timer) / Float(step)
         var dp = d / 0.48
         if d > 1.0 {
             dp = 5.0 - 4.0 * d
-            if dp < 0.0 { dp = 0.0 }
+            if dp < 0.0 { return false }
         } else if dp > 1.0 { dp = 1.0 }
         
         var v = vertexData!
@@ -108,40 +102,27 @@ class XMetalView: AbstractMetalView {
         matrix.rotationMatrix(float3(0.0, 0.0, angle))
         bufferPoint = uniformBuffer.contents()
         memcpy(bufferPoint, matrix.m, MemoryLayout<Float>.stride * 16)
+        
+        return true
     }
-    
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        autoreleasepool {
-            semaphore.wait()
-            
-            if let drawable = currentDrawable, let rpd = currentRenderPassDescriptor {
-                rpd.colorAttachments[0].texture = drawable.texture
-                rpd.colorAttachments[0].clearColor = MTLClearColorMake(0.7, 0.5, 0.7, 0.0)
-                let commandBuffer = commandQueue!.makeCommandBuffer()
-                let commandEncoder = commandBuffer?.makeRenderCommandEncoder(descriptor: rpd)
-                commandEncoder?.setRenderPipelineState(rps!)
-            
-                update()
-                commandEncoder?.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
-                commandEncoder?.setVertexBuffer(uniformBuffer, offset: 0, index: 1)
-                commandEncoder?.setVertexBuffer(rateBuffer, offset: 0, index: 2)
-                commandEncoder?.drawIndexedPrimitives(
-                    type: .triangle,
-                    indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,
-                    indexType: .uint16,
-                    indexBuffer: indexBuffer,
-                    indexBufferOffset: 0
-                )
 
-                commandEncoder?.endEncoding()
-                commandBuffer?.present(drawable)
-                commandBuffer?.addCompletedHandler({ cb in
-                    self.semaphore.signal()
-                })
-                commandBuffer?.commit()
-            }
+    @discardableResult
+    override func setCommandEncoder(cb: MTLCommandBuffer, rpd: MTLRenderPassDescriptor) -> Bool {
+        super.setCommandEncoder(cb: cb, rpd: rpd)
+        let flag = update()
+        if flag {
+            commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+            commandEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 1)
+            commandEncoder.setVertexBuffer(rateBuffer, offset: 0, index: 2)
+            commandEncoder.drawIndexedPrimitives(
+                type: .triangle,
+                indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,
+                indexType: .uint16,
+                indexBuffer: indexBuffer,
+                indexBufferOffset: 0
+            )
         }
+        commandEncoder.endEncoding()
+        return flag
     }
-    
 }
