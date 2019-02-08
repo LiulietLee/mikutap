@@ -85,7 +85,7 @@ class CircleAnimation: AbstractAnimation {
             commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
             commandEncoder.setFragmentBuffer(fragInfoBuffer, offset: 0, index: 0)
             commandEncoder.setFragmentBuffer(fragIndexesBuffer, offset: 0, index: 1)
-            commandEncoder?.drawIndexedPrimitives(
+            commandEncoder.drawIndexedPrimitives(
                 type: .triangle,
                 indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,
                 indexType: .uint16,
@@ -93,7 +93,7 @@ class CircleAnimation: AbstractAnimation {
                 indexBufferOffset: 0
             )
         }
-        commandEncoder?.endEncoding()
+        commandEncoder.endEncoding()
         return flag
     }
 }

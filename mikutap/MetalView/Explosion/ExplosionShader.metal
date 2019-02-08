@@ -15,8 +15,8 @@ struct Point {
 };
 
 vertex Point explosion_vertex_func(constant Point *point_array [[buffer(0)]],
-                                    constant float &d [[buffer(1)]],
-                                    uint pid [[vertex_id]])
+                                   constant float &d [[buffer(1)]],
+                                   uint pid [[vertex_id]])
 {
     Point in = point_array[pid];
     Point out = in;
