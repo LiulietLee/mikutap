@@ -21,8 +21,7 @@ class MetalView: MTKView {
         device = MTLCreateSystemDefaultDevice()!
         commandQueue = device!.makeCommandQueue()
         
-//        animation.append(CircleAnimation(device: device!))
-        animation.append(XAnimation(device: device!))
+        animation.append(ExplosionSquareAnimation(device: device!))
     }
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
@@ -60,6 +59,9 @@ class MetalView: MTKView {
                         animation.remove(at: i)
                     }
                     // TODO: - animation 数组清空后有概率出现闪屏问题
+                    if animation.isEmpty {
+                        animation.append(ExplosionCircleAnimation(device: device!))
+                    }
                 }
                 
                 commandBuffer?.present(drawable)

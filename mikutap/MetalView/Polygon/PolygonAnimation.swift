@@ -24,7 +24,7 @@ class PolygonAnimation: AbstractAnimation {
     override init(device: MTLDevice) {
         super.init(device: device)
         createBuffer()
-        renderPipelineState = getRenderPipelineState(
+        registerShaders(
             vertexFunctionName: "polygon_vertex_func",
             fragmentFunctionName: "polygon_fragment_func"
         )
@@ -74,6 +74,7 @@ class PolygonAnimation: AbstractAnimation {
         timer += 1
         if timer > step { return false }
         var d = rate()
+        d = 1.0204 - 1.0204 * exp(-3.92 * d)
         let bufferPoint = rateBuffer.contents()
         memcpy(bufferPoint, &d, MemoryLayout<Float>.stride)
         return true

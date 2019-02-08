@@ -23,7 +23,7 @@ class XAnimation: AbstractAnimation {
     override init(device: MTLDevice) {
         super.init(device: device)
         createBuffer()
-        renderPipelineState = getRenderPipelineState(
+        registerShaders(
             vertexFunctionName: "x_vertex_func",
             fragmentFunctionName: "x_fragment_func"
         )

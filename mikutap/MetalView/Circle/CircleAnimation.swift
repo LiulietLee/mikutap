@@ -24,7 +24,7 @@ class CircleAnimation: AbstractAnimation {
         super.init(device: device)
         start = Float.random(in: 0.0...2 * Float.pi)
         createBuffer()
-        renderPipelineState = getRenderPipelineState(
+        registerShaders(
             vertexFunctionName: "circle_vertex_func",
             fragmentFunctionName: "circle_fragment_func"
         )

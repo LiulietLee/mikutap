@@ -25,8 +25,7 @@ vertex Vertex polygon_vertex_func(constant Vertex *vertices [[buffer(0)]],
     Vertex in = vertices[vid];
     Vertex out;
     out.position = float4(in.position);
-    float rate = 1.0204 - 1.0204 * exp(-3.92 * d);
-    out.position.xy += rate * offset[vid].xy;
+    out.position.xy += d * offset[vid].xy;
     out.color = in.color;
     return out;
 }
