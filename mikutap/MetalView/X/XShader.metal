@@ -11,7 +11,6 @@ using namespace metal;
 
 struct Vertex {
     float4 position [[position]];
-    float4 color;
 };
 
 struct Uniforms {
@@ -27,10 +26,9 @@ vertex Vertex x_vertex_func(constant Vertex *vertices [[buffer(0)]],
     Vertex in = vertices[vid];
     Vertex out;
     out.position = matrix * float4(in.position);
-    out.color = in.color;
     return out;
 }
 
 fragment float4 x_fragment_func(Vertex v [[stage_in]]) {
-    return v.color;
+    return float4(1.0);
 }

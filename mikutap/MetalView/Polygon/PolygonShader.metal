@@ -11,7 +11,6 @@ using namespace metal;
 
 struct Vertex {
     float4 position [[position]];
-    float4 color;
 };
 
 struct Uniforms {
@@ -23,14 +22,12 @@ vertex Vertex polygon_vertex_func(constant Vertex *vertices [[buffer(0)]],
                            constant float &d [[buffer(2)]],
                            uint vid [[vertex_id]]) {
     Vertex in = vertices[vid];
-    Vertex out;
-    out.position = float4(in.position);
+    Vertex out = in;
     out.position.xy += d * offset[vid].xy;
-    out.color = in.color;
     return out;
 }
 
 fragment float4 polygon_fragment_func(Vertex vert [[stage_in]]) {
-    return vert.color;
+    return float4(1.0);
 }
 

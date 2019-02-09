@@ -29,12 +29,10 @@ class PolygonFactory {
         var Y = -X / (2 * k)
         vertexData.append(contentsOf: [
             Vertex(
-                position: float4(path[0].x + X, path[0].y + Y, 0.0, 1.0),
-                color: float4(1.0)
+                position: float4(path[0].x + X, path[0].y + Y, 0.0, 1.0)
             ),
             Vertex(
-                position: float4(path[0].x - X, path[0].y - Y, 0.0, 1.0),
-                color: float4(1.0)
+                position: float4(path[0].x - X, path[0].y - Y, 0.0, 1.0)
             ),
         ])
         
@@ -49,10 +47,10 @@ class PolygonFactory {
 
             var y = (l1.a * l3.c - l3.a * l1.c) / (l3.a * l1.b - l1.a * l3.b)
             var x = (-l1.b * y - l1.c) / l1.a
-            vertexData.append(Vertex(position: float4(x, y, 0.0, 1.0), color: float4(1.0)))
+            vertexData.append(Vertex(position: float4(x, y, 0.0, 1.0)))
             y = (l2.a * l4.c - l4.a * l2.c) / (l4.a * l2.b - l2.a * l4.b)
             x = (-l2.b * y - l2.c) / l2.a
-            vertexData.append(Vertex(position: float4(x, y, 0.0, 1.0), color: float4(1.0)))
+            vertexData.append(Vertex(position: float4(x, y, 0.0, 1.0)))
         }
         
         k = -line[line.count - 1].a / line[line.count - 1].b
@@ -61,12 +59,10 @@ class PolygonFactory {
         let index = path.count - 1
         vertexData.append(contentsOf: [
             Vertex(
-                position: float4(path[index].x + X, path[index].y + Y, 0.0, 1.0),
-                color: float4(1.0)
+                position: float4(path[index].x + X, path[index].y + Y, 0.0, 1.0)
             ),
             Vertex(
-                position: float4(path[index].x - X, path[index].y - Y, 0.0, 1.0),
-                color: float4(1.0)
+                position: float4(path[index].x - X, path[index].y - Y, 0.0, 1.0)
             ),
         ])
         
@@ -86,8 +82,7 @@ class PolygonFactory {
         let index: [[Float]] = [[0.5, 0.5], [-0.5, 0.5], [-0.5, -0.5], [0.5, -0.5]]
         for i in index {
             vertexData.append(Vertex(
-                position: float4(i[0] * width, i[1] * height, 0.0, 1.0),
-                color: float4(1.0)
+                position: float4(i[0] * width, i[1] * height, 0.0, 1.0)
             ))
         }
         let indexData: [UInt16] = [0, 1, 2, 2, 3, 0]
@@ -102,8 +97,7 @@ class PolygonFactory {
                     Float.random(in: -0.8...0.8),
                     Float.random(in: -0.8...0.8),
                     0.0, 1.0
-                ),
-                color: float4(1.0)
+                )
             ))
         }
         vertexData.sort { $0.position.x < $1.position.x }

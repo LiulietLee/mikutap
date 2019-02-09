@@ -10,7 +10,6 @@ import simd
 
 struct Vertex {
     var position: float4
-    var color: float4
 }
 
 struct Point {

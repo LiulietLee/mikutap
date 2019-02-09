@@ -11,7 +11,6 @@ using namespace metal;
 
 struct Vertex {
     float4 position [[position]];
-    float4 color;
 };
 
 struct Frag {
