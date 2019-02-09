@@ -21,8 +21,8 @@
 		4FBCD6C8220D59DC00342433 /* ExplosionCircleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBCD6C7220D59DC00342433 /* ExplosionCircleAnimation.swift */; };
 		4FBCD6CB220D75A700342433 /* SegmentAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBCD6CA220D75A700342433 /* SegmentAnimation.swift */; };
 		4FBCD6CD220D75BC00342433 /* SegmentShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FBCD6CC220D75BC00342433 /* SegmentShader.metal */; };
-		4FCAA6A7220EB23700C39A17 /* LogDotAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6A6220EB23700C39A17 /* LogDotAnimation.swift */; };
-		4FCAA6A9220EB24900C39A17 /* LogDotShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6A8220EB24900C39A17 /* LogDotShader.metal */; };
+		4FCAA6A7220EB23700C39A17 /* SpiralDotAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6A6220EB23700C39A17 /* SpiralDotAnimation.swift */; };
+		4FCAA6A9220EB24900C39A17 /* SpiralDotShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6A8220EB24900C39A17 /* SpiralDotShader.metal */; };
 		4FCCA1D82205B8E9001F26F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA1D72205B8E9001F26F6 /* AppDelegate.swift */; };
 		4FCCA1DA2205B8E9001F26F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA1D92205B8E9001F26F6 /* ViewController.swift */; };
 		4FCCA1DC2205B8EB001F26F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FCCA1DB2205B8EB001F26F6 /* Assets.xcassets */; };
@@ -46,8 +46,8 @@
 		4FBCD6C7220D59DC00342433 /* ExplosionCircleAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplosionCircleAnimation.swift; sourceTree = "<group>"; };
 		4FBCD6CA220D75A700342433 /* SegmentAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentAnimation.swift; sourceTree = "<group>"; };
 		4FBCD6CC220D75BC00342433 /* SegmentShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = SegmentShader.metal; sourceTree = "<group>"; };
-		4FCAA6A6220EB23700C39A17 /* LogDotAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDotAnimation.swift; sourceTree = "<group>"; };
-		4FCAA6A8220EB24900C39A17 /* LogDotShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = LogDotShader.metal; sourceTree = "<group>"; };
+		4FCAA6A6220EB23700C39A17 /* SpiralDotAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiralDotAnimation.swift; sourceTree = "<group>"; };
+		4FCAA6A8220EB24900C39A17 /* SpiralDotShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = SpiralDotShader.metal; sourceTree = "<group>"; };
 		4FCCA1D42205B8E9001F26F6 /* mikutap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mikutap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FCCA1D72205B8E9001F26F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FCCA1D92205B8E9001F26F6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -153,8 +153,8 @@
 		4FCAA6A5220EB07600C39A17 /* LogDot */ = {
 			isa = PBXGroup;
 			children = (
-				4FCAA6A6220EB23700C39A17 /* LogDotAnimation.swift */,
-				4FCAA6A8220EB24900C39A17 /* LogDotShader.metal */,
+				4FCAA6A6220EB23700C39A17 /* SpiralDotAnimation.swift */,
+				4FCAA6A8220EB24900C39A17 /* SpiralDotShader.metal */,
 			);
 			path = LogDot;
 			sourceTree = "<group>";
@@ -267,7 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FCAA6A7220EB23700C39A17 /* LogDotAnimation.swift in Sources */,
+				4FCAA6A7220EB23700C39A17 /* SpiralDotAnimation.swift in Sources */,
 				4FBCD6CD220D75BC00342433 /* SegmentShader.metal in Sources */,
 				4FBCD6C4220D532D00342433 /* ExplosionShader.metal in Sources */,
 				4FCCA1EA2205B94D001F26F6 /* MathUtils.swift in Sources */,
@@ -282,7 +282,7 @@
 				4FCCA1EC2205B972001F26F6 /* PolygonShader.metal in Sources */,
 				4F3A50382208457D00E8D7A8 /* XShader.metal in Sources */,
 				4FCCA1D82205B8E9001F26F6 /* AppDelegate.swift in Sources */,
-				4FCAA6A9220EB24900C39A17 /* LogDotShader.metal in Sources */,
+				4FCAA6A9220EB24900C39A17 /* SpiralDotShader.metal in Sources */,
 				4FBCD6C8220D59DC00342433 /* ExplosionCircleAnimation.swift in Sources */,
 				4F3A503622071C8200E8D7A8 /* PolygonFactory.swift in Sources */,
 				4F2479E1220B0065001BD833 /* CircleAnimation.swift in Sources */,

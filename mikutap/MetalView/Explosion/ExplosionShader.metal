@@ -29,9 +29,9 @@ fragment float4 explosion_square_fragment_func(Point point [[stage_in]]) {
 }
 
 fragment float4 explosion_circle_fragment_func(Point point [[stage_in]],
-                                               float2 pointCoord [[point_coord]])
+                                               float2 point_coord [[point_coord]])
 {
-    if (length(pointCoord - float2(0.5)) > 0.5 || length(pointCoord - float2(0.5)) < 0.4) {
+    if (length(point_coord - float2(0.5)) > 0.5 || length(point_coord - float2(0.5)) < 0.4) {
         discard_fragment();
     }
     
