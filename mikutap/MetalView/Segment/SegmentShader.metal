@@ -17,9 +17,7 @@ struct Vertex {
 vertex Vertex segment_vertex_func(constant Vertex *vertex_array [[buffer(0)]],
                                   uint vid [[vertex_id]])
 {
-    Vertex in = vertex_array[vid];
-    Vertex out = in;
-    return out;
+    return vertex_array[vid];
 }
 
 fragment float4 segment_fragment_func(Vertex vert [[stage_in]]) {
