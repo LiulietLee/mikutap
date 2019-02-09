@@ -9,16 +9,12 @@
 #include <metal_stdlib>
 using namespace metal;
 
-struct Vertex {
-    float4 position [[position]];
-};
-
-vertex Vertex segment_vertex_func(constant Vertex *vertex_array [[buffer(0)]],
+vertex float4 segment_vertex_func(constant float4 *vertex_array [[buffer(0)]],
                                   uint vid [[vertex_id]])
 {
     return vertex_array[vid];
 }
 
-fragment float4 segment_fragment_func(Vertex vert [[stage_in]]) {
+fragment float4 segment_fragment_func() {
     return float4(1.0);
 }

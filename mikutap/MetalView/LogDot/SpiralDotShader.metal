@@ -18,12 +18,8 @@ struct Point {;
     int timer;
 };
 
-struct Uniforms {
-    float4x4 modelMatrix;
-};
-
 vertex Point Spiral_dot_vertex_func(device Point *point_array [[buffer(0)]],
-                                 constant Uniforms &uniforms [[buffer(1)]],
+                                 constant float4x4 &uniforms [[buffer(1)]],
                                  uint vid [[vertex_id]])
 {
     int timer = point_array[vid].timer++;
@@ -41,13 +37,11 @@ vertex Point Spiral_dot_vertex_func(device Point *point_array [[buffer(0)]],
     }
     Point in = point_array[vid];
     Point out = in;
-    out.position = uniforms.modelMatrix * out.position;
+    out.position = uniforms * out.position;
     return out;
 }
 
-fragment float4 Spiral_dot_fragment_func(Point p [[stage_in]],
-                                      float2 point_coord [[point_coord]])
-{
+fragment float4 Spiral_dot_fragment_func(float2 point_coord [[point_coord]]) {
     if (length(point_coord - float2(0.5)) > 0.5) {
         discard_fragment();
     }

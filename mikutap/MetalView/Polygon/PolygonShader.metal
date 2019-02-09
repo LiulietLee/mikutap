@@ -9,25 +9,18 @@
 #include <metal_stdlib>
 using namespace metal;
 
-struct Vertex {
-    float4 position [[position]];
-};
-
-struct Uniforms {
-    float4x4 modelMatrix;
-};
-
-vertex Vertex polygon_vertex_func(constant Vertex *vertices [[buffer(0)]],
+vertex float4 polygon_vertex_func(constant float4 *vertices [[buffer(0)]],
                            constant float2 *offset [[buffer(1)]],
                            constant float &d [[buffer(2)]],
-                           uint vid [[vertex_id]]) {
-    Vertex in = vertices[vid];
-    Vertex out = in;
-    out.position.xy += d * offset[vid].xy;
+                           uint vid [[vertex_id]])
+{
+    float4 in = vertices[vid];
+    float4 out = in;
+    out.xy += d * offset[vid].xy;
     return out;
 }
 
-fragment float4 polygon_fragment_func(Vertex vert [[stage_in]]) {
+fragment float4 polygon_fragment_func() {
     return float4(1.0);
 }
 

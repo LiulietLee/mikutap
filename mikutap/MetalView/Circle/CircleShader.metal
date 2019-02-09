@@ -9,26 +9,19 @@
 #include <metal_stdlib>
 using namespace metal;
 
-struct Vertex {
-    float4 position [[position]];
-};
-
 struct Frag {
     float4 color;
     float radius;
 };
 
-vertex Vertex circle_vertex_func(constant Vertex *vertices [[buffer(0)]],
+vertex float4 circle_vertex_func(constant float4 *vertices [[buffer(0)]],
                                  uint vid [[vertex_id]])
 {
-    Vertex in = vertices[vid];
-    Vertex out;
-    out.position = in.position;
+    float4 out = vertices[vid];
     return out;
 }
 
-fragment float4 circle_fragment_func(Vertex v [[stage_in]],
-                                     constant Frag &info [[buffer(0)]],
+fragment float4 circle_fragment_func(constant Frag &info [[buffer(0)]],
                                      constant float3 &indexes [[buffer(1)]],
                                      float2 point_coord [[point_coord]])
 {

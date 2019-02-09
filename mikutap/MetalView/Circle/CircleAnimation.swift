@@ -48,7 +48,7 @@ class CircleAnimation: AbstractAnimation {
             options: []
         )
         
-        var info = (float4(0.5, 0.4, 0.2, 1.0), radius2 / 2)
+        var info = (float4(1.0), radius2 / 2)
         fragInfoBuffer = device.makeBuffer(
             bytes: &info,
             length: MemoryLayout<(float4, Float)>.stride,
