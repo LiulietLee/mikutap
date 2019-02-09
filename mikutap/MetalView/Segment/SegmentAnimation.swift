@@ -13,8 +13,8 @@ class SegmentAnimation: AbstractAnimation {
     private var vertexBuffer: MTLBuffer!
     private var indexBuffer: MTLBuffer!
     private var path = [float2]()
-    private var vertex_data = [Vertex]()
-    private var index_data = [UInt16]()
+    private var vertexData = [Vertex]()
+    private var indexData = [UInt16]()
     private var lengthSum: Float = 0.0
     private var width: Float = 0.0
     
@@ -64,13 +64,13 @@ class SegmentAnimation: AbstractAnimation {
     
     private func setBuffers() {
         vertexBuffer = device!.makeBuffer(
-            bytes: vertex_data,
-            length: MemoryLayout<Vertex>.stride * vertex_data.count,
+            bytes: vertexData,
+            length: MemoryLayout<Vertex>.stride * vertexData.count,
             options: []
         )
         indexBuffer = device!.makeBuffer(
-            bytes: index_data,
-            length: MemoryLayout<UInt16>.stride * index_data.count,
+            bytes: indexData,
+            length: MemoryLayout<UInt16>.stride * indexData.count,
             options: []
         )
     }
@@ -101,7 +101,7 @@ class SegmentAnimation: AbstractAnimation {
                 break
             }
         }
-        (vertex_data, index_data) = PolygonFactory.getSegments(path: tempPath, width: width)
+        (vertexData, indexData) = PolygonFactory.getSegments(path: tempPath, width: width)
         setBuffers()
         return true
     }

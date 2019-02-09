@@ -15,7 +15,7 @@ class PolygonAnimation: AbstractAnimation {
     private var offsetBuffer: MTLBuffer!
     private var rateBuffer: MTLBuffer!
     
-    private var offset_data: [float2]!
+    private var offsetData: [float2]!
     private var vertex_count: UInt16!
     
     private let step = 35
@@ -31,34 +31,34 @@ class PolygonAnimation: AbstractAnimation {
     }
     
     private func createBuffer() {
-        var vertex_data = [Vertex](), index_data = [UInt16]()
+        var vertexData = [Vertex](), indexData = [UInt16]()
         vertex_count = UInt16(arc4random_uniform(3) + 3)
         
-        (vertex_data, index_data) = PolygonFactory.getRandomPolygon(withVertexCount: vertex_count)
+        (vertexData, indexData) = PolygonFactory.getRandomPolygon(withVertexCount: vertex_count)
         
         vertexBuffer = device!.makeBuffer(
-            bytes: vertex_data,
-            length: MemoryLayout<Vertex>.stride * vertex_data.count,
+            bytes: vertexData,
+            length: MemoryLayout<Vertex>.stride * vertexData.count,
             options: []
         )
         
         indexBuffer = device!.makeBuffer(
-            bytes: index_data,
-            length: MemoryLayout<UInt16>.stride * index_data.count,
+            bytes: indexData,
+            length: MemoryLayout<UInt16>.stride * indexData.count,
             options: []
         )
         
-        offset_data = [float2]()
+        offsetData = [float2]()
         for i in 0..<Int(vertex_count) {
             let destination = float2(
-                Float.random(in: -1.1...1.1) - vertex_data[i].position.x,
-                Float.random(in: -1.1...1.1) - vertex_data[i].position.y
+                Float.random(in: -1.1...1.1) - vertexData[i].position.x,
+                Float.random(in: -1.1...1.1) - vertexData[i].position.y
             )
-            offset_data.append(destination)
+            offsetData.append(destination)
         }
         offsetBuffer = device!.makeBuffer(
-            bytes: offset_data!,
-            length: MemoryLayout<float2>.stride * offset_data!.count,
+            bytes: offsetData!,
+            length: MemoryLayout<float2>.stride * offsetData!.count,
             options: []
         )
         

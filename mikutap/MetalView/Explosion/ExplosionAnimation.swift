@@ -47,10 +47,10 @@ class ExplosionAnimation: AbstractAnimation {
     
     private func createBuffer() {
         pointCount = Int(arc4random_uniform(3)) + 10
-        var vertex_data = [Point]()
+        var vertexData = [Point]()
         let range: ClosedRange<Float> = type == .square ? 10.0...60.0 : 20.0...120.0
         for _ in 0..<pointCount {
-            vertex_data.append(Point(
+            vertexData.append(Point(
                 position: float4(
                     Float.random(in: -1.0...1.0),
                     Float.random(in: -1.0...1.0),
@@ -61,7 +61,7 @@ class ExplosionAnimation: AbstractAnimation {
         }
         
         vertexBuffer = device!.makeBuffer(
-            bytes: vertex_data,
+            bytes: vertexData,
             length: MemoryLayout<Point>.stride * pointCount,
             options: []
         )

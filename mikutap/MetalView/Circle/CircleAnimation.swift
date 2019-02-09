@@ -31,20 +31,20 @@ class CircleAnimation: AbstractAnimation {
     }
     
     private func createBuffer() {
-        var vertex_data = [Vertex](), index_data = [UInt16]()
+        var vertexData = [Vertex](), indexData = [UInt16]()
         let radius2: Float = Float.random(in: 0.8...1.5)
-        (vertex_data, index_data) = PolygonFactory.getRectangle(
+        (vertexData, indexData) = PolygonFactory.getRectangle(
             withWidth: radius2, andHeight: radius2
         )
         
         vertexBuffer = device!.makeBuffer(
-            bytes: vertex_data,
-            length: MemoryLayout<Vertex>.stride * vertex_data.count,
+            bytes: vertexData,
+            length: MemoryLayout<Vertex>.stride * vertexData.count,
             options: []
         )
         indexBuffer = device!.makeBuffer(
-            bytes: index_data,
-            length: MemoryLayout<UInt16>.stride * index_data.count,
+            bytes: indexData,
+            length: MemoryLayout<UInt16>.stride * indexData.count,
             options: []
         )
         

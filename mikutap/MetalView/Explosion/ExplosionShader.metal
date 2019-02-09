@@ -11,7 +11,7 @@ using namespace metal;
 
 struct Point {
     float4 position [[position]];
-    float pointSize [[point_size]];
+    float point_size [[point_size]];
 };
 
 vertex Point explosion_vertex_func(constant Point *point_array [[buffer(0)]],

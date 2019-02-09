@@ -30,36 +30,36 @@ class XAnimation: AbstractAnimation {
     }
     
     private func createBuffer() {
-        var vertex_data1 = [Vertex](), index_data1 = [UInt16](),
-        vertex_data2 = [Vertex](), index_data2 = [UInt16]()
+        var vertexData1 = [Vertex](), indexData1 = [UInt16](),
+        vertexData2 = [Vertex](), indexData2 = [UInt16]()
         
         let randw = 0.1 + Float.random(in: 0.0...0.1),
         randh = 0.8 + Float.random(in: 0.0...0.5)
         
-        (vertex_data1, index_data1) = PolygonFactory.getRectangle(
+        (vertexData1, indexData1) = PolygonFactory.getRectangle(
             withWidth: randw, andHeight: randh
         )
-        (vertex_data2, index_data2) = PolygonFactory.getRectangle(
+        (vertexData2, indexData2) = PolygonFactory.getRectangle(
             withWidth: randh, andHeight: randw
         )
         
-        for i in 0..<index_data2.count {
-            index_data2[i] += 4
+        for i in 0..<indexData2.count {
+            indexData2[i] += 4
         }
         
-        vertex_data1.append(contentsOf: vertex_data2)
-        index_data1.append(contentsOf: index_data2)
-        vertexData = vertex_data1
+        vertexData1.append(contentsOf: vertexData2)
+        indexData1.append(contentsOf: indexData2)
+        vertexData = vertexData1
         
         vertexBuffer = device!.makeBuffer(
-            bytes: vertex_data1,
-            length: MemoryLayout<Vertex>.stride * vertex_data1.count,
+            bytes: vertexData1,
+            length: MemoryLayout<Vertex>.stride * vertexData1.count,
             options: []
         )
         
         indexBuffer = device!.makeBuffer(
-            bytes: index_data1,
-            length: MemoryLayout<UInt16>.stride * index_data1.count,
+            bytes: indexData1,
+            length: MemoryLayout<UInt16>.stride * indexData1.count,
             options: []
         )
         

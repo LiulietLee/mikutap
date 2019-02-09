@@ -22,12 +22,12 @@ class PolygonFactory {
             line.append(Line(a: y2 - y1, b: x1 - x2, c: y1 * (x2 - x1) - x1 * (y2 - y1)))
         }
         
-        var vertex_data = [Vertex]()
+        var vertexData = [Vertex]()
         
         var k = -line[0].a / line[0].b
         var X = width * k / sqrt(1 + 4 * k * k)
         var Y = -X / (2 * k)
-        vertex_data.append(contentsOf: [
+        vertexData.append(contentsOf: [
             Vertex(
                 position: float4(path[0].x + X, path[0].y + Y, 0.0, 1.0),
                 color: float4(1.0)
@@ -49,17 +49,17 @@ class PolygonFactory {
 
             var y = (l1.a * l3.c - l3.a * l1.c) / (l3.a * l1.b - l1.a * l3.b)
             var x = (-l1.b * y - l1.c) / l1.a
-            vertex_data.append(Vertex(position: float4(x, y, 0.0, 1.0), color: float4(1.0)))
+            vertexData.append(Vertex(position: float4(x, y, 0.0, 1.0), color: float4(1.0)))
             y = (l2.a * l4.c - l4.a * l2.c) / (l4.a * l2.b - l2.a * l4.b)
             x = (-l2.b * y - l2.c) / l2.a
-            vertex_data.append(Vertex(position: float4(x, y, 0.0, 1.0), color: float4(1.0)))
+            vertexData.append(Vertex(position: float4(x, y, 0.0, 1.0), color: float4(1.0)))
         }
         
         k = -line[line.count - 1].a / line[line.count - 1].b
         X = width * k / sqrt(1 + 4 * k * k)
         Y = -X / (2 * k)
         let index = path.count - 1
-        vertex_data.append(contentsOf: [
+        vertexData.append(contentsOf: [
             Vertex(
                 position: float4(path[index].x + X, path[index].y + Y, 0.0, 1.0),
                 color: float4(1.0)
@@ -70,34 +70,34 @@ class PolygonFactory {
             ),
         ])
         
-        var index_data = [UInt16]()
-        for i in 0..<vertex_data.count / 2 - 1 {
+        var indexData = [UInt16]()
+        for i in 0..<vertexData.count / 2 - 1 {
             let id = UInt16(i * 2)
-            index_data.append(contentsOf:
+            indexData.append(contentsOf:
                 [id, id + 1, id + 2, id, id + 1, id + 3, id, id + 2, id + 3]
             )
         }
         
-        return (vertex_data, index_data)
+        return (vertexData, indexData)
     }
     
     static func getRectangle(withWidth width: Float, andHeight height: Float) -> ([Vertex], [UInt16]) {
-        var vertex_data = [Vertex]()
+        var vertexData = [Vertex]()
         let index: [[Float]] = [[0.5, 0.5], [-0.5, 0.5], [-0.5, -0.5], [0.5, -0.5]]
         for i in index {
-            vertex_data.append(Vertex(
+            vertexData.append(Vertex(
                 position: float4(i[0] * width, i[1] * height, 0.0, 1.0),
                 color: float4(1.0)
             ))
         }
-        let index_data: [UInt16] = [0, 1, 2, 2, 3, 0]
-        return (vertex_data, index_data)
+        let indexData: [UInt16] = [0, 1, 2, 2, 3, 0]
+        return (vertexData, indexData)
     }
     
     static func getRandomPolygon(withVertexCount vcount: UInt16) -> ([Vertex], [UInt16]) {
-        var vertex_data = [Vertex]()
+        var vertexData = [Vertex]()
         for _ in 0..<vcount {
-            vertex_data.append(Vertex(
+            vertexData.append(Vertex(
                 position: float4(
                     Float.random(in: -0.8...0.8),
                     Float.random(in: -0.8...0.8),
@@ -106,16 +106,16 @@ class PolygonFactory {
                 color: float4(1.0)
             ))
         }
-        vertex_data.sort { $0.position.x < $1.position.x }
+        vertexData.sort { $0.position.x < $1.position.x }
 
-        var index_data = [UInt16]()
+        var indexData = [UInt16]()
         for i in 0..<vcount - 2 {
             for j in UInt16(0)..<3 {
-                index_data.append(i + j)
+                indexData.append(i + j)
             }
         }
         
-        return (vertex_data, index_data)
+        return (vertexData, indexData)
     }
     
 }
