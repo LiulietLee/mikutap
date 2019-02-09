@@ -15,11 +15,6 @@ class ExplosionAnimation: AbstractAnimation {
         case square
     }
     
-    struct Point {
-        var position: float4
-        var pointSize: Float
-    }
-    
     private var vertexBuffer: MTLBuffer!
     private var rateBuffer: MTLBuffer!
     private var pointCount = Int()
@@ -60,13 +55,13 @@ class ExplosionAnimation: AbstractAnimation {
             ))
         }
         
-        vertexBuffer = device!.makeBuffer(
+        vertexBuffer = device.makeBuffer(
             bytes: vertexData,
             length: MemoryLayout<Point>.stride * pointCount,
             options: []
         )
         
-        rateBuffer = device!.makeBuffer(
+        rateBuffer = device.makeBuffer(
             length: MemoryLayout<Float>.stride,
             options: []
         )

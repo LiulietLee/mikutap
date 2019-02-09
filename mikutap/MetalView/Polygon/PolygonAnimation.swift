@@ -36,13 +36,13 @@ class PolygonAnimation: AbstractAnimation {
         
         (vertexData, indexData) = PolygonFactory.getRandomPolygon(withVertexCount: vertex_count)
         
-        vertexBuffer = device!.makeBuffer(
+        vertexBuffer = device.makeBuffer(
             bytes: vertexData,
             length: MemoryLayout<Vertex>.stride * vertexData.count,
             options: []
         )
         
-        indexBuffer = device!.makeBuffer(
+        indexBuffer = device.makeBuffer(
             bytes: indexData,
             length: MemoryLayout<UInt16>.stride * indexData.count,
             options: []
@@ -56,13 +56,13 @@ class PolygonAnimation: AbstractAnimation {
             )
             offsetData.append(destination)
         }
-        offsetBuffer = device!.makeBuffer(
+        offsetBuffer = device.makeBuffer(
             bytes: offsetData!,
             length: MemoryLayout<float2>.stride * offsetData!.count,
             options: []
         )
         
-        rateBuffer = device!.makeBuffer(length: MemoryLayout<Float>.stride, options: [])
+        rateBuffer = device.makeBuffer(length: MemoryLayout<Float>.stride, options: [])
     }
     
     private func rate() -> Float {

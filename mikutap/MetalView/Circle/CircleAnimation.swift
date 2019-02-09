@@ -37,25 +37,25 @@ class CircleAnimation: AbstractAnimation {
             withWidth: radius2, andHeight: radius2
         )
         
-        vertexBuffer = device!.makeBuffer(
+        vertexBuffer = device.makeBuffer(
             bytes: vertexData,
             length: MemoryLayout<Vertex>.stride * vertexData.count,
             options: []
         )
-        indexBuffer = device!.makeBuffer(
+        indexBuffer = device.makeBuffer(
             bytes: indexData,
             length: MemoryLayout<UInt16>.stride * indexData.count,
             options: []
         )
         
         var info = (float4(0.5, 0.4, 0.2, 1.0), radius2 / 2)
-        fragInfoBuffer = device!.makeBuffer(
+        fragInfoBuffer = device.makeBuffer(
             bytes: &info,
             length: MemoryLayout<(float4, Float)>.stride,
             options: []
         )
         
-        fragIndexesBuffer = device!.makeBuffer(
+        fragIndexesBuffer = device.makeBuffer(
             length: MemoryLayout<float3>.stride,
             options: []
         )

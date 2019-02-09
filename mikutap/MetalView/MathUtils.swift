@@ -13,6 +13,11 @@ struct Vertex {
     var color: float4
 }
 
+struct Point {
+    var position: float4
+    var pointSize: Float
+}
+
 struct Matrix {
     var m: [Float]
     

@@ -100,6 +100,7 @@
 		4F3A503422071C2B00E8D7A8 /* MetalView */ = {
 			isa = PBXGroup;
 			children = (
+				4FCCA1E92205B94D001F26F6 /* MathUtils.swift */,
 				4F2479E6220B2196001BD833 /* MetalView.swift */,
 				4F2479E2220B0120001BD833 /* AbstractAnimation.swift */,
 				4F3A503522071C8200E8D7A8 /* PolygonFactory.swift */,
@@ -178,7 +179,6 @@
 			isa = PBXGroup;
 			children = (
 				4FCCA1D92205B8E9001F26F6 /* ViewController.swift */,
-				4FCCA1E92205B94D001F26F6 /* MathUtils.swift */,
 				4FCCA1DD2205B8EB001F26F6 /* Main.storyboard */,
 				4F3A503422071C2B00E8D7A8 /* MetalView */,
 				4FCCA1ED2205B9E6001F26F6 /* Supporting */,

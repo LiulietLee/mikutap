@@ -63,12 +63,12 @@ class SegmentAnimation: AbstractAnimation {
     }
     
     private func setBuffers() {
-        vertexBuffer = device!.makeBuffer(
+        vertexBuffer = device.makeBuffer(
             bytes: vertexData,
             length: MemoryLayout<Vertex>.stride * vertexData.count,
             options: []
         )
-        indexBuffer = device!.makeBuffer(
+        indexBuffer = device.makeBuffer(
             bytes: indexData,
             length: MemoryLayout<UInt16>.stride * indexData.count,
             options: []

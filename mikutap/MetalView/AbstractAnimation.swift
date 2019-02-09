@@ -19,7 +19,7 @@ class AbstractAnimation {
     }
     
     internal func registerShaders(vertexFunctionName: String,fragmentFunctionName: String) {
-        let library = device!.makeDefaultLibrary()!
+        let library = device.makeDefaultLibrary()!
         let vertex_func = library.makeFunction(name: vertexFunctionName)
         let frag_func = library.makeFunction(name: fragmentFunctionName)
         let rpld = MTLRenderPipelineDescriptor()
@@ -27,7 +27,7 @@ class AbstractAnimation {
         rpld.fragmentFunction = frag_func
         rpld.colorAttachments[0].pixelFormat = .bgra8Unorm
         do {
-            renderPipelineState = try device!.makeRenderPipelineState(descriptor: rpld)
+            renderPipelineState = try device.makeRenderPipelineState(descriptor: rpld)
         } catch let error {
             fatalError("\(error)")
         }

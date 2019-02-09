@@ -51,13 +51,13 @@ class XAnimation: AbstractAnimation {
         indexData1.append(contentsOf: indexData2)
         vertexData = vertexData1
         
-        vertexBuffer = device!.makeBuffer(
+        vertexBuffer = device.makeBuffer(
             bytes: vertexData1,
             length: MemoryLayout<Vertex>.stride * vertexData1.count,
             options: []
         )
         
-        indexBuffer = device!.makeBuffer(
+        indexBuffer = device.makeBuffer(
             bytes: indexData1,
             length: MemoryLayout<UInt16>.stride * indexData1.count,
             options: []
@@ -68,13 +68,13 @@ class XAnimation: AbstractAnimation {
             Float.random(in: -0.2...0.2), Float.random(in: -0.2...0.2), 0.0
         ))
         
-        uniformBuffer = device!.makeBuffer(
+        uniformBuffer = device.makeBuffer(
             bytes: matrix.m,
             length: MemoryLayout<Float>.stride * 16,
             options: []
         )
         
-        rateBuffer = device!.makeBuffer(
+        rateBuffer = device.makeBuffer(
             length: MemoryLayout<Float>.stride,
             options: []
         )
