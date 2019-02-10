@@ -62,19 +62,6 @@ class SegmentAnimation: AbstractAnimation {
         width = Float.random(in: 0.02...0.04)
     }
     
-    private func setBuffers() {
-        vertexBuffer = device.makeBuffer(
-            bytes: vertexData,
-            length: MemoryLayout<Vertex>.stride * vertexData.count,
-            options: []
-        )
-        indexBuffer = device.makeBuffer(
-            bytes: indexData,
-            length: MemoryLayout<UInt16>.stride * indexData.count,
-            options: []
-        )
-    }
-    
     private func update() -> Bool {
         timer += 1
         var d = Float(timer) / Float(step)
@@ -101,8 +88,15 @@ class SegmentAnimation: AbstractAnimation {
                 break
             }
         }
+        
         (vertexData, indexData) = PolygonFactory.getSegments(path: tempPath, width: width)
-        setBuffers()
+
+        indexBuffer = device.makeBuffer(
+            bytes: indexData,
+            length: MemoryLayout<UInt16>.stride * indexData.count,
+            options: []
+        )
+        
         return true
     }
     
@@ -110,7 +104,11 @@ class SegmentAnimation: AbstractAnimation {
         super.setCommandEncoder(cb: cb, rpd: rpd)
         let flag = update()
         if flag {
-            commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+            commandEncoder.setVertexBytes(
+                vertexData,
+                length: MemoryLayout<Vertex>.stride * vertexData.count,
+                index: 0
+            )
             commandEncoder.drawIndexedPrimitives(
                 type: .triangle,
                 indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,

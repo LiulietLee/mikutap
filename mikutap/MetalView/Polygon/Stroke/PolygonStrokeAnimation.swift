@@ -62,6 +62,14 @@ class PolygonStrokeAnimation: AbstractAnimation {
             offset.append(destination)
         }
         offset.append(offset[0])
+        
+        (_, indexData) = PolygonFactory.getSegments(path: path, width: width)
+        
+        indexBuffer = device.makeBuffer(
+            bytes: indexData,
+            length: MemoryLayout<UInt16>.stride * indexData.count,
+            options: []
+        )
     }
     
     private func update() -> Bool {
@@ -75,18 +83,7 @@ class PolygonStrokeAnimation: AbstractAnimation {
             currentPath[i] += d * offset[i]
         }
         
-        (vertexData, indexData) = PolygonFactory.getSegments(path: currentPath, width: width)
-        
-        vertexBuffer = device.makeBuffer(
-            bytes: vertexData,
-            length: MemoryLayout<Vertex>.stride * vertexData.count,
-            options: []
-        )
-        indexBuffer = device.makeBuffer(
-            bytes: indexData,
-            length: MemoryLayout<UInt16>.stride * indexData.count,
-            options: []
-        )
+        (vertexData, _) = PolygonFactory.getSegments(path: currentPath, width: width)
         
         return true
     }
@@ -95,7 +92,11 @@ class PolygonStrokeAnimation: AbstractAnimation {
         super.setCommandEncoder(cb: cb, rpd: rpd)
         let flag = update()
         if flag {
-            commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+            commandEncoder.setVertexBytes(
+                vertexData,
+                length: MemoryLayout<Vertex>.stride * vertexData.count,
+                index: 0
+            )
             commandEncoder.drawIndexedPrimitives(
                 type: .triangle,
                 indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,
