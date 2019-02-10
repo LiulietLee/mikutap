@@ -10,10 +10,7 @@ import MetalKit
 
 class PolygonStrokeAnimation: AbstractAnimation {
 
-    private var vertexBuffer: MTLBuffer!
-    private var offsetBuffer: MTLBuffer!
     private var indexBuffer: MTLBuffer!
-    private var rateBuffer: MTLBuffer!
     private var vertexData = [Vertex]()
     private var indexData = [UInt16]()
     private var path = [float2]()
