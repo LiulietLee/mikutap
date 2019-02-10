@@ -8,36 +8,16 @@
 
 import MetalKit
 
-class SpiralDotAnimation: AbstractAnimation {
-    struct PointInfo {
-        var position: float4
-        var pointSize: Float
-        var radius: Float
-        var valid: Int
-        var timer: Int
-        
-        init(position: float4, timer: Int, radius: Float) {
-            self.radius = radius
-            self.position = position
-            self.pointSize = 0.0
-            self.timer = timer
-            valid = 1
-        }
-    }
+class SpiralDotAnimation: DotAnimation {
     
-    private var pointBuffer: MTLBuffer!
     private var uniformBuffer: MTLBuffer!
-    
-    private var timer = 0
-    private var step = 150
-    private var pointCount = 40
-    
+
     override init(device: MTLDevice) {
         super.init(device: device)
         createBuffer()
         registerShaders(
-            vertexFunctionName: "Spiral_dot_vertex_func",
-            fragmentFunctionName: "Spiral_dot_fragment_func"
+            vertexFunctionName: "spiral_dot_vertex_func",
+            fragmentFunctionName: "rounded_dot_fragment_func"
         )
     }
     
@@ -67,12 +47,7 @@ class SpiralDotAnimation: AbstractAnimation {
             options: []
         )
     }
-    
-    private func checkValid() -> Bool {
-        timer += 1
-        return timer < step
-    }
-    
+
     override func setCommandEncoder(cb: MTLCommandBuffer, rpd: MTLRenderPassDescriptor) -> Bool {
         super.setCommandEncoder(cb: cb, rpd: rpd)
         let flag = checkValid()

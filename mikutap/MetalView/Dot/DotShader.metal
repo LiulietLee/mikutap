@@ -18,7 +18,7 @@ struct Point {;
     int timer;
 };
 
-vertex Point Spiral_dot_vertex_func(device Point *point_array [[buffer(0)]],
+vertex Point spiral_dot_vertex_func(device Point *point_array [[buffer(0)]],
                                  constant float4x4 &uniforms [[buffer(1)]],
                                  uint vid [[vertex_id]])
 {
@@ -41,7 +41,26 @@ vertex Point Spiral_dot_vertex_func(device Point *point_array [[buffer(0)]],
     return out;
 }
 
-fragment float4 Spiral_dot_fragment_func(float2 point_coord [[point_coord]]) {
+vertex Point shake_dot_vertex_func(device Point *point_array [[buffer(0)]],
+                                   uint vid [[vertex_id]])
+{
+    int t = point_array[vid].timer++;
+    float radius = point_array[vid].radius;
+    if (t >= 0 && point_array[vid].valid) {
+        if (t < 20) {
+            point_array[vid].point_size = radius * (1 - exp(-0.3 * t) * cos(t / 20.0 * M_PI_2_F * 7));
+        } else if (t > 40) {
+            point_array[vid].point_size = radius / 0.7 * sin(2.42 * (t - 40.0) / 30.0 + 0.62);
+            if (point_array[vid].point_size <= 0) {
+                point_array[vid].point_size = 0;
+                point_array[vid].valid = 0;
+            }
+        }
+    }
+    return point_array[vid];
+}
+
+fragment float4 rounded_dot_fragment_func(float2 point_coord [[point_coord]]) {
     if (length(point_coord - float2(0.5)) > 0.5) {
         discard_fragment();
     }
