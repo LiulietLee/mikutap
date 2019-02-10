@@ -21,7 +21,7 @@ class MetalView: MTKView {
         device = MTLCreateSystemDefaultDevice()!
         commandQueue = device!.makeCommandQueue()
         
-        animation.append(ScaleAnimation(device: device!))
+        animation.append(PolygonFillAnimation(device: device!))
     }
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
@@ -60,7 +60,7 @@ class MetalView: MTKView {
                     }
                     // TODO: - animation 数组清空后有概率出现闪屏问题
                     if animation.isEmpty {
-                        animation.append(ScaleAnimation(device: device!))
+                        animation.append(PolygonFillAnimation(device: device!))
                     }
                 }
                 

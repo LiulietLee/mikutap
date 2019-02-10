@@ -12,7 +12,7 @@
 		4F2479E3220B0120001BD833 /* AbstractAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479E2220B0120001BD833 /* AbstractAnimation.swift */; };
 		4F2479E5220B0553001BD833 /* XAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479E4220B0553001BD833 /* XAnimation.swift */; };
 		4F2479E7220B2196001BD833 /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479E6220B2196001BD833 /* MetalView.swift */; };
-		4F2479E9220B21EA001BD833 /* PolygonAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479E8220B21EA001BD833 /* PolygonAnimation.swift */; };
+		4F2479E9220B21EA001BD833 /* PolygonFillAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2479E8220B21EA001BD833 /* PolygonFillAnimation.swift */; };
 		4F3A503622071C8200E8D7A8 /* PolygonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A503522071C8200E8D7A8 /* PolygonFactory.swift */; };
 		4F3A50382208457D00E8D7A8 /* XShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A50372208457D00E8D7A8 /* XShader.metal */; };
 		4FBCD6C2220D4B2600342433 /* ExplosionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBCD6C1220D4B2600342433 /* ExplosionAnimation.swift */; };
@@ -21,6 +21,8 @@
 		4FBCD6C8220D59DC00342433 /* ExplosionCircleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBCD6C7220D59DC00342433 /* ExplosionCircleAnimation.swift */; };
 		4FBCD6CB220D75A700342433 /* SegmentAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBCD6CA220D75A700342433 /* SegmentAnimation.swift */; };
 		4FBCD6CD220D75BC00342433 /* SegmentShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FBCD6CC220D75BC00342433 /* SegmentShader.metal */; };
+		4FC5AC73220FFAFD008C5589 /* PolygonStrokeShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AC72220FFAFD008C5589 /* PolygonStrokeShader.metal */; };
+		4FC5AC75220FFB0D008C5589 /* PolygonStrokeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AC74220FFB0D008C5589 /* PolygonStrokeAnimation.swift */; };
 		4FCAA6A7220EB23700C39A17 /* SpiralDotAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6A6220EB23700C39A17 /* SpiralDotAnimation.swift */; };
 		4FCAA6A9220EB24900C39A17 /* SpiralDotShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6A8220EB24900C39A17 /* SpiralDotShader.metal */; };
 		4FCAA6AC220EFE2C00C39A17 /* ScaleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6AB220EFE2C00C39A17 /* ScaleAnimation.swift */; };
@@ -30,7 +32,7 @@
 		4FCCA1DC2205B8EB001F26F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FCCA1DB2205B8EB001F26F6 /* Assets.xcassets */; };
 		4FCCA1DF2205B8EB001F26F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FCCA1DD2205B8EB001F26F6 /* Main.storyboard */; };
 		4FCCA1EA2205B94D001F26F6 /* MathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA1E92205B94D001F26F6 /* MathUtils.swift */; };
-		4FCCA1EC2205B972001F26F6 /* PolygonShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA1EB2205B972001F26F6 /* PolygonShader.metal */; };
+		4FCCA1EC2205B972001F26F6 /* PolygonFillShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA1EB2205B972001F26F6 /* PolygonFillShader.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +41,7 @@
 		4F2479E2220B0120001BD833 /* AbstractAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractAnimation.swift; sourceTree = "<group>"; };
 		4F2479E4220B0553001BD833 /* XAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAnimation.swift; sourceTree = "<group>"; };
 		4F2479E6220B2196001BD833 /* MetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalView.swift; sourceTree = "<group>"; };
-		4F2479E8220B21EA001BD833 /* PolygonAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonAnimation.swift; sourceTree = "<group>"; };
+		4F2479E8220B21EA001BD833 /* PolygonFillAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonFillAnimation.swift; sourceTree = "<group>"; };
 		4F3A503522071C8200E8D7A8 /* PolygonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonFactory.swift; sourceTree = "<group>"; };
 		4F3A50372208457D00E8D7A8 /* XShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = XShader.metal; sourceTree = "<group>"; };
 		4FBCD6C1220D4B2600342433 /* ExplosionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplosionAnimation.swift; sourceTree = "<group>"; };
@@ -48,6 +50,8 @@
 		4FBCD6C7220D59DC00342433 /* ExplosionCircleAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplosionCircleAnimation.swift; sourceTree = "<group>"; };
 		4FBCD6CA220D75A700342433 /* SegmentAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentAnimation.swift; sourceTree = "<group>"; };
 		4FBCD6CC220D75BC00342433 /* SegmentShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = SegmentShader.metal; sourceTree = "<group>"; };
+		4FC5AC72220FFAFD008C5589 /* PolygonStrokeShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = PolygonStrokeShader.metal; sourceTree = "<group>"; };
+		4FC5AC74220FFB0D008C5589 /* PolygonStrokeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonStrokeAnimation.swift; sourceTree = "<group>"; };
 		4FCAA6A6220EB23700C39A17 /* SpiralDotAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiralDotAnimation.swift; sourceTree = "<group>"; };
 		4FCAA6A8220EB24900C39A17 /* SpiralDotShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = SpiralDotShader.metal; sourceTree = "<group>"; };
 		4FCAA6AB220EFE2C00C39A17 /* ScaleAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleAnimation.swift; sourceTree = "<group>"; };
@@ -60,7 +64,7 @@
 		4FCCA1E02205B8EB001F26F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FCCA1E12205B8EB001F26F6 /* mikutap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = mikutap.entitlements; sourceTree = "<group>"; };
 		4FCCA1E92205B94D001F26F6 /* MathUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathUtils.swift; sourceTree = "<group>"; };
-		4FCCA1EB2205B972001F26F6 /* PolygonShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = PolygonShader.metal; sourceTree = "<group>"; };
+		4FCCA1EB2205B972001F26F6 /* PolygonFillShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = PolygonFillShader.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,8 +90,8 @@
 		4F3A502E2207197F00E8D7A8 /* Polygon */ = {
 			isa = PBXGroup;
 			children = (
-				4F2479E8220B21EA001BD833 /* PolygonAnimation.swift */,
-				4FCCA1EB2205B972001F26F6 /* PolygonShader.metal */,
+				4FC5AC71220FFADA008C5589 /* Stroke */,
+				4FC5AC70220FFABE008C5589 /* Fill */,
 			);
 			path = Polygon;
 			sourceTree = "<group>";
@@ -109,7 +113,7 @@
 				4F2479E2220B0120001BD833 /* AbstractAnimation.swift */,
 				4F3A503522071C8200E8D7A8 /* PolygonFactory.swift */,
 				4FCAA6AA220EFE1B00C39A17 /* Scale */,
-				4FCAA6A5220EB07600C39A17 /* LogDot */,
+				4FCAA6A5220EB07600C39A17 /* Spiral */,
 				4FBCD6C9220D757F00342433 /* Segment */,
 				4FBCD6BE220D499400342433 /* Explosion */,
 				4F2479D5220AB5D9001BD833 /* Circle */,
@@ -155,13 +159,31 @@
 			path = Segment;
 			sourceTree = "<group>";
 		};
-		4FCAA6A5220EB07600C39A17 /* LogDot */ = {
+		4FC5AC70220FFABE008C5589 /* Fill */ = {
+			isa = PBXGroup;
+			children = (
+				4F2479E8220B21EA001BD833 /* PolygonFillAnimation.swift */,
+				4FCCA1EB2205B972001F26F6 /* PolygonFillShader.metal */,
+			);
+			path = Fill;
+			sourceTree = "<group>";
+		};
+		4FC5AC71220FFADA008C5589 /* Stroke */ = {
+			isa = PBXGroup;
+			children = (
+				4FC5AC74220FFB0D008C5589 /* PolygonStrokeAnimation.swift */,
+				4FC5AC72220FFAFD008C5589 /* PolygonStrokeShader.metal */,
+			);
+			path = Stroke;
+			sourceTree = "<group>";
+		};
+		4FCAA6A5220EB07600C39A17 /* Spiral */ = {
 			isa = PBXGroup;
 			children = (
 				4FCAA6A6220EB23700C39A17 /* SpiralDotAnimation.swift */,
 				4FCAA6A8220EB24900C39A17 /* SpiralDotShader.metal */,
 			);
-			path = LogDot;
+			path = Spiral;
 			sourceTree = "<group>";
 		};
 		4FCAA6AA220EFE1B00C39A17 /* Scale */ = {
@@ -287,7 +309,8 @@
 				4FBCD6C4220D532D00342433 /* ExplosionShader.metal in Sources */,
 				4FCCA1EA2205B94D001F26F6 /* MathUtils.swift in Sources */,
 				4FCCA1DA2205B8E9001F26F6 /* ViewController.swift in Sources */,
-				4F2479E9220B21EA001BD833 /* PolygonAnimation.swift in Sources */,
+				4F2479E9220B21EA001BD833 /* PolygonFillAnimation.swift in Sources */,
+				4FC5AC75220FFB0D008C5589 /* PolygonStrokeAnimation.swift in Sources */,
 				4FBCD6C2220D4B2600342433 /* ExplosionAnimation.swift in Sources */,
 				4F2479D7220AB5FD001BD833 /* CircleShader.metal in Sources */,
 				4FCAA6AE220EFE3700C39A17 /* ScaleShader.metal in Sources */,
@@ -295,7 +318,7 @@
 				4FBCD6CB220D75A700342433 /* SegmentAnimation.swift in Sources */,
 				4FBCD6C6220D59CD00342433 /* ExplosionSquareAnimation.swift in Sources */,
 				4F2479E7220B2196001BD833 /* MetalView.swift in Sources */,
-				4FCCA1EC2205B972001F26F6 /* PolygonShader.metal in Sources */,
+				4FCCA1EC2205B972001F26F6 /* PolygonFillShader.metal in Sources */,
 				4F3A50382208457D00E8D7A8 /* XShader.metal in Sources */,
 				4FCCA1D82205B8E9001F26F6 /* AppDelegate.swift in Sources */,
 				4FCAA6A9220EB24900C39A17 /* SpiralDotShader.metal in Sources */,
@@ -303,6 +326,7 @@
 				4F3A503622071C8200E8D7A8 /* PolygonFactory.swift in Sources */,
 				4F2479E1220B0065001BD833 /* CircleAnimation.swift in Sources */,
 				4F2479E5220B0553001BD833 /* XAnimation.swift in Sources */,
+				4FC5AC73220FFAFD008C5589 /* PolygonStrokeShader.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@
 #include <metal_stdlib>
 using namespace metal;
 
-vertex float4 polygon_vertex_func(constant float4 *vertices [[buffer(0)]],
+vertex float4 polygon_fill_vertex_func(constant float4 *vertices [[buffer(0)]],
                            constant float2 *offset [[buffer(1)]],
                            constant float &d [[buffer(2)]],
                            uint vid [[vertex_id]])
@@ -20,7 +20,7 @@ vertex float4 polygon_vertex_func(constant float4 *vertices [[buffer(0)]],
     return out;
 }
 
-fragment float4 polygon_fragment_func() {
+fragment float4 polygon_fill_fragment_func() {
     return float4(1.0);
 }
 

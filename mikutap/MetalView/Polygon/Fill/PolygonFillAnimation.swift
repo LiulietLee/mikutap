@@ -8,7 +8,7 @@
 
 import MetalKit
 
-class PolygonAnimation: AbstractAnimation {
+class PolygonFillAnimation: AbstractAnimation {
     
     private var vertexBuffer: MTLBuffer!
     private var indexBuffer: MTLBuffer!
@@ -16,7 +16,7 @@ class PolygonAnimation: AbstractAnimation {
     private var rateBuffer: MTLBuffer!
     
     private var offsetData: [float2]!
-    private var vertex_count: UInt16!
+    private var vertexCount: UInt16!
     
     private let step = 35
     private var timer = 0
@@ -25,16 +25,16 @@ class PolygonAnimation: AbstractAnimation {
         super.init(device: device)
         createBuffer()
         registerShaders(
-            vertexFunctionName: "polygon_vertex_func",
-            fragmentFunctionName: "polygon_fragment_func"
+            vertexFunctionName: "polygon_fill_vertex_func",
+            fragmentFunctionName: "polygon_fill_fragment_func"
         )
     }
     
     private func createBuffer() {
         var vertexData = [Vertex](), indexData = [UInt16]()
-        vertex_count = UInt16(arc4random_uniform(3) + 3)
+        vertexCount = UInt16(arc4random_uniform(3) + 3)
         
-        (vertexData, indexData) = PolygonFactory.getRandomPolygon(withVertexCount: vertex_count)
+        (vertexData, indexData) = PolygonFactory.getRandomPolygon(withVertexCount: vertexCount)
         
         vertexBuffer = device.makeBuffer(
             bytes: vertexData,
@@ -49,7 +49,7 @@ class PolygonAnimation: AbstractAnimation {
         )
         
         offsetData = [float2]()
-        for i in 0..<Int(vertex_count) {
+        for i in 0..<Int(vertexCount) {
             let destination = float2(
                 Float.random(in: -1.1...1.1) - vertexData[i].position.x,
                 Float.random(in: -1.1...1.1) - vertexData[i].position.y
@@ -65,15 +65,10 @@ class PolygonAnimation: AbstractAnimation {
         rateBuffer = device.makeBuffer(length: MemoryLayout<Float>.stride, options: [])
     }
     
-    private func rate() -> Float {
-        let t = timer > step ? Float(step) : Float(timer)
-        return t / Float(step)
-    }
-    
     private func update() -> Bool {
         timer += 1
         if timer > step { return false }
-        var d = rate()
+        var d = Float(timer) / Float(step)
         d = 1.0204 - 1.0204 * exp(-3.92 * d)
         let bufferPoint = rateBuffer.contents()
         memcpy(bufferPoint, &d, MemoryLayout<Float>.stride)
