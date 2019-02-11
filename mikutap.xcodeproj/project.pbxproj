@@ -25,6 +25,10 @@
 		4FC5AC75220FFB0D008C5589 /* PolygonStrokeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AC74220FFB0D008C5589 /* PolygonStrokeAnimation.swift */; };
 		4FC5AC7822101B37008C5589 /* DotAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AC7722101B37008C5589 /* DotAnimation.swift */; };
 		4FC5AC7B22101C54008C5589 /* ShakeDotAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AC7A22101C54008C5589 /* ShakeDotAnimation.swift */; };
+		4FC5AC7E2210460A008C5589 /* SquareFenceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AC7D2210460A008C5589 /* SquareFenceAnimation.swift */; };
+		4FC5AC8022104619008C5589 /* FenceShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AC7F22104619008C5589 /* FenceShader.metal */; };
+		4FC5AC8222106503008C5589 /* FenceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AC8122106503008C5589 /* FenceAnimation.swift */; };
+		4FC5AC8522106592008C5589 /* RoundFenceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AC8422106592008C5589 /* RoundFenceAnimation.swift */; };
 		4FCAA6A7220EB23700C39A17 /* SpiralDotAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6A6220EB23700C39A17 /* SpiralDotAnimation.swift */; };
 		4FCAA6A9220EB24900C39A17 /* DotShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6A8220EB24900C39A17 /* DotShader.metal */; };
 		4FCAA6AC220EFE2C00C39A17 /* ScaleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6AB220EFE2C00C39A17 /* ScaleAnimation.swift */; };
@@ -56,6 +60,10 @@
 		4FC5AC74220FFB0D008C5589 /* PolygonStrokeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonStrokeAnimation.swift; sourceTree = "<group>"; };
 		4FC5AC7722101B37008C5589 /* DotAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotAnimation.swift; sourceTree = "<group>"; };
 		4FC5AC7A22101C54008C5589 /* ShakeDotAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeDotAnimation.swift; sourceTree = "<group>"; };
+		4FC5AC7D2210460A008C5589 /* SquareFenceAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareFenceAnimation.swift; sourceTree = "<group>"; };
+		4FC5AC7F22104619008C5589 /* FenceShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = FenceShader.metal; sourceTree = "<group>"; };
+		4FC5AC8122106503008C5589 /* FenceAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenceAnimation.swift; sourceTree = "<group>"; };
+		4FC5AC8422106592008C5589 /* RoundFenceAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundFenceAnimation.swift; sourceTree = "<group>"; };
 		4FCAA6A6220EB23700C39A17 /* SpiralDotAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiralDotAnimation.swift; sourceTree = "<group>"; };
 		4FCAA6A8220EB24900C39A17 /* DotShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = DotShader.metal; sourceTree = "<group>"; };
 		4FCAA6AB220EFE2C00C39A17 /* ScaleAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleAnimation.swift; sourceTree = "<group>"; };
@@ -116,6 +124,7 @@
 				4F2479E6220B2196001BD833 /* MetalView.swift */,
 				4F2479E2220B0120001BD833 /* AbstractAnimation.swift */,
 				4F3A503522071C8200E8D7A8 /* PolygonFactory.swift */,
+				4FC5AC7C221045D2008C5589 /* Fence */,
 				4FC5AC762210170C008C5589 /* Dot */,
 				4FCAA6AA220EFE1B00C39A17 /* Scale */,
 				4FBCD6C9220D757F00342433 /* Segment */,
@@ -198,6 +207,33 @@
 				4FC5AC7A22101C54008C5589 /* ShakeDotAnimation.swift */,
 			);
 			path = Shake;
+			sourceTree = "<group>";
+		};
+		4FC5AC7C221045D2008C5589 /* Fence */ = {
+			isa = PBXGroup;
+			children = (
+				4FC5AC86221065E5008C5589 /* Round */,
+				4FC5AC8322106522008C5589 /* Square */,
+				4FC5AC8122106503008C5589 /* FenceAnimation.swift */,
+				4FC5AC7F22104619008C5589 /* FenceShader.metal */,
+			);
+			path = Fence;
+			sourceTree = "<group>";
+		};
+		4FC5AC8322106522008C5589 /* Square */ = {
+			isa = PBXGroup;
+			children = (
+				4FC5AC7D2210460A008C5589 /* SquareFenceAnimation.swift */,
+			);
+			path = Square;
+			sourceTree = "<group>";
+		};
+		4FC5AC86221065E5008C5589 /* Round */ = {
+			isa = PBXGroup;
+			children = (
+				4FC5AC8422106592008C5589 /* RoundFenceAnimation.swift */,
+			);
+			path = Round;
 			sourceTree = "<group>";
 		};
 		4FCAA6A5220EB07600C39A17 /* Spiral */ = {
@@ -329,12 +365,16 @@
 				4FC5AC7B22101C54008C5589 /* ShakeDotAnimation.swift in Sources */,
 				4FCAA6AC220EFE2C00C39A17 /* ScaleAnimation.swift in Sources */,
 				4FBCD6CD220D75BC00342433 /* SegmentShader.metal in Sources */,
+				4FC5AC7E2210460A008C5589 /* SquareFenceAnimation.swift in Sources */,
+				4FC5AC8222106503008C5589 /* FenceAnimation.swift in Sources */,
 				4FBCD6C4220D532D00342433 /* ExplosionShader.metal in Sources */,
 				4FCCA1EA2205B94D001F26F6 /* MathUtils.swift in Sources */,
 				4FCCA1DA2205B8E9001F26F6 /* ViewController.swift in Sources */,
 				4F2479E9220B21EA001BD833 /* PolygonFillAnimation.swift in Sources */,
 				4FC5AC75220FFB0D008C5589 /* PolygonStrokeAnimation.swift in Sources */,
+				4FC5AC8022104619008C5589 /* FenceShader.metal in Sources */,
 				4FBCD6C2220D4B2600342433 /* ExplosionAnimation.swift in Sources */,
+				4FC5AC8522106592008C5589 /* RoundFenceAnimation.swift in Sources */,
 				4F2479D7220AB5FD001BD833 /* CircleShader.metal in Sources */,
 				4FCAA6AE220EFE3700C39A17 /* ScaleShader.metal in Sources */,
 				4FC5AC7822101B37008C5589 /* DotAnimation.swift in Sources */,
