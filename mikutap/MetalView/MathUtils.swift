@@ -10,6 +10,14 @@ import simd
 
 struct Vertex {
     var position: float4
+    
+    init(position: float4) {
+        self.position = position
+    }
+    
+    init(_ coord: float2) {
+        position = float4(coord.x, coord.y, 0.0, 1.0)
+    }
 }
 
 struct Point {
@@ -25,6 +33,12 @@ struct Matrix {
              0, 1, 0, 0,
              0, 0, 1, 0,
              0, 0, 0, 1]
+    }
+    
+    func tofloat4x4() -> float4x4 {
+        var matrix = float4x4()
+        memcpy(&matrix, m, MemoryLayout<Float>.stride * 16)
+        return matrix
     }
     
     mutating func translationMatrix(_ position: float3) {

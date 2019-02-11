@@ -14,70 +14,78 @@ class PolygonFactory {
         var a: Float, b: Float, c: Float
     }
     
-    static func getStarVertices(withPointNumber point: UInt16, andLength length: Float) -> [Vertex] {
+    static func getStarVertices(withPointNumber point: UInt16, andLength length: Float) -> [float2] {
         let interval = Float.pi * 2 / Float(point)
-        var angle = Float.pi / 2
-        var vertexData = [Vertex]()
-        for _ in 0..<point {
-            vertexData.append(Vertex(
-                position: float4(length * cos(angle), length * sin(angle), 0.0, 1.0)
-            ))
-            angle += interval
+        var angle = Float()
+        var vertexData = [float2]()
+        for i in 0..<point {
+            angle = interval * Float(i) + Float.pi / 2
+            vertexData.append(float2(length * cos(angle), length * sin(angle)))
         }
         return vertexData
     }
     
+    static private let eps: Float = 1e-1
+    
+    static private func cross(_ a: float2, _ b: float2) -> Float { return a.x * b.y - b.x * a.y }
+    static private func normal(_ a: float2) -> float2 {
+        let l = length(a)
+        return float2(-a.y / l, a.x / l)
+    }
+    static private func lineCoincide(_ p: float2, _ v: float2, _ q: float2, _ w: float2) -> Bool {
+        print(abs(cross(v, w)))
+        return abs(cross(v, w)) < eps && abs(cross(v, p - q)) < eps
+    }
+    
+    static private func lineIntersecion(_ p: float2, _ v: float2, _ q: float2, _ w: float2) -> float2 {
+        let u = p - q
+        let t = cross(w, u) / cross(v, w)
+        return p + v * t
+    }
+    
     static func getSegments(path: [float2], width: Float) -> ([Vertex], [UInt16]) {
-        var line = [Line]()
+        var point = [float2](), vector = [float2]()
+        
         for i in 0..<path.count - 1 {
-            let x1 = path[i].x, y1 = path[i].y
-            let x2 = path[i + 1].x, y2 = path[i + 1].y
-            line.append(Line(a: y2 - y1, b: x1 - x2, c: y1 * (x2 - x1) - x1 * (y2 - y1)))
+            point.append(path[i])
+            vector.append(path[i + 1] - path[i])
         }
         
         var vertexData = [Vertex]()
         
-        var k = -line[0].a / line[0].b
-        var X = width * k / sqrt(1 + 4 * k * k)
-        var Y = -X / (2 * k)
+        var norm = normal(vector[0])
         vertexData.append(contentsOf: [
-            Vertex(
-                position: float4(path[0].x + X, path[0].y + Y, 0.0, 1.0)
-            ),
-            Vertex(
-                position: float4(path[0].x - X, path[0].y - Y, 0.0, 1.0)
-            ),
+            Vertex(point[0] + width * 0.5 * norm),
+            Vertex(point[0] - width * 0.5 * norm)
         ])
         
-        // TODO: - 求平行线交点时长度爆炸的 bug
-        for i in 0..<line.count - 1 {
-            var l1 = line[i], l2 = line[i], l3 = line[i + 1], l4 = line[i + 1]
-            var d = sqrt(line[i].a * line[i].a + line[i].b * line[i].b) * width / 2
-            l1.c = line[i].c + d
-            l2.c = line[i].c - d
-            d = sqrt(line[i + 1].a * line[i + 1].a + line[i + 1].b * line[i + 1].b) * width / 2
-            l3.c = line[i + 1].c + d
-            l4.c = line[i + 1].c - d
-
-            var y = (l1.a * l3.c - l3.a * l1.c) / (l3.a * l1.b - l1.a * l3.b)
-            var x = (-l1.b * y - l1.c) / l1.a
-            vertexData.append(Vertex(position: float4(x, y, 0.0, 1.0)))
-            y = (l2.a * l4.c - l4.a * l2.c) / (l4.a * l2.b - l2.a * l4.b)
-            x = (-l2.b * y - l2.c) / l2.a
-            vertexData.append(Vertex(position: float4(x, y, 0.0, 1.0)))
+        for i in 0..<point.count - 1 {
+            var p = point[i], q = point[i + 1]
+            let v = vector[i], w = vector[i + 1]
+            
+            if lineCoincide(p, v, q, w) {
+                vertexData.append(contentsOf: [
+                    Vertex(q + width * 0.5 * normal(w)),
+                    Vertex(q - width * 0.5 * normal(w))
+                ])
+                continue
+            }
+            
+            p += width * 0.5 * normal(v)
+            q += width * 0.5 * normal(w)
+            var intersecion = lineIntersecion(p, v, q, w)
+            vertexData.append(Vertex(intersecion))
+            
+            p -= width * normal(v)
+            q -= width * normal(w)
+            intersecion = lineIntersecion(p, v, q, w)
+            vertexData.append(Vertex(intersecion))
         }
         
-        k = -line[line.count - 1].a / line[line.count - 1].b
-        X = width * k / sqrt(1 + 4 * k * k)
-        Y = -X / (2 * k)
-        let index = path.count - 1
+        norm = normal(vector[vector.count - 1])
         vertexData.append(contentsOf: [
-            Vertex(
-                position: float4(path[index].x + X, path[index].y + Y, 0.0, 1.0)
-            ),
-            Vertex(
-                position: float4(path[index].x - X, path[index].y - Y, 0.0, 1.0)
-            ),
+            Vertex(path[path.count - 1] + width * 0.5 * norm),
+            Vertex(path[path.count - 1] - width * 0.5 * norm)
         ])
         
         var indexData = [UInt16]()
