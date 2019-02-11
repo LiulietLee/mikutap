@@ -86,10 +86,8 @@ class FenceAnimation: AbstractAnimation {
                 ))
             }
             
-            var m = float4x4()
-            memcpy(&m, matrix.m, MemoryLayout<Float>.stride * 16)
             for j in 0..<vertices.count {
-                vertices[j].position = matrix_multiply(m, vertices[j].position)
+                vertices[j].position = matrix_multiply(matrix.tofloat4x4(), vertices[j].position)
             }
             
             for j in 0..<indexes.count {

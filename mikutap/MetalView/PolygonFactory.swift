@@ -10,10 +10,6 @@ import simd
 
 class PolygonFactory {
     
-    struct Line {
-        var a: Float, b: Float, c: Float
-    }
-    
     static func getStarVertices(withPointNumber point: UInt16, andLength length: Float) -> [float2] {
         let interval = Float.pi * 2 / Float(point)
         var angle = Float()
@@ -25,15 +21,15 @@ class PolygonFactory {
         return vertexData
     }
     
-    static private let eps: Float = 1e-1
-    
     static private func cross(_ a: float2, _ b: float2) -> Float { return a.x * b.y - b.x * a.y }
     static private func normal(_ a: float2) -> float2 {
         let l = length(a)
         return float2(-a.y / l, a.x / l)
     }
+
+    static private let eps: Float = 1e-1
+
     static private func lineCoincide(_ p: float2, _ v: float2, _ q: float2, _ w: float2) -> Bool {
-        print(abs(cross(v, w)))
         return abs(cross(v, w)) < eps && abs(cross(v, p - q)) < eps
     }
     
