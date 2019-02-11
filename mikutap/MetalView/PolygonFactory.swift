@@ -14,6 +14,19 @@ class PolygonFactory {
         var a: Float, b: Float, c: Float
     }
     
+    static func getStarVertices(withPointNumber point: UInt16, andLength length: Float) -> [Vertex] {
+        let interval = Float.pi * 2 / Float(point)
+        var angle = Float.pi / 2
+        var vertexData = [Vertex]()
+        for _ in 0..<point {
+            vertexData.append(Vertex(
+                position: float4(length * cos(angle), length * sin(angle), 0.0, 1.0)
+            ))
+            angle += interval
+        }
+        return vertexData
+    }
+    
     static func getSegments(path: [float2], width: Float) -> ([Vertex], [UInt16]) {
         var line = [Line]()
         for i in 0..<path.count - 1 {
@@ -36,6 +49,7 @@ class PolygonFactory {
             ),
         ])
         
+        // TODO: - 求平行线交点时长度爆炸的 bug
         for i in 0..<line.count - 1 {
             var l1 = line[i], l2 = line[i], l3 = line[i + 1], l4 = line[i + 1]
             var d = sqrt(line[i].a * line[i].a + line[i].b * line[i].b) * width / 2
