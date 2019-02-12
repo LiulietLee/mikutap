@@ -24,6 +24,7 @@ class MetalView: MTKView {
         semaphore = DispatchSemaphore(value: 3)
         device = MTLCreateSystemDefaultDevice()!
         commandQueue = device!.makeCommandQueue()
+        animation.append(PlaceholderAnimation(device: device!))
         
         animation.append(PolygonFillAnimation(device: device!, aspect: aspect))
     }
@@ -61,10 +62,6 @@ class MetalView: MTKView {
                     }
                     for i in removeList.reversed() {
                         animation.remove(at: i)
-                    }
-                    // TODO: - animation 数组清空后有概率出现闪屏问题
-                    if animation.isEmpty {
-                        animation.append(PolygonFillAnimation(device: device!, aspect: aspect))
                     }
                 }
                 
