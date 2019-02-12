@@ -19,11 +19,11 @@ class ScaleAnimation: AbstractAnimation {
     private var matrix = Matrix()
     
     private var width = Float()
-    private var step = 40
+    private var step = 60
     private var timer = 0
     
-    override init(device: MTLDevice) {
-        super.init(device: device)
+    override init(device: MTLDevice, aspect: CGFloat) {
+        super.init(device: device, aspect: aspect)
         createBuffer()
         registerShaders(
             vertexFunctionName: "scale_vertex_func",
@@ -43,7 +43,7 @@ class ScaleAnimation: AbstractAnimation {
             options: []
         )
         
-        let len: Float = 2.0
+        let len: Float = 1.8
         for _ in 0..<count {
             var pos = float4(len * cos(angle), len * sin(angle), 0.0, 1.0)
             vertexData.append(pos)
@@ -91,7 +91,7 @@ class ScaleAnimation: AbstractAnimation {
         timer += 1
         if timer > step { return false }
         var scale = Float(timer) / Float(step)
-        scale = 1.0204 - 1.0204 * exp(-3.92 * scale)
+        scale = (1.0204 - 1.0204 * exp(-3.92 * scale)) / aspect
         matrix.scalingMatrix(scale)
         let bufferPoint = scaleBuffer.contents()
         memcpy(bufferPoint, matrix.m, MemoryLayout<Float>.stride * 16)
@@ -106,6 +106,7 @@ class ScaleAnimation: AbstractAnimation {
             commandEncoder.setVertexBuffer(rotateBuffer, offset: 0, index: 1)
             commandEncoder.setVertexBuffer(scaleBuffer, offset: 0, index: 2)
             commandEncoder.setVertexBuffer(widthBuffer, offset: 0, index: 3)
+            commandEncoder.setVertexBytes(&aspect, length: MemoryLayout<Float>.stride, index: 4)
             commandEncoder.drawIndexedPrimitives(
                 type: .triangle,
                 indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,

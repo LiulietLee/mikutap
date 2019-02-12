@@ -23,8 +23,8 @@ class ExplosionAnimation: AbstractAnimation {
     private var step = 35
     internal var type = ExplosionType.square
     
-    init(device: MTLDevice, type: ExplosionType = .square) {
-        super.init(device: device)
+    init(device: MTLDevice, type: ExplosionType = .square, aspect: CGFloat) {
+        super.init(device: device, aspect: aspect)
         self.type = type
         createBuffer()
         if type == .square {

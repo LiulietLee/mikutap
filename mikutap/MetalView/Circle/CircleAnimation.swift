@@ -20,8 +20,8 @@ class CircleAnimation: AbstractAnimation {
     private var step = 35
     private var start = Float()
 
-    override init(device: MTLDevice) {
-        super.init(device: device)
+    override init(device: MTLDevice, aspect: CGFloat) {
+        super.init(device: device, aspect: aspect)
         start = Float.random(in: 0.0...2 * Float.pi)
         createBuffer()
         registerShaders(
@@ -85,6 +85,7 @@ class CircleAnimation: AbstractAnimation {
             commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
             commandEncoder.setFragmentBuffer(fragInfoBuffer, offset: 0, index: 0)
             commandEncoder.setFragmentBuffer(fragIndexesBuffer, offset: 0, index: 1)
+            commandEncoder.setFragmentBytes(&aspect, length: MemoryLayout<Float>.stride, index: 2)
             commandEncoder.drawIndexedPrimitives(
                 type: .triangle,
                 indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,

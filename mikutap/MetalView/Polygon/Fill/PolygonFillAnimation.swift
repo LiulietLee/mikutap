@@ -21,8 +21,8 @@ class PolygonFillAnimation: AbstractAnimation {
     private let step = 35
     private var timer = 0
 
-    override init(device: MTLDevice) {
-        super.init(device: device)
+    override init(device: MTLDevice, aspect: CGFloat) {
+        super.init(device: device, aspect: aspect)
         createBuffer()
         registerShaders(
             vertexFunctionName: "polygon_fill_vertex_func",

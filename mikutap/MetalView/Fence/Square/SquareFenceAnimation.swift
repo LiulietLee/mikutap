@@ -10,7 +10,7 @@ import MetalKit
 
 class SquareFenceAnimation: FenceAnimation {
 
-    init(device: MTLDevice) {
-        super.init(device: device, type: .square)
+    init(device: MTLDevice, aspect: CGFloat) {
+        super.init(device: device, type: .square, aspect: aspect)
     }
 }

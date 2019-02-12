@@ -12,8 +12,8 @@ class SpiralDotAnimation: DotAnimation {
     
     private var uniformBuffer: MTLBuffer!
 
-    override init(device: MTLDevice) {
-        super.init(device: device)
+    override init(device: MTLDevice, aspect: CGFloat) {
+        super.init(device: device, aspect: aspect)
         createBuffer()
         registerShaders(
             vertexFunctionName: "spiral_dot_vertex_func",
@@ -30,7 +30,7 @@ class SpiralDotAnimation: DotAnimation {
             pointData.append(PointInfo(
                 position: float4(x, y, 0.0, 1.0),
                 timer: -i * 3 / 2,
-                radius: Float(i) * 0.5 + 5.0)
+                radius: Float(i) + 7.0)
             )
         }
         pointBuffer = device.makeBuffer(
@@ -54,6 +54,7 @@ class SpiralDotAnimation: DotAnimation {
         if flag {
             commandEncoder.setVertexBuffer(pointBuffer, offset: 0, index: 0)
             commandEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 1)
+            commandEncoder.setVertexBytes(&aspect, length: MemoryLayout<Float>.stride, index: 2)
             commandEncoder.drawPrimitives(type: .point, vertexStart: 0, vertexCount: pointCount)
         }
         commandEncoder.endEncoding()

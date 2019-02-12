@@ -19,8 +19,9 @@ struct Point {;
 };
 
 vertex Point spiral_dot_vertex_func(device Point *point_array [[buffer(0)]],
-                                 constant float4x4 &uniforms [[buffer(1)]],
-                                 uint vid [[vertex_id]])
+                                    constant float4x4 &uniforms [[buffer(1)]],
+                                    constant float &aspect [[buffer(2)]],
+                                    uint vid [[vertex_id]])
 {
     int timer = point_array[vid].timer++;
     float radius = point_array[vid].radius;
@@ -38,6 +39,7 @@ vertex Point spiral_dot_vertex_func(device Point *point_array [[buffer(0)]],
     Point in = point_array[vid];
     Point out = in;
     out.position = uniforms * out.position;
+    out.position.x *= aspect;
     return out;
 }
 

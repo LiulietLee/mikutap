@@ -29,8 +29,8 @@ class FenceAnimation: AbstractAnimation {
     
     private var type = FenceType.square
     
-    init(device: MTLDevice, type: FenceType) {
-        super.init(device: device)
+    init(device: MTLDevice, type: FenceType, aspect: CGFloat) {
+        super.init(device: device, aspect: aspect)
         self.type = type
         createBuffer()
         if type == .square {
@@ -150,6 +150,8 @@ class FenceAnimation: AbstractAnimation {
         if flag {
             commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
             commandEncoder.setVertexBuffer(translationBuffer, offset: 0, index: 1)
+            commandEncoder.setVertexBytes(&aspect, length: MemoryLayout<Float>.stride, index: 4)
+            commandEncoder.setFragmentBytes(&aspect, length: MemoryLayout<Float>.stride, index: 1)
             if type == .round {
                 commandEncoder.setFragmentBytes(
                     &scale,

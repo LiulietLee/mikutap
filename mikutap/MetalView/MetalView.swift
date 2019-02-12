@@ -15,13 +15,17 @@ class MetalView: MTKView {
     private var commandQueue: MTLCommandQueue?
     private var rps: MTLRenderPipelineState?
     private var semaphore: DispatchSemaphore!
+    
+    private var aspect: CGFloat {
+        return bounds.size.height / bounds.size.width
+    }
 
     private func commonInit() {
         semaphore = DispatchSemaphore(value: 3)
         device = MTLCreateSystemDefaultDevice()!
         commandQueue = device!.makeCommandQueue()
         
-        animation.append(SquareFenceAnimation(device: device!))
+        animation.append(PolygonFillAnimation(device: device!, aspect: aspect))
     }
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
@@ -60,7 +64,7 @@ class MetalView: MTKView {
                     }
                     // TODO: - animation 数组清空后有概率出现闪屏问题
                     if animation.isEmpty {
-                        animation.append(SquareFenceAnimation(device: device!))
+                        animation.append(PolygonFillAnimation(device: device!, aspect: aspect))
                     }
                 }
                 

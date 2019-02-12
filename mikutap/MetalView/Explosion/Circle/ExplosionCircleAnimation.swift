@@ -9,7 +9,7 @@
 import Cocoa
 
 class ExplosionCircleAnimation: ExplosionAnimation {
-    init(device: MTLDevice) {
-        super.init(device: device, type: .circle)
+    init(device: MTLDevice, aspect: CGFloat) {
+        super.init(device: device, type: .circle, aspect: aspect)
     }
 }

@@ -20,8 +20,9 @@ class XAnimation: AbstractAnimation {
     private var timer = 0
     private var step = 40
     
-    override init(device: MTLDevice) {
-        super.init(device: device)
+    override init(device: MTLDevice, aspect: CGFloat) {
+        super.init(device: device, aspect: aspect)
+        self.aspect = Float(aspect)
         createBuffer()
         registerShaders(
             vertexFunctionName: "x_vertex_func",
@@ -65,7 +66,7 @@ class XAnimation: AbstractAnimation {
         
         matrix = Matrix()
         matrix.translationMatrix(float3(
-            Float.random(in: -0.2...0.2), Float.random(in: -0.2...0.2), 0.0
+            (Float.random(in: -0.5...0.5)) / aspect, Float.random(in: -0.5...0.5), 0.0
         ))
         
         uniformBuffer = device.makeBuffer(
@@ -114,6 +115,7 @@ class XAnimation: AbstractAnimation {
             commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
             commandEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 1)
             commandEncoder.setVertexBuffer(rateBuffer, offset: 0, index: 2)
+            commandEncoder.setVertexBytes(&aspect, length: MemoryLayout<Float>.stride, index: 3)
             commandEncoder.drawIndexedPrimitives(
                 type: .triangle,
                 indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,

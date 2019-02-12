@@ -14,7 +14,10 @@ class AbstractAnimation {
     internal var device: MTLDevice!
     internal var commandEncoder: MTLRenderCommandEncoder!
 
-    init(device: MTLDevice) {
+    internal var aspect = Float()
+    
+    init(device: MTLDevice, aspect: CGFloat) {
+        self.aspect = Float(aspect)
         self.device = device
     }
     
