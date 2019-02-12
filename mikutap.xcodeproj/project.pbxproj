@@ -34,7 +34,6 @@
 		4FCAA6AC220EFE2C00C39A17 /* ScaleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6AB220EFE2C00C39A17 /* ScaleAnimation.swift */; };
 		4FCAA6AE220EFE3700C39A17 /* ScaleShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6AD220EFE3700C39A17 /* ScaleShader.metal */; };
 		4FCCA1D82205B8E9001F26F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA1D72205B8E9001F26F6 /* AppDelegate.swift */; };
-		4FCCA1DA2205B8E9001F26F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA1D92205B8E9001F26F6 /* ViewController.swift */; };
 		4FCCA1DC2205B8EB001F26F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FCCA1DB2205B8EB001F26F6 /* Assets.xcassets */; };
 		4FCCA1DF2205B8EB001F26F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FCCA1DD2205B8EB001F26F6 /* Main.storyboard */; };
 		4FCCA1EA2205B94D001F26F6 /* MathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA1E92205B94D001F26F6 /* MathUtils.swift */; };
@@ -70,7 +69,6 @@
 		4FCAA6AD220EFE3700C39A17 /* ScaleShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ScaleShader.metal; sourceTree = "<group>"; };
 		4FCCA1D42205B8E9001F26F6 /* mikutap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mikutap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FCCA1D72205B8E9001F26F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4FCCA1D92205B8E9001F26F6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4FCCA1DB2205B8EB001F26F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4FCCA1DE2205B8EB001F26F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4FCCA1E02205B8EB001F26F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -272,7 +270,6 @@
 		4FCCA1D62205B8E9001F26F6 /* mikutap */ = {
 			isa = PBXGroup;
 			children = (
-				4FCCA1D92205B8E9001F26F6 /* ViewController.swift */,
 				4FCCA1DD2205B8EB001F26F6 /* Main.storyboard */,
 				4F3A503422071C2B00E8D7A8 /* MetalView */,
 				4FCCA1ED2205B9E6001F26F6 /* Supporting */,
@@ -369,7 +366,6 @@
 				4FC5AC8222106503008C5589 /* FenceAnimation.swift in Sources */,
 				4FBCD6C4220D532D00342433 /* ExplosionShader.metal in Sources */,
 				4FCCA1EA2205B94D001F26F6 /* MathUtils.swift in Sources */,
-				4FCCA1DA2205B8E9001F26F6 /* ViewController.swift in Sources */,
 				4F2479E9220B21EA001BD833 /* PolygonFillAnimation.swift in Sources */,
 				4FC5AC75220FFB0D008C5589 /* PolygonStrokeAnimation.swift in Sources */,
 				4FC5AC8022104619008C5589 /* FenceShader.metal in Sources */,
