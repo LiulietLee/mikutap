@@ -30,7 +30,8 @@ class ShakeDotAnimation: DotAnimation {
                     0.0, 1.0
                 ),
                 timer: -i,
-                radius: Float.random(in: 100.0...200.0)
+                radius: Float.random(in: 100.0...200.0),
+                color: float4(1.0)
             ))
         }
         pointBuffer = device.makeBuffer(

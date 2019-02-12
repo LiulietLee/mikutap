@@ -11,6 +11,7 @@ using namespace metal;
 
 struct Point {;
     float4 position [[position]];
+    float4 color;
     float point_size [[point_size]];
     float radius;
     int valid;
@@ -62,9 +63,10 @@ vertex Point shake_dot_vertex_func(device Point *point_array [[buffer(0)]],
     return point_array[vid];
 }
 
-fragment float4 rounded_dot_fragment_func(float2 point_coord [[point_coord]]) {
+fragment float4 rounded_dot_fragment_func(Point p [[stage_in]],
+                                          float2 point_coord [[point_coord]]) {
     if (length(point_coord - float2(0.5)) > 0.5) {
         discard_fragment();
     }
-    return float4(1.0);
+    return p.color;
 }

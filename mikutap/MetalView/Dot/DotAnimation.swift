@@ -11,16 +11,18 @@ import MetalKit
 class DotAnimation: AbstractAnimation {
     struct PointInfo {
         var position: float4
+        var color: float4
         var pointSize: Float
         var radius: Float
         var valid: Int
         var timer: Int
         
-        init(position: float4, timer: Int, radius: Float) {
+        init(position: float4, timer: Int, radius: Float, color: float4) {
             self.radius = radius
             self.position = position
             self.pointSize = 0.0
             self.timer = timer
+            self.color = color
             valid = 1
         }
     }
