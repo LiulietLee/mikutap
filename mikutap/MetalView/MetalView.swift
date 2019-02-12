@@ -26,7 +26,7 @@ class MetalView: MTKView {
         commandQueue = device!.makeCommandQueue()
         animation.append(PlaceholderAnimation(device: device!))
         
-        animation.append(PolygonFillAnimation(device: device!, aspect: aspect))
+        animation.append(TransitionAnimation(device: device!, aspect: aspect))
     }
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
@@ -62,6 +62,10 @@ class MetalView: MTKView {
                     }
                     for i in removeList.reversed() {
                         animation.remove(at: i)
+                    }
+                    
+                    if animation.count == 1 {
+                        animation.append(TransitionAnimation(device: device!, aspect: aspect))
                     }
                 }
                 
