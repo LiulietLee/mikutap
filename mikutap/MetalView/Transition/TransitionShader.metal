@@ -15,6 +15,7 @@ vertex float4 transition_vertex_func(constant float4 *vertex_array [[buffer(0)]]
     return vertex_array[vid];
 }
 
-fragment float4 transition_fragment_func() {
-    return float4(1.0);
+fragment float4 transition_fragment_func(constant float4 &color [[buffer(0)]])
+{
+    return color;
 }

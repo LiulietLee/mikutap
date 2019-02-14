@@ -25,10 +25,10 @@ class MetalView: MTKView {
         semaphore = DispatchSemaphore(value: 3)
         device = MTLCreateSystemDefaultDevice()!
         commandQueue = device!.makeCommandQueue()
-        backgroundColor = ColorPool.shared.getBackgroundColor()
+        backgroundColor = ColorPool.shared.getCurrentBackgroundColor()
         animation.append(PlaceholderAnimation(device: device!))
         
-        animation.append(ExplosionSquareAnimation(device: device!, aspect: aspect))
+        animation.append(TransitionAnimation(device: device!, aspect: aspect))
     }
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
@@ -63,11 +63,14 @@ class MetalView: MTKView {
                         rpd.colorAttachments[0].loadAction = .load
                     }
                     for i in removeList.reversed() {
+                        if animation[i] is TransitionAnimation {
+                            backgroundColor = ColorPool.shared.getCurrentBackgroundColor()
+                        }
                         animation.remove(at: i)
                     }
                     
                     if animation.count == 1 {
-                        animation.append(PolygonFillAnimation(device: device!, aspect: aspect))
+                        animation.append(TransitionAnimation(device: device!, aspect: aspect))
                     }
                 }
                 
@@ -79,5 +82,4 @@ class MetalView: MTKView {
             }
         }
     }
-    
 }

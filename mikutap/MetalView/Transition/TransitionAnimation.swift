@@ -19,6 +19,7 @@ class TransitionAnimation: AbstractAnimation {
 
     override init(device: MTLDevice, aspect: CGFloat) {
         super.init(device: device, aspect: aspect)
+        color = ColorPool.shared.resetBackgroundColor()
         createBuffer()
         registerShaders(
             vertexFunctionName: "transition_vertex_func",
@@ -122,6 +123,7 @@ class TransitionAnimation: AbstractAnimation {
         let flag = update()
         if flag {
             commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+            commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: 0)
             commandEncoder.drawIndexedPrimitives(
                 type: .triangle,
                 indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,

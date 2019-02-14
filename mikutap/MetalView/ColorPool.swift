@@ -45,13 +45,17 @@ class ColorPool {
         return index
     }
     
-    func getBackgroundColor() -> MTLClearColor {
-        backgroundColorIndex = nextIndex()
+    func getCurrentBackgroundColor() -> MTLClearColor {
         return build(colorPool[backgroundColorIndex])
     }
     
     func getShaderColor() -> Color {
         return colorPool[nextIndex()]
+    }
+    
+    func resetBackgroundColor() -> Color {
+        backgroundColorIndex = nextIndex()
+        return colorPool[backgroundColorIndex]
     }
     
     private func build(_ color: Color) -> MTLClearColor {
