@@ -98,6 +98,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F19D87122159E1D009CAE3F /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				4F2479E2220B0120001BD833 /* AbstractAnimation.swift */,
+				4F5E4F242212F7D600242D55 /* Placeholder */,
+				4F5E4F2B2213098A00242D55 /* Transition */,
+				4FC5AC7C221045D2008C5589 /* Fence */,
+				4FC5AC762210170C008C5589 /* Dot */,
+				4FCAA6AA220EFE1B00C39A17 /* Scale */,
+				4FBCD6C9220D757F00342433 /* Segment */,
+				4FBCD6BE220D499400342433 /* Explosion */,
+				4F2479D5220AB5D9001BD833 /* Circle */,
+				4F3A502F22071A0E00E8D7A8 /* X */,
+				4F3A502E2207197F00E8D7A8 /* Polygon */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
+		4F19D87222159E3D009CAE3F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4FCCA1E92205B94D001F26F6 /* MathUtils.swift */,
+				4F3A503522071C8200E8D7A8 /* PolygonFactory.swift */,
+				4F5E4F292212FEA300242D55 /* ColorPool.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		4F2479D5220AB5D9001BD833 /* Circle */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,26 +153,12 @@
 			path = X;
 			sourceTree = "<group>";
 		};
-		4F3A503422071C2B00E8D7A8 /* MetalView */ = {
+		4F3A503422071C2B00E8D7A8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4FCCA1E92205B94D001F26F6 /* MathUtils.swift */,
 				4F2479E6220B2196001BD833 /* MetalView.swift */,
-				4F2479E2220B0120001BD833 /* AbstractAnimation.swift */,
-				4F3A503522071C8200E8D7A8 /* PolygonFactory.swift */,
-				4F5E4F292212FEA300242D55 /* ColorPool.swift */,
-				4F5E4F2B2213098A00242D55 /* Transition */,
-				4F5E4F242212F7D600242D55 /* Placeholder */,
-				4FC5AC7C221045D2008C5589 /* Fence */,
-				4FC5AC762210170C008C5589 /* Dot */,
-				4FCAA6AA220EFE1B00C39A17 /* Scale */,
-				4FBCD6C9220D757F00342433 /* Segment */,
-				4FBCD6BE220D499400342433 /* Explosion */,
-				4F2479D5220AB5D9001BD833 /* Circle */,
-				4F3A502F22071A0E00E8D7A8 /* X */,
-				4F3A502E2207197F00E8D7A8 /* Polygon */,
 			);
-			path = MetalView;
+			path = View;
 			sourceTree = "<group>";
 		};
 		4F5E4F242212F7D600242D55 /* Placeholder */ = {
@@ -302,7 +316,9 @@
 			isa = PBXGroup;
 			children = (
 				4FCCA1DD2205B8EB001F26F6 /* Main.storyboard */,
-				4F3A503422071C2B00E8D7A8 /* MetalView */,
+				4F3A503422071C2B00E8D7A8 /* View */,
+				4F19D87222159E3D009CAE3F /* Model */,
+				4F19D87122159E1D009CAE3F /* Animation */,
 				4FCCA1ED2205B9E6001F26F6 /* Supporting */,
 				4FCCA1E02205B8EB001F26F6 /* Info.plist */,
 				4FCCA1E12205B8EB001F26F6 /* mikutap.entitlements */,
