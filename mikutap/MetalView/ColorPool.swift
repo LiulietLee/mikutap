@@ -14,24 +14,50 @@ class ColorPool {
     
     static let shared = ColorPool()
     
+    private var backgroundColorIndex = 0
+    
     private var colorPool = [
-        Color(0.545098, 0.8, 0.8, 1),
-        Color(0.129412, 0.666667, 0.627451, 1),
-        Color(1, 1, 1, 1),
-        Color(0.560784, 0.854902, 0.92549, 1),
-        Color(0.964706, 0.831373, 0.8, 1),
-        Color(0.831373, 0.619608, 0.627451, 1),
-        Color(0.196078, 0.168627, 0.180392, 1),
-        Color(0.356863, 0.309804, 0.345098, 1),
-        Color(0.976471, 0.254902, 0.47451, 1),
-        Color(0.811765, 0.937255, 0.941176, 1),
-        Color(0.133333, 0.627451, 0.701961, 1),
-        Color(0.0823529, 0.533333, 0.611765, 1),
-        Color(0.270588, 0.266667, 0.270588, 1),
-        Color(0.92549, 0.341176, 0.52549, 1)
+        Color(0.545, 0.800, 0.800, 1.000),
+        Color(0.129, 0.667, 0.627, 1.000),
+        Color(1.000, 1.000, 1.000, 1.000),
+        Color(0.561, 0.855, 0.925, 1.000),
+        Color(0.965, 0.831, 0.800, 1.000),
+        Color(0.831, 0.620, 0.627, 1.000),
+        Color(0.196, 0.169, 0.180, 1.000),
+        Color(0.357, 0.310, 0.345, 1.000),
+        Color(0.976, 0.255, 0.475, 1.000),
+        Color(0.812, 0.937, 0.941, 1.000),
+        Color(0.133, 0.627, 0.702, 1.000),
+        Color(0.082, 0.533, 0.612, 1.000),
+        Color(0.271, 0.267, 0.271, 1.000),
+        Color(0.925, 0.341, 0.525, 1.000)
     ]
     
-    private func build(_ r: Double, _ g: Double, _ b: Double) -> MTLClearColor {
-        return MTLClearColor(red: r, green: g, blue: b, alpha: 1.0)
+    private var colorCount: Int {
+        return colorPool.count
+    }
+    
+    private func nextIndex() -> Int {
+        var index = backgroundColorIndex
+        while index == backgroundColorIndex {
+            index = Int.random(in: 0..<colorCount)
+        }
+        return index
+    }
+    
+    func getBackgroundColor() -> MTLClearColor {
+        backgroundColorIndex = nextIndex()
+        return build(colorPool[backgroundColorIndex])
+    }
+    
+    func getShaderColor() -> Color {
+        return colorPool[nextIndex()]
+    }
+    
+    private func build(_ color: Color) -> MTLClearColor {
+        return MTLClearColor(
+            red: Double(color.x), green: Double(color.y),
+            blue: Double(color.z), alpha: Double(color.w)
+        )
     }
 }
