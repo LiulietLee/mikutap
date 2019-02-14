@@ -10,7 +10,7 @@ import MetalKit
 
 class ShakeDotAnimation: DotAnimation {
 
-    override init(device: MTLDevice, aspect: CGFloat) {
+    required init(device: MTLDevice, aspect: CGFloat) {
         super.init(device: device, aspect: aspect)
         createBuffer()
         registerShaders(

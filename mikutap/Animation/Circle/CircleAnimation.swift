@@ -20,7 +20,7 @@ class CircleAnimation: AbstractAnimation {
     private var step = 35
     private var start = Float()
 
-    override init(device: MTLDevice, aspect: CGFloat) {
+    required init(device: MTLDevice, aspect: CGFloat) {
         super.init(device: device, aspect: aspect)
         start = Float.random(in: 0.0...2 * Float.pi)
         createBuffer()

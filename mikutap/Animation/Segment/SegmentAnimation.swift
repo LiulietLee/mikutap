@@ -21,7 +21,7 @@ class SegmentAnimation: AbstractAnimation {
     private var step = 26
     private var timer = 0
     
-    override init(device: MTLDevice, aspect: CGFloat) {
+    required init(device: MTLDevice, aspect: CGFloat) {
         super.init(device: device, aspect: aspect)
         initInfo()
         registerShaders(

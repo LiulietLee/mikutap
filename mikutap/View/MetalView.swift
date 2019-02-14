@@ -8,14 +8,16 @@
 
 import MetalKit
 
-class MetalView: MTKView {
+class MetalView: MTKView, NSWindowDelegate {
     
     private var animation = [AbstractAnimation]()
+    private var animationType = [RoundFenceAnimation.self, SquareFenceAnimation.self, ShakeDotAnimation.self, SpiralDotAnimation.self, ScaleAnimation.self, SegmentAnimation.self, ExplosionCircleAnimation.self, ExplosionSquareAnimation.self, CircleAnimation.self,  XAnimation.self, PolygonFillAnimation.self, PolygonStrokeAnimation.self]
     
     private var commandQueue: MTLCommandQueue?
     private var rps: MTLRenderPipelineState?
     private var semaphore: DispatchSemaphore!
     private var backgroundColor: MTLClearColor!
+    private var mouseCount = 0
     
     private var aspect: CGFloat {
         return bounds.size.height / bounds.size.width
@@ -27,8 +29,6 @@ class MetalView: MTKView {
         commandQueue = device!.makeCommandQueue()
         backgroundColor = ColorPool.shared.getCurrentBackgroundColor()
         animation.append(PlaceholderAnimation(device: device!))
-        
-        animation.append(TransitionAnimation(device: device!, aspect: aspect))
     }
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
@@ -39,6 +39,22 @@ class MetalView: MTKView {
     required init(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
+    }
+    
+    override func mouseDown(with event: NSEvent) {
+        let currentAnimation = animationType[Int.random(in: 0..<animationType.count)].init(device: device!, aspect: aspect)
+        animation.append(currentAnimation)
+        mouseCount += 1
+        
+        if animation.count >= 8 || mouseCount > 15 {
+            if animation.count >= 8 {
+                for _ in 0..<animation.count / 2 {
+                    animation.removeFirst()
+                }
+            }
+            mouseCount = 0
+            animation.insert(TransitionAnimation(device: device!, aspect: aspect), at: 1)
+        }
     }
     
     override func draw(_ dirtyRect: NSRect) {
@@ -67,10 +83,6 @@ class MetalView: MTKView {
                             backgroundColor = ColorPool.shared.getCurrentBackgroundColor()
                         }
                         animation.remove(at: i)
-                    }
-                    
-                    if animation.count == 1 {
-                        animation.append(TransitionAnimation(device: device!, aspect: aspect))
                     }
                 }
                 

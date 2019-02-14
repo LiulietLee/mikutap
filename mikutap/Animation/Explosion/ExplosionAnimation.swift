@@ -40,6 +40,10 @@ class ExplosionAnimation: AbstractAnimation {
         }
     }
     
+    required init(device: MTLDevice, aspect: CGFloat) {
+        fatalError("init(device:aspect:) has not been implemented")
+    }
+    
     private func createBuffer() {
         pointCount = Int(arc4random_uniform(5)) + 10
         var vertexData = [Point]()

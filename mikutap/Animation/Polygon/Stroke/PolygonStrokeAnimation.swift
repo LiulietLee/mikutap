@@ -20,7 +20,7 @@ class PolygonStrokeAnimation: AbstractAnimation {
     private var timer = 0
     private var step = 35
     
-    override init(device: MTLDevice, aspect: CGFloat) {
+    required init(device: MTLDevice, aspect: CGFloat) {
         super.init(device: device, aspect: aspect)
         createBuffer()
         registerShaders(

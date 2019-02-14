@@ -12,7 +12,7 @@ class SpiralDotAnimation: DotAnimation {
     
     private var uniformBuffer: MTLBuffer!
 
-    override init(device: MTLDevice, aspect: CGFloat) {
+    required init(device: MTLDevice, aspect: CGFloat) {
         super.init(device: device, aspect: aspect)
         createBuffer()
         registerShaders(

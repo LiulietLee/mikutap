@@ -10,7 +10,7 @@ import Cocoa
 
 class RoundFenceAnimation: FenceAnimation {
 
-    init(device: MTLDevice, aspect: CGFloat) {
+    required init(device: MTLDevice, aspect: CGFloat) {
         super.init(device: device, type: .round, aspect: aspect)
     }
 }

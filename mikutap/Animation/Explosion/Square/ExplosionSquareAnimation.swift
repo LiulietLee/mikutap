@@ -9,7 +9,7 @@
 import Cocoa
 
 class ExplosionSquareAnimation: ExplosionAnimation {
-    init(device: MTLDevice, aspect: CGFloat) {
+    required init(device: MTLDevice, aspect: CGFloat) {
         super.init(device: device, type: .square, aspect: aspect)
     }
 }

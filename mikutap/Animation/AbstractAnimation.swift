@@ -17,7 +17,7 @@ class AbstractAnimation {
     internal var aspect = Float()
     internal var color = float4()
     
-    init(device: MTLDevice, aspect: CGFloat) {
+    required init(device: MTLDevice, aspect: CGFloat) {
         self.aspect = Float(aspect)
         self.device = device
         color = ColorPool.shared.getShaderColor()

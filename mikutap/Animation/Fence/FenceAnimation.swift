@@ -46,6 +46,10 @@ class FenceAnimation: AbstractAnimation {
         }
     }
     
+    required init(device: MTLDevice, aspect: CGFloat) {
+        fatalError("init(device:aspect:) has not been implemented")
+    }
+    
     private func createBuffer() {
         let rectangleCount = Int(arc4random_uniform(8) + 2)
         let widthCount = 2 * rectangleCount + 1

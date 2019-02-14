@@ -33,7 +33,7 @@ class DotAnimation: AbstractAnimation {
     internal var step = 150
     internal var pointCount = 40
     
-    override init(device: MTLDevice, aspect: CGFloat) {
+    required init(device: MTLDevice, aspect: CGFloat) {
         super.init(device: device, aspect: aspect)
     }
         

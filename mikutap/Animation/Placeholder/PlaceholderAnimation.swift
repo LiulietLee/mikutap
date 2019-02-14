@@ -30,6 +30,10 @@ class PlaceholderAnimation: AbstractAnimation {
         )
     }
     
+    required init(device: MTLDevice, aspect: CGFloat) {
+        fatalError("init(device:aspect:) has not been implemented")
+    }
+    
     override func setCommandEncoder(cb: MTLCommandBuffer, rpd: MTLRenderPassDescriptor) -> Bool {
         super.setCommandEncoder(cb: cb, rpd: rpd)
         commandEncoder.setVertexBuffer(buffer, offset: 0, index: 0)

@@ -22,7 +22,7 @@ class ScaleAnimation: AbstractAnimation {
     private var step = 60
     private var timer = 0
     
-    override init(device: MTLDevice, aspect: CGFloat) {
+    required init(device: MTLDevice, aspect: CGFloat) {
         super.init(device: device, aspect: aspect)
         createBuffer()
         registerShaders(
