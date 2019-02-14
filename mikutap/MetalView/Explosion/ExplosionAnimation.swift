@@ -41,9 +41,9 @@ class ExplosionAnimation: AbstractAnimation {
     }
     
     private func createBuffer() {
-        pointCount = Int(arc4random_uniform(3)) + 10
+        pointCount = Int(arc4random_uniform(5)) + 10
         var vertexData = [Point]()
-        let range: ClosedRange<Float> = type == .square ? 10.0...60.0 : 20.0...120.0
+        let range: ClosedRange<Float> = type == .square ? 20.0...80.0 : 40.0...140.0
         for _ in 0..<pointCount {
             vertexData.append(Point(
                 position: float4(
@@ -83,6 +83,7 @@ class ExplosionAnimation: AbstractAnimation {
         if flag {
             commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
             commandEncoder.setVertexBuffer(rateBuffer, offset: 0, index: 1)
+            commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: 0)
             commandEncoder.drawPrimitives(type: .point, vertexStart: 0, vertexCount: pointCount)
         }
         commandEncoder.endEncoding()

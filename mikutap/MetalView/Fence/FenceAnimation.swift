@@ -152,6 +152,11 @@ class FenceAnimation: AbstractAnimation {
             commandEncoder.setVertexBuffer(translationBuffer, offset: 0, index: 1)
             commandEncoder.setVertexBytes(&aspect, length: MemoryLayout<Float>.stride, index: 4)
             commandEncoder.setFragmentBytes(&aspect, length: MemoryLayout<Float>.stride, index: 1)
+            commandEncoder.setFragmentBytes(
+                &color,
+                length: MemoryLayout<float4>.stride,
+                index: 2
+            )
             if type == .round {
                 commandEncoder.setFragmentBytes(
                     &scale,

@@ -24,13 +24,16 @@ vertex Point explosion_vertex_func(constant Point *point_array [[buffer(0)]],
     return out;
 }
 
-fragment float4 explosion_square_fragment_func() {
-    return float4(1.0);
+fragment float4 explosion_square_fragment_func(constant float4 &color [[buffer(0)]])
+{
+    return color;
 }
 
-fragment float4 explosion_circle_fragment_func(float2 point_coord [[point_coord]]) {
+fragment float4 explosion_circle_fragment_func(constant float4 &color [[buffer(0)]],
+                                               float2 point_coord [[point_coord]])
+{
     if (length(point_coord - float2(0.5)) > 0.5 || length(point_coord - float2(0.5)) < 0.4) {
         discard_fragment();
     }
-    return float4(1.0);
+    return color;
 }

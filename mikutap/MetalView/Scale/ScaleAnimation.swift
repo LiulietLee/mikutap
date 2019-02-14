@@ -106,6 +106,7 @@ class ScaleAnimation: AbstractAnimation {
             commandEncoder.setVertexBuffer(rotateBuffer, offset: 0, index: 1)
             commandEncoder.setVertexBuffer(scaleBuffer, offset: 0, index: 2)
             commandEncoder.setVertexBuffer(widthBuffer, offset: 0, index: 3)
+            commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: 0)
             commandEncoder.setVertexBytes(&aspect, length: MemoryLayout<Float>.stride, index: 4)
             commandEncoder.drawIndexedPrimitives(
                 type: .triangle,

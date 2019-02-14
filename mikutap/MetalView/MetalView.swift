@@ -15,6 +15,7 @@ class MetalView: MTKView {
     private var commandQueue: MTLCommandQueue?
     private var rps: MTLRenderPipelineState?
     private var semaphore: DispatchSemaphore!
+    private var backgroundColor: MTLClearColor!
     
     private var aspect: CGFloat {
         return bounds.size.height / bounds.size.width
@@ -24,9 +25,10 @@ class MetalView: MTKView {
         semaphore = DispatchSemaphore(value: 3)
         device = MTLCreateSystemDefaultDevice()!
         commandQueue = device!.makeCommandQueue()
+        backgroundColor = ColorPool.shared.getBackgroundColor()
         animation.append(PlaceholderAnimation(device: device!))
         
-        animation.append(TransitionAnimation(device: device!, aspect: aspect))
+        animation.append(ExplosionSquareAnimation(device: device!, aspect: aspect))
     }
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
@@ -45,7 +47,7 @@ class MetalView: MTKView {
             semaphore.wait()
             
             if let drawable = currentDrawable, let rpd = currentRenderPassDescriptor {
-                rpd.colorAttachments[0].clearColor = MTLClearColorMake(0.1, 0.5, 0.7, 1.0)
+                rpd.colorAttachments[0].clearColor = backgroundColor
 
                 let commandBuffer = commandQueue!.makeCommandBuffer()
                 if animation.isEmpty {
@@ -65,7 +67,7 @@ class MetalView: MTKView {
                     }
                     
                     if animation.count == 1 {
-                        animation.append(TransitionAnimation(device: device!, aspect: aspect))
+                        animation.append(PolygonFillAnimation(device: device!, aspect: aspect))
                     }
                 }
                 

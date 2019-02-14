@@ -21,7 +21,7 @@ class ShakeDotAnimation: DotAnimation {
     
     private func createBuffer() {
         var pointData = [PointInfo]()
-        pointCount = Int(arc4random_uniform(6) + 5)
+        pointCount = Int(arc4random_uniform(6) + 7)
         for i in 0..<pointCount {
             pointData.append(PointInfo(
                 position: float4(
@@ -31,7 +31,7 @@ class ShakeDotAnimation: DotAnimation {
                 ),
                 timer: -i,
                 radius: Float.random(in: 100.0...200.0),
-                color: float4(1.0)
+                color: ColorPool.shared.getShaderColor()
             ))
         }
         pointBuffer = device.makeBuffer(

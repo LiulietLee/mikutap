@@ -116,6 +116,7 @@ class XAnimation: AbstractAnimation {
             commandEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 1)
             commandEncoder.setVertexBuffer(rateBuffer, offset: 0, index: 2)
             commandEncoder.setVertexBytes(&aspect, length: MemoryLayout<Float>.stride, index: 3)
+            commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: 0)
             commandEncoder.drawIndexedPrimitives(
                 type: .triangle,
                 indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,

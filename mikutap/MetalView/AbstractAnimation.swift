@@ -15,10 +15,12 @@ class AbstractAnimation {
     internal var commandEncoder: MTLRenderCommandEncoder!
 
     internal var aspect = Float()
+    internal var color = float4()
     
     init(device: MTLDevice, aspect: CGFloat) {
         self.aspect = Float(aspect)
         self.device = device
+        color = ColorPool.shared.getShaderColor()
     }
     
     internal func registerShaders(vertexFunctionName: String,fragmentFunctionName: String) {

@@ -83,6 +83,7 @@ class PolygonFillAnimation: AbstractAnimation {
             commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
             commandEncoder.setVertexBuffer(offsetBuffer, offset: 0, index: 1)
             commandEncoder.setVertexBuffer(rateBuffer, offset: 0, index: 2)
+            commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: 0)
             commandEncoder.drawIndexedPrimitives(
                 type: .triangle,
                 indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,

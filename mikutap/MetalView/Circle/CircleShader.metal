@@ -9,11 +9,6 @@
 #include <metal_stdlib>
 using namespace metal;
 
-struct Frag {
-    float4 color;
-    float radius;
-};
-
 vertex float4 circle_vertex_func(constant float4 *vertices [[buffer(0)]],
                                  uint vid [[vertex_id]])
 {
@@ -21,15 +16,16 @@ vertex float4 circle_vertex_func(constant float4 *vertices [[buffer(0)]],
     return out;
 }
 
-fragment float4 circle_fragment_func(constant Frag &info [[buffer(0)]],
+fragment float4 circle_fragment_func(constant float &radius [[buffer(0)]],
                                      constant float3 &indexes [[buffer(1)]],
                                      constant float &aspect [[buffer(2)]],
+                                     constant float4 &color [[buffer(3)]],
                                      float2 point_coord [[point_coord]])
 {
     float2 coor = point_coord;
     coor.x /= aspect;
     
-    if (length(coor) > info.radius) {
+    if (length(coor) > radius) {
         discard_fragment();
     }
     
@@ -43,5 +39,5 @@ fragment float4 circle_fragment_func(constant Frag &info [[buffer(0)]],
         discard_fragment();
     }
     
-    return info.color;
+    return color;
 }

@@ -109,6 +109,11 @@ class SegmentAnimation: AbstractAnimation {
                 length: MemoryLayout<Vertex>.stride * vertexData.count,
                 index: 0
             )
+            commandEncoder.setFragmentBytes(
+                &color,
+                length: MemoryLayout<float4>.stride,
+                index: 0
+            )
             commandEncoder.drawIndexedPrimitives(
                 type: .triangle,
                 indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,

@@ -48,10 +48,10 @@ class CircleAnimation: AbstractAnimation {
             options: []
         )
         
-        var info = (float4(1.0), radius2 / 2)
+        var info = radius2 * 0.5
         fragInfoBuffer = device.makeBuffer(
             bytes: &info,
-            length: MemoryLayout<(float4, Float)>.stride,
+            length: MemoryLayout<Float>.stride,
             options: []
         )
         
@@ -86,6 +86,7 @@ class CircleAnimation: AbstractAnimation {
             commandEncoder.setFragmentBuffer(fragInfoBuffer, offset: 0, index: 0)
             commandEncoder.setFragmentBuffer(fragIndexesBuffer, offset: 0, index: 1)
             commandEncoder.setFragmentBytes(&aspect, length: MemoryLayout<Float>.stride, index: 2)
+            commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: 3)
             commandEncoder.drawIndexedPrimitives(
                 type: .triangle,
                 indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,

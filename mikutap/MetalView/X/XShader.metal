@@ -21,6 +21,7 @@ vertex float4 x_vertex_func(constant float4 *vertices [[buffer(0)]],
     return out;
 }
 
-fragment float4 x_fragment_func() {
-    return float4(1.0);
+fragment float4 x_fragment_func(constant float4 &color [[buffer(0)]])
+{
+    return color;
 }

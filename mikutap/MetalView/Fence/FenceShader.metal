@@ -38,16 +38,18 @@ bool inBound(float x, float y, float aspect) {
 }
 
 fragment float4 square_fence_fragment_func(float2 point_coord [[point_coord]],
-                                           constant float &aspect [[buffer(1)]])
+                                           constant float &aspect [[buffer(1)]],
+                                           constant float4 &color [[buffer(2)]])
 {
     if (!inBound(point_coord.x, point_coord.y, aspect)) {
         discard_fragment();
     }
-    return float(1.0);
+    return color;
 }
 
 fragment float4 round_fence_fragment_func(constant float &scale [[buffer(0)]],
                                           constant float &aspect [[buffer(1)]],
+                                          constant float4 &color [[buffer(2)]],
                                           float2 point_coord [[point_coord]])
 {
     float2 coor = point_coord;
@@ -55,5 +57,5 @@ fragment float4 round_fence_fragment_func(constant float &scale [[buffer(0)]],
     if (length(coor) > 0.8 * scale) {
         discard_fragment();
     }
-    return float(1.0);
+    return color;
 }

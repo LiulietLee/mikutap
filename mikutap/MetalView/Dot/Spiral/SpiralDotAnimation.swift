@@ -31,7 +31,7 @@ class SpiralDotAnimation: DotAnimation {
                 position: float4(x, y, 0.0, 1.0),
                 timer: -i * 3 / 2,
                 radius: Float(i) + 7.0,
-                color: float4(1.0)
+                color: color
             ))
         }
         pointBuffer = device.makeBuffer(

@@ -22,7 +22,8 @@ vertex float4 scale_vertex_func(constant float4 *vertex_array [[buffer(0)]],
     return out;
 }
 
-fragment float4 scale_fragment_func() {
-    return float(1.0);
+fragment float4 scale_fragment_func(constant float4 &color [[buffer(0)]])
+{
+    return color;
 }
 
