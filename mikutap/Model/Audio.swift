@@ -19,17 +19,16 @@ class Audio {
     
     private var timer = Timer()
     private var trackIndex = 0
-    private var canPlay = true
     
     init() {
         let mainString = mainBase64String
-        for string in mainString {
+        mainAudioPlayer = mainString.lazy.map { string -> AVAudioPlayer in
             let data = Data(base64Encoded: string, options: .ignoreUnknownCharacters)!
-            mainAudioPlayer.append(try! AVAudioPlayer(data: data))
+            return try! AVAudioPlayer(data: data)
         }
         
         var playSequence = [Int]()
-        for i in [3, 5, 7, 9] {
+        for i in stride(from: 3, through: 9, by: 2) {
             for _ in 0..<4 {
                 playSequence.append(contentsOf: [i, i + 1, i + 1])
             }
@@ -69,15 +68,7 @@ class Audio {
     }
     
     func play(id: Int) {
-//        if canPlay {
-//            canPlay = false
-//            player?.stop()
             player = mainAudioPlayer[id]
             player?.play()
-//            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
-//                print(Int.random(in: 0...10000000))
-//                self.canPlay = true
-//            }
-//        }
     }
 }
