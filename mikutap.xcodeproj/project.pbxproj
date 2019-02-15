@@ -34,6 +34,9 @@
 		4FC5AC8022104619008C5589 /* FenceShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AC7F22104619008C5589 /* FenceShader.metal */; };
 		4FC5AC8222106503008C5589 /* FenceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AC8122106503008C5589 /* FenceAnimation.swift */; };
 		4FC5AC8522106592008C5589 /* RoundFenceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AC8422106592008C5589 /* RoundFenceAnimation.swift */; };
+		4FC6C12D2216D6BF00908FD1 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6C12C2216D6BF00908FD1 /* Audio.swift */; };
+		4FC6C1302216DD2A00908FD1 /* mainAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6C12F2216DD2A00908FD1 /* mainAudio.swift */; };
+		4FC6C1322216DD3400908FD1 /* trackAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6C1312216DD3400908FD1 /* trackAudio.swift */; };
 		4FCAA6A7220EB23700C39A17 /* SpiralDotAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6A6220EB23700C39A17 /* SpiralDotAnimation.swift */; };
 		4FCAA6A9220EB24900C39A17 /* DotShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6A8220EB24900C39A17 /* DotShader.metal */; };
 		4FCAA6AC220EFE2C00C39A17 /* ScaleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCAA6AB220EFE2C00C39A17 /* ScaleAnimation.swift */; };
@@ -73,6 +76,9 @@
 		4FC5AC7F22104619008C5589 /* FenceShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = FenceShader.metal; sourceTree = "<group>"; };
 		4FC5AC8122106503008C5589 /* FenceAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenceAnimation.swift; sourceTree = "<group>"; };
 		4FC5AC8422106592008C5589 /* RoundFenceAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundFenceAnimation.swift; sourceTree = "<group>"; };
+		4FC6C12C2216D6BF00908FD1 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
+		4FC6C12F2216DD2A00908FD1 /* mainAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainAudio.swift; sourceTree = "<group>"; };
+		4FC6C1312216DD3400908FD1 /* trackAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = trackAudio.swift; sourceTree = "<group>"; };
 		4FCAA6A6220EB23700C39A17 /* SpiralDotAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiralDotAnimation.swift; sourceTree = "<group>"; };
 		4FCAA6A8220EB24900C39A17 /* DotShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = DotShader.metal; sourceTree = "<group>"; };
 		4FCAA6AB220EFE2C00C39A17 /* ScaleAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleAnimation.swift; sourceTree = "<group>"; };
@@ -122,6 +128,8 @@
 				4FCCA1E92205B94D001F26F6 /* MathUtils.swift */,
 				4F3A503522071C8200E8D7A8 /* PolygonFactory.swift */,
 				4F5E4F292212FEA300242D55 /* ColorPool.swift */,
+				4FC6C12C2216D6BF00908FD1 /* Audio.swift */,
+				4FC6C12E2216DD1600908FD1 /* AudioData */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -279,6 +287,15 @@
 			path = Round;
 			sourceTree = "<group>";
 		};
+		4FC6C12E2216DD1600908FD1 /* AudioData */ = {
+			isa = PBXGroup;
+			children = (
+				4FC6C12F2216DD2A00908FD1 /* mainAudio.swift */,
+				4FC6C1312216DD3400908FD1 /* trackAudio.swift */,
+			);
+			path = AudioData;
+			sourceTree = "<group>";
+		};
 		4FCAA6A5220EB07600C39A17 /* Spiral */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,6 +422,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FC6C12D2216D6BF00908FD1 /* Audio.swift in Sources */,
 				4F5E4F262212F7EC00242D55 /* PlaceholderAnimation.swift in Sources */,
 				4FCAA6A7220EB23700C39A17 /* SpiralDotAnimation.swift in Sources */,
 				4FC5AC7B22101C54008C5589 /* ShakeDotAnimation.swift in Sources */,
@@ -433,9 +451,11 @@
 				4F5E4F2F221309BE00242D55 /* TransitionShader.metal in Sources */,
 				4F3A50382208457D00E8D7A8 /* XShader.metal in Sources */,
 				4FCCA1D82205B8E9001F26F6 /* AppDelegate.swift in Sources */,
+				4FC6C1302216DD2A00908FD1 /* mainAudio.swift in Sources */,
 				4FCAA6A9220EB24900C39A17 /* DotShader.metal in Sources */,
 				4FBCD6C8220D59DC00342433 /* ExplosionCircleAnimation.swift in Sources */,
 				4F3A503622071C8200E8D7A8 /* PolygonFactory.swift in Sources */,
+				4FC6C1322216DD3400908FD1 /* trackAudio.swift in Sources */,
 				4F2479E1220B0065001BD833 /* CircleAnimation.swift in Sources */,
 				4F2479E5220B0553001BD833 /* XAnimation.swift in Sources */,
 				4FC5AC73220FFAFD008C5589 /* PolygonStrokeShader.metal in Sources */,

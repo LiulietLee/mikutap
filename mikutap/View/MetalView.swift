@@ -18,6 +18,7 @@ class MetalView: MTKView, NSWindowDelegate {
     private var semaphore: DispatchSemaphore!
     private var backgroundColor: MTLClearColor!
     private var mouseCount = 0
+    private let audio = Audio.shared
     
     private var aspect: CGFloat {
         return bounds.size.height / bounds.size.width
@@ -29,6 +30,7 @@ class MetalView: MTKView, NSWindowDelegate {
         commandQueue = device!.makeCommandQueue()
         backgroundColor = ColorPool.shared.getCurrentBackgroundColor()
         animation.append(PlaceholderAnimation(device: device!))
+        audio.playBackgroundMusic()
     }
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
@@ -45,6 +47,7 @@ class MetalView: MTKView, NSWindowDelegate {
         let currentAnimation = animationType[Int.random(in: 0..<animationType.count)].init(device: device!, aspect: aspect)
         animation.append(currentAnimation)
         mouseCount += 1
+        audio.play(id: Int.random(in: 0..<32))
         
         if animation.count >= 8 || mouseCount > 15 {
             if animation.count >= 8 {
