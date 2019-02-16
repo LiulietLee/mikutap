@@ -17,8 +17,8 @@ class Audio {
     private var beatAudioPlayer = [[AVAudioPlayer]]()
     private var player: AVAudioPlayer?
     
-    private var timer = Timer()
     private var trackIndex = 0
+    private var canPlay = true
     
     init() {
         let mainString = mainBase64String
@@ -71,8 +71,20 @@ class Audio {
     
     func play(id: Int) {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.player = self.mainAudioPlayer[id]
-            self.player?.play()
+            if self.canPlay {
+                self.canPlay = false
+                if self.mainAudioPlayer[id].isPlaying {
+                    self.player?.pause()
+                }
+                self.player = self.mainAudioPlayer[id]
+                self.player?.currentTime = 0
+                self.player?.play()
+                DispatchQueue.main.async {
+                    Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false, block: { _ in
+                        self.canPlay = true
+                    })
+                }
+            }
         }
     }
 }
