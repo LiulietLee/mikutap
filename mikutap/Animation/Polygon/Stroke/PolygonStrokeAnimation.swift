@@ -20,8 +20,8 @@ class PolygonStrokeAnimation: AbstractAnimation {
     private var timer = 0
     private var step = 35
     
-    required init(device: MTLDevice, aspect: CGFloat) {
-        super.init(device: device, aspect: aspect)
+    required init(device: MTLDevice, width: CGFloat, height: CGFloat) {
+        super.init(device: device, width: width, height: height)
         createBuffer()
         registerShaders(
             vertexFunctionName: "polygon_stroke_vertex_func",

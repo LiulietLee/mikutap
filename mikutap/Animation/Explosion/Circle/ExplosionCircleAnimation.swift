@@ -6,10 +6,11 @@
 //  Copyright © 2019 Liuliet.Lee. All rights reserved.
 //
 
-import Cocoa
+import MetalKit
 
 class ExplosionCircleAnimation: ExplosionAnimation {
-    required init(device: MTLDevice, aspect: CGFloat) {
-        super.init(device: device, type: .circle, aspect: aspect)
+
+    required init(device: MTLDevice, width: CGFloat, height: CGFloat) {
+        super.init(device: device, type: .circle, width: width, height: height)
     }
 }

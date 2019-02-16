@@ -19,10 +19,12 @@ class CircleAnimation: AbstractAnimation {
     private var index = 0
     private var step = 35
     private var start = Float()
+    private var vsize = float2()
 
-    required init(device: MTLDevice, aspect: CGFloat) {
-        super.init(device: device, aspect: aspect)
+    required init(device: MTLDevice, width: CGFloat, height: CGFloat) {
+        super.init(device: device, width: width, height: height)
         start = Float.random(in: 0.0...2 * Float.pi)
+        vsize = float2(vwidth, vheight)
         createBuffer()
         registerShaders(
             vertexFunctionName: "circle_vertex_func",
@@ -32,7 +34,7 @@ class CircleAnimation: AbstractAnimation {
     
     private func createBuffer() {
         var vertexData = [Vertex](), indexData = [UInt16]()
-        let radius2: Float = Float.random(in: 0.8...1.5)
+        let radius2: Float = Float.random(in: 1.0...2.0)
         (vertexData, indexData) = PolygonFactory.getRectangle(
             withWidth: radius2, andHeight: radius2
         )
@@ -48,7 +50,7 @@ class CircleAnimation: AbstractAnimation {
             options: []
         )
         
-        var info = radius2 * 0.5
+        var info = radius2 * 0.2
         fragInfoBuffer = device.makeBuffer(
             bytes: &info,
             length: MemoryLayout<Float>.stride,
@@ -87,6 +89,7 @@ class CircleAnimation: AbstractAnimation {
             commandEncoder.setFragmentBuffer(fragIndexesBuffer, offset: 0, index: 1)
             commandEncoder.setFragmentBytes(&aspect, length: MemoryLayout<Float>.stride, index: 2)
             commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: 3)
+            commandEncoder.setFragmentBytes(&vsize, length: MemoryLayout<float2>.stride, index: 4)
             commandEncoder.drawIndexedPrimitives(
                 type: .triangle,
                 indexCount: indexBuffer.length / MemoryLayout<UInt16>.stride,

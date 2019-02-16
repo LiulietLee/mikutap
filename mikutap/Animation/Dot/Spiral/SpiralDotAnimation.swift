@@ -12,8 +12,8 @@ class SpiralDotAnimation: DotAnimation {
     
     private var uniformBuffer: MTLBuffer!
 
-    required init(device: MTLDevice, aspect: CGFloat) {
-        super.init(device: device, aspect: aspect)
+    required init(device: MTLDevice, width: CGFloat, height: CGFloat) {
+        super.init(device: device, width: width, height: height)
         createBuffer()
         registerShaders(
             vertexFunctionName: "spiral_dot_vertex_func",

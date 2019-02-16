@@ -21,8 +21,8 @@ class SegmentAnimation: AbstractAnimation {
     private var step = 26
     private var timer = 0
     
-    required init(device: MTLDevice, aspect: CGFloat) {
-        super.init(device: device, aspect: aspect)
+    required init(device: MTLDevice, width: CGFloat, height: CGFloat) {
+        super.init(device: device, width: width, height: height)
         initInfo()
         registerShaders(
             vertexFunctionName: "segment_vertex_func",

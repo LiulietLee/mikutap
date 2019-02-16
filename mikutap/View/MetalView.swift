@@ -6,25 +6,25 @@
 //  Copyright © 2019 Liuliet.Lee. All rights reserved.
 //
 
+import UIKit
 import MetalKit
 
-class MetalView: MTKView, NSWindowDelegate {
+class MetalView: MTKView {
     
     private var ongoingAnimation = [AbstractAnimation]()
-    private var animationType = [RoundFenceAnimation.self, SquareFenceAnimation.self, ShakeDotAnimation.self, SpiralDotAnimation.self, ScaleAnimation.self, SegmentAnimation.self, ExplosionCircleAnimation.self, ExplosionSquareAnimation.self, CircleAnimation.self,  XAnimation.self, PolygonFillAnimation.self, PolygonStrokeAnimation.self]
     private var animation = [AbstractAnimation.Type]()
+    private var animationType = [RoundFenceAnimation.self, SquareFenceAnimation.self, ShakeDotAnimation.self, SpiralDotAnimation.self, ScaleAnimation.self, SegmentAnimation.self, ExplosionCircleAnimation.self, ExplosionSquareAnimation.self, CircleAnimation.self,  XAnimation.self, PolygonFillAnimation.self, PolygonStrokeAnimation.self]
     
     private var commandQueue: MTLCommandQueue?
     private var rps: MTLRenderPipelineState?
     private var semaphore: DispatchSemaphore!
-    private var backgroundColor: MTLClearColor!
+    private var backgroundClearColor: MTLClearColor!
     private var mouseCount = 0
-    private let audio = Audio.shared
+//    private let audio = Audio.shared
     private var currentAreaID = -1
     
     private var width: CGFloat { return bounds.size.width }
     private var height: CGFloat { return bounds.size.height }
-    private var aspect: CGFloat { return height / width }
 
     private func initAnimation() {
         for i in 0..<32 {
@@ -32,15 +32,24 @@ class MetalView: MTKView, NSWindowDelegate {
         }
     }
     
+    private func initGesture() {
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(fingerMoved(_:)))
+        addGestureRecognizer(pan)
+        
+        isUserInteractionEnabled = true
+    }
+    
     private func commonInit() {
         semaphore = DispatchSemaphore(value: 3)
         device = MTLCreateSystemDefaultDevice()!
         commandQueue = device!.makeCommandQueue()
         
-        backgroundColor = ColorPool.shared.getCurrentBackgroundColor()
+        backgroundClearColor = ColorPool.shared.getCurrentBackgroundColor()
         ongoingAnimation.append(PlaceholderAnimation(device: device!))
-        audio.playBackgroundMusic()
+//        audio.playBackgroundMusic()
+        
         initAnimation()
+        initGesture()
     }
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
@@ -53,26 +62,43 @@ class MetalView: MTKView, NSWindowDelegate {
         commonInit()
     }
     
-    private func inBound(_ pos: NSPoint) -> Bool {
+    private func inBound(_ pos: CGPoint) -> Bool {
         return 0 < pos.x && pos.x < width && 0 < pos.y && pos.y < height
     }
     
-    private func getTouchedAreaID(position pos: NSPoint) -> Int {
+    private func getTouchedAreaID(position pos: CGPoint) -> Int {
         if !inBound(pos) { return currentAreaID }
         let row = Int(pos.y / (height / 4))
         let col = Int(pos.x / (width / 8))
         return row * 8 + col
     }
     
-    private func getPoint(from event: NSEvent) -> NSPoint {
-        return convertToLayer(convert(event.locationInWindow, from: nil))
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        mouseCount += 1
+        for touch in touches {
+            currentAreaID = getTouchedAreaID(position: touch.location(in: self))
+            addAnimation()
+        }
     }
     
+    @objc private func fingerMoved(_ sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .began, .changed:
+            let areaID = getTouchedAreaID(position: sender.location(in: self))
+            if areaID != currentAreaID {
+                currentAreaID = areaID
+                addAnimation()
+            }
+        default:
+            break
+        }
+    }
+
     private func addAnimation(withID id: Int = -1) {
         let id = id == -1 ? currentAreaID : id
-        let currentAnimation = animation[id].init(device: device!, aspect: aspect)
+        let currentAnimation = animation[id].init(device: device!, width: width, height: height)
         ongoingAnimation.append(currentAnimation)
-        audio.play(id: id)
+//        audio.play(id: id)
         
         if ongoingAnimation.count >= 13 || mouseCount > 15 {
             if ongoingAnimation.count >= 8 {
@@ -81,32 +107,18 @@ class MetalView: MTKView, NSWindowDelegate {
                 }
             }
             mouseCount = 0
-            ongoingAnimation.insert(TransitionAnimation(device: device!, aspect: aspect), at: 1)
+            ongoingAnimation.insert(TransitionAnimation(device: device!, width: width, height: height), at: 1)
         }
     }
-    
-    override func mouseDragged(with event: NSEvent) {
-        let areaID = getTouchedAreaID(position: getPoint(from: event))
-        if areaID != currentAreaID {
-            currentAreaID = areaID
-            addAnimation()
-        }
-    }
-    
-    override func mouseDown(with event: NSEvent) {
-        mouseCount += 1
-        currentAreaID = getTouchedAreaID(position: getPoint(from: event))
-        addAnimation()
-    }
-    
-    override func draw(_ dirtyRect: NSRect) {
+
+    override func draw(_ dirtyRect: CGRect) {
         super.draw(dirtyRect)
         
         autoreleasepool {
             semaphore.wait()
             
             if let drawable = currentDrawable, let rpd = currentRenderPassDescriptor {
-                rpd.colorAttachments[0].clearColor = backgroundColor
+                rpd.colorAttachments[0].clearColor = backgroundClearColor
                 let commandBuffer = commandQueue!.makeCommandBuffer()
                 
                 var removeList = [Int]()
@@ -119,7 +131,7 @@ class MetalView: MTKView, NSWindowDelegate {
                 }
                 for i in removeList.reversed() {
                     if ongoingAnimation[i] is TransitionAnimation {
-                        backgroundColor = ColorPool.shared.getCurrentBackgroundColor()
+                        backgroundClearColor = ColorPool.shared.getCurrentBackgroundColor()
                     }
                     ongoingAnimation.remove(at: i)
                 }

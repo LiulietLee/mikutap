@@ -17,8 +17,8 @@ class TransitionAnimation: AbstractAnimation {
     private var direction = float2()
     private var timer = 0
 
-    required init(device: MTLDevice, aspect: CGFloat) {
-        super.init(device: device, aspect: aspect)
+    required init(device: MTLDevice, width: CGFloat, height: CGFloat) {
+        super.init(device: device, width: width, height: height)
         color = ColorPool.shared.resetBackgroundColor()
         createBuffer()
         registerShaders(

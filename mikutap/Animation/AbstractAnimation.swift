@@ -15,10 +15,14 @@ class AbstractAnimation {
     internal var commandEncoder: MTLRenderCommandEncoder!
 
     internal var aspect = Float()
+    internal var vheight = Float()
+    internal var vwidth = Float()
     internal var color = float4()
     
-    required init(device: MTLDevice, aspect: CGFloat) {
-        self.aspect = Float(aspect)
+    required init(device: MTLDevice, width: CGFloat, height: CGFloat) {
+        vheight = Float(height)
+        vwidth = Float(width)
+        self.aspect = Float(height / width)
         self.device = device
         color = ColorPool.shared.getShaderColor()
     }

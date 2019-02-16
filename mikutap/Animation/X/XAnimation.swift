@@ -20,8 +20,8 @@ class XAnimation: AbstractAnimation {
     private var timer = 0
     private var step = 40
     
-    required init(device: MTLDevice, aspect: CGFloat) {
-        super.init(device: device, aspect: aspect)
+    required init(device: MTLDevice, width: CGFloat, height: CGFloat) {
+        super.init(device: device, width: width, height: height)
         self.aspect = Float(aspect)
         createBuffer()
         registerShaders(

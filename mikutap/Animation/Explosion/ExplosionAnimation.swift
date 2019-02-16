@@ -23,8 +23,8 @@ class ExplosionAnimation: AbstractAnimation {
     private var step = 35
     internal var type = ExplosionType.square
     
-    init(device: MTLDevice, type: ExplosionType = .square, aspect: CGFloat) {
-        super.init(device: device, aspect: aspect)
+    init(device: MTLDevice, type: ExplosionType = .square, width: CGFloat, height: CGFloat) {
+        super.init(device: device, width: width, height: height)
         self.type = type
         createBuffer()
         if type == .square {
@@ -40,7 +40,7 @@ class ExplosionAnimation: AbstractAnimation {
         }
     }
     
-    required init(device: MTLDevice, aspect: CGFloat) {
+    required init(device: MTLDevice, width: CGFloat, height: CGFloat) {
         fatalError("init(device:aspect:) has not been implemented")
     }
     

@@ -22,8 +22,8 @@ class ScaleAnimation: AbstractAnimation {
     private var step = 60
     private var timer = 0
     
-    required init(device: MTLDevice, aspect: CGFloat) {
-        super.init(device: device, aspect: aspect)
+    required init(device: MTLDevice, width: CGFloat, height: CGFloat) {
+        super.init(device: device, width: width, height: height)
         createBuffer()
         registerShaders(
             vertexFunctionName: "scale_vertex_func",

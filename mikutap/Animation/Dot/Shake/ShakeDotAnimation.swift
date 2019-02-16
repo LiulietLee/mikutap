@@ -10,8 +10,8 @@ import MetalKit
 
 class ShakeDotAnimation: DotAnimation {
 
-    required init(device: MTLDevice, aspect: CGFloat) {
-        super.init(device: device, aspect: aspect)
+    required init(device: MTLDevice, width: CGFloat, height: CGFloat) {
+        super.init(device: device, width: width, height: height)
         createBuffer()
         registerShaders(
             vertexFunctionName: "shake_dot_vertex_func",

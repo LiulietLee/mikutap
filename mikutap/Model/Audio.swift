@@ -57,7 +57,7 @@ class Audio {
     
     func playBackgroundMusic() {
         Timer.scheduledTimer(withTimeInterval: 0.215, repeats: true, block: { _ in
-            DispatchQueue.global(qos: .userInitiated).async {
+            DispatchQueue.global(qos: .userInteractive).async {
                 self.trackAudioPlayer[self.trackIndex].play()
                 let beatIndex = self.trackIndex % 4
                 for player in self.beatAudioPlayer[beatIndex] {

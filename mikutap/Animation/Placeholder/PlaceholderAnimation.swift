@@ -13,7 +13,7 @@ class PlaceholderAnimation: AbstractAnimation {
     private var buffer: MTLBuffer!
     
     init(device: MTLDevice) {
-        super.init(device: device, aspect: 1.0)
+        super.init(device: device, width: 1, height: 1)
         let position = [
             float4(1.1, 1.1, 0.0, 1.0),
             float4(2.1, 2.1, 0.0, 1.0),
@@ -30,7 +30,7 @@ class PlaceholderAnimation: AbstractAnimation {
         )
     }
     
-    required init(device: MTLDevice, aspect: CGFloat) {
+    required init(device: MTLDevice, width: CGFloat, height: CGFloat) {
         fatalError("init(device:aspect:) has not been implemented")
     }
     

@@ -26,11 +26,13 @@ class FenceAnimation: AbstractAnimation {
     private var rotateAngle = Float()
     private var scaleMatrix = Matrix()
     private var rotateMatrix = Matrix()
+    private var vsize = float2()
     
     private var type = FenceType.square
     
-    init(device: MTLDevice, type: FenceType, aspect: CGFloat) {
-        super.init(device: device, aspect: aspect)
+    init(device: MTLDevice, type: FenceType, width: CGFloat, height: CGFloat) {
+        super.init(device: device, width: width, height: height)
+        vsize = float2(vwidth, vheight)
         self.type = type
         createBuffer()
         if type == .square {
@@ -46,7 +48,7 @@ class FenceAnimation: AbstractAnimation {
         }
     }
     
-    required init(device: MTLDevice, aspect: CGFloat) {
+    required init(device: MTLDevice, width: CGFloat, height: CGFloat) {
         fatalError("init(device:aspect:) has not been implemented")
     }
     
@@ -157,6 +159,7 @@ class FenceAnimation: AbstractAnimation {
             commandEncoder.setVertexBytes(&aspect, length: MemoryLayout<Float>.stride, index: 4)
             commandEncoder.setFragmentBytes(&aspect, length: MemoryLayout<Float>.stride, index: 1)
             commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: 2)
+            commandEncoder.setFragmentBytes(&vsize, length: MemoryLayout<float2>.stride, index: 3)
             if type == .round {
                 commandEncoder.setFragmentBytes(
                     &scale,
