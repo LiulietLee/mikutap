@@ -57,18 +57,22 @@ class Audio {
     
     func playBackgroundMusic() {
         Timer.scheduledTimer(withTimeInterval: 0.215, repeats: true, block: { _ in
-            self.trackAudioPlayer[self.trackIndex].play()
-            let beatIndex = self.trackIndex % 4
-            for player in self.beatAudioPlayer[beatIndex] {
-                player.volume = 0.3
-                player.play()
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.trackAudioPlayer[self.trackIndex].play()
+                let beatIndex = self.trackIndex % 4
+                for player in self.beatAudioPlayer[beatIndex] {
+                    player.volume = 0.3
+                    player.play()
+                }
+                self.trackIndex = (self.trackIndex + 1) % self.trackAudioPlayer.count
             }
-            self.trackIndex = (self.trackIndex + 1) % self.trackAudioPlayer.count
         })
     }
     
     func play(id: Int) {
-        player = mainAudioPlayer[id]
-        player?.play()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.player = self.mainAudioPlayer[id]
+            self.player?.play()
+        }
     }
 }

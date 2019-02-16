@@ -101,34 +101,28 @@ class MetalView: MTKView, NSWindowDelegate {
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
+        
         autoreleasepool {
             semaphore.wait()
             
             if let drawable = currentDrawable, let rpd = currentRenderPassDescriptor {
                 rpd.colorAttachments[0].clearColor = backgroundColor
-
                 let commandBuffer = commandQueue!.makeCommandBuffer()
-                if ongoingAnimation.isEmpty {
-                    let commandEncoder = commandBuffer?.makeRenderCommandEncoder(descriptor: rpd)
-                    commandEncoder?.endEncoding()
-                } else {
-                    var removeList = [Int]()
-                    for i in 0..<ongoingAnimation.count {
-                        if !ongoingAnimation[i].setCommandEncoder(cb: commandBuffer!, rpd: rpd) {
-                            removeList.append(i)
-                            continue
-                        }
-                        rpd.colorAttachments[0].loadAction = .load
+                
+                var removeList = [Int]()
+                for i in 0..<ongoingAnimation.count {
+                    if !ongoingAnimation[i].setCommandEncoder(cb: commandBuffer!, rpd: rpd) {
+                        removeList.append(i)
+                        continue
                     }
-                    for i in removeList.reversed() {
-                        if ongoingAnimation[i] is TransitionAnimation {
-                            backgroundColor = ColorPool.shared.getCurrentBackgroundColor()
-                        }
-                        ongoingAnimation.remove(at: i)
-                    }
+                    rpd.colorAttachments[0].loadAction = .load
                 }
-                
-                
+                for i in removeList.reversed() {
+                    if ongoingAnimation[i] is TransitionAnimation {
+                        backgroundColor = ColorPool.shared.getCurrentBackgroundColor()
+                    }
+                    ongoingAnimation.remove(at: i)
+                }
                 
                 commandBuffer?.present(drawable)
                 commandBuffer?.addCompletedHandler({ cb in
