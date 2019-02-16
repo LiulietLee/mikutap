@@ -68,7 +68,7 @@ class Audio {
     }
     
     func play(id: Int) {
-            player = mainAudioPlayer[id]
-            player?.play()
+        player = mainAudioPlayer[id]
+        player?.play()
     }
 }
