@@ -11,6 +11,7 @@ import MetalKit
 
 class MetalView: MTKView {
     
+    private var feedbackView = [FlashView]()
     private var ongoingAnimation = [AbstractAnimation]()
     private var animation = [AbstractAnimation.Type]()
     private var animationType = [RoundFenceAnimation.self, SquareFenceAnimation.self, ShakeDotAnimation.self, SpiralDotAnimation.self, ScaleAnimation.self, SegmentAnimation.self, ExplosionCircleAnimation.self, ExplosionSquareAnimation.self, CircleAnimation.self,  XAnimation.self, PolygonFillAnimation.self, PolygonStrokeAnimation.self]
@@ -20,7 +21,7 @@ class MetalView: MTKView {
     private var semaphore: DispatchSemaphore!
     private var backgroundClearColor: MTLClearColor!
     private var mouseCount = 0
-//    private let audio = Audio.shared
+    private let audio = Audio.shared
     private var currentAreaID = -1
     
     private var width: CGFloat { return bounds.size.width }
@@ -35,8 +36,19 @@ class MetalView: MTKView {
     private func initGesture() {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(fingerMoved(_:)))
         addGestureRecognizer(pan)
-        
         isUserInteractionEnabled = true
+    }
+    
+    private func initFeedbackView() {
+//        print("\(width) \(height)")
+        let viewWidth = UIScreen.main.bounds.size.width / 8
+        let viewHeight = UIScreen.main.bounds.size.height / 4
+        for i in 0..<32 {
+            let row = CGFloat(i / 8), col = CGFloat(i % 8)
+            let view = FlashView(frame: CGRect(x: col * viewWidth, y: row * viewHeight, width: viewWidth, height: viewHeight))
+            feedbackView.append(view)
+            addSubview(view)
+        }
     }
     
     private func commonInit() {
@@ -50,6 +62,7 @@ class MetalView: MTKView {
         
         initAnimation()
         initGesture()
+        initFeedbackView()
     }
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
@@ -99,6 +112,7 @@ class MetalView: MTKView {
         let currentAnimation = animation[id].init(device: device!, width: width, height: height)
         ongoingAnimation.append(currentAnimation)
 //        audio.play(id: id)
+        feedbackView[id].flash()
         
         if ongoingAnimation.count >= 13 || mouseCount > 15 {
             if ongoingAnimation.count >= 8 {

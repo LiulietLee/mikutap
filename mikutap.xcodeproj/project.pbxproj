@@ -47,6 +47,7 @@
 		4FC6C20922182EEF00908FD1 /* XShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6C1EC22182EEF00908FD1 /* XShader.metal */; };
 		4FC6C20A22182EEF00908FD1 /* XAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6C1ED22182EEF00908FD1 /* XAnimation.swift */; };
 		4FC6C20D22182EF300908FD1 /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6C20C22182EF300908FD1 /* MetalView.swift */; };
+		4FC6C20F221955DB00908FD1 /* FlashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6C20E221955DB00908FD1 /* FlashView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,7 @@
 		4FC6C1EC22182EEF00908FD1 /* XShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = XShader.metal; sourceTree = "<group>"; };
 		4FC6C1ED22182EEF00908FD1 /* XAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XAnimation.swift; sourceTree = "<group>"; };
 		4FC6C20C22182EF300908FD1 /* MetalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalView.swift; sourceTree = "<group>"; };
+		4FC6C20E221955DB00908FD1 /* FlashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -349,6 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				4FC6C20C22182EF300908FD1 /* MetalView.swift */,
+				4FC6C20E221955DB00908FD1 /* FlashView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				4FC6C1EF22182EEF00908FD1 /* TransitionShader.metal in Sources */,
 				4FC6C1F122182EEF00908FD1 /* ScaleAnimation.swift in Sources */,
 				4FC6C20722182EEF00908FD1 /* CircleAnimation.swift in Sources */,
+				4FC6C20F221955DB00908FD1 /* FlashView.swift in Sources */,
 				4FC6C1F822182EEF00908FD1 /* PolygonFillShader.metal in Sources */,
 				4FC6C20022182EEF00908FD1 /* RoundFenceAnimation.swift in Sources */,
 				4FC6C1FB22182EEF00908FD1 /* PolygonStrokeShader.metal in Sources */,
