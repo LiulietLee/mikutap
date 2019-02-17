@@ -115,9 +115,9 @@ class MetalView: MTKView {
         feedbackView[id].flash()
         
         if ongoingAnimation.count >= 13 || mouseCount > 15 {
-            if ongoingAnimation.count >= 8 {
+            if ongoingAnimation.count >= 13 {
                 for _ in 0..<ongoingAnimation.count / 2 {
-                    ongoingAnimation.removeFirst()
+                    ongoingAnimation.remove(at: 1)
                 }
             }
             mouseCount = 0
