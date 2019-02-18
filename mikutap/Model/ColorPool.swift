@@ -14,7 +14,7 @@ class ColorPool {
     
     static let shared = ColorPool()
     
-    private var backgroundColorIndex = 0
+    private var backgroundColorIndex = 1
     
     private var colorPool = [
         Color(1.000, 1.000, 1.000, 1.000),
