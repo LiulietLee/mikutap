@@ -14,8 +14,8 @@ class Audio {
     
     private var mainAudioPlayer = [AVAudioPlayer]()
     private var trackAudioPlayer: AVAudioPlayer?
-    private var player: AVAudioPlayer?
-    
+
+    private var register = -1
     private var trackIndex = 0
     private var canPlay = true
     private var timer: Timer?
@@ -33,6 +33,26 @@ class Audio {
         } catch let e {
             print(e.localizedDescription)
         }
+        
+        alignmentTimer()
+        Timer.scheduledTimer(withTimeInterval: 13.7601875, repeats: true) { _ in
+            self.alignmentTimer()
+        }
+    }
+    
+    private func alignmentTimer() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.2142, repeats: true) { _ in
+            if self.register >= 0 && self.register < 32 {
+                let id = self.register
+                if self.mainAudioPlayer[id].isPlaying {
+                    self.mainAudioPlayer[id].currentTime = 0
+                } else {
+                    self.mainAudioPlayer[id].play()
+                }
+                self.register = -1
+            }
+        }
     }
     
     func playBackgroundMusic() {
@@ -40,28 +60,19 @@ class Audio {
             guard let url = Bundle.main.url(forResource: "bgm", withExtension: "mp3") else { return }
             trackAudioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
             trackAudioPlayer?.numberOfLoops = -1
+            trackAudioPlayer?.volume = 0.7
             trackAudioPlayer?.play()
         } catch let e {
             print(e.localizedDescription)
         }
     }
     
+    func stopBackgroundMusic() {
+        trackAudioPlayer?.stop()
+        trackAudioPlayer = nil
+    }
+    
     func play(id: Int) {
-        DispatchQueue.global(qos: .userInteractive).async {
-            if self.canPlay {
-                self.canPlay = false
-                if self.mainAudioPlayer[id].isPlaying {
-                    self.mainAudioPlayer[id].currentTime = 0
-                } else {
-                    self.mainAudioPlayer[id].play()
-                }
-                DispatchQueue.main.async {
-                    self.timer?.invalidate()
-                    self.timer = Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false, block: { _ in
-                        self.canPlay = true
-                    })
-                }
-            }
-        }
+        register = id
     }
 }
