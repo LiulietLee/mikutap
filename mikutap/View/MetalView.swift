@@ -16,6 +16,9 @@ class MetalView: MTKView {
     private var animation = [AbstractAnimation.Type]()
     private var animationType = [RoundFenceAnimation.self, SquareFenceAnimation.self, ShakeDotAnimation.self, SpiralDotAnimation.self, ScaleAnimation.self, SegmentAnimation.self, ExplosionCircleAnimation.self, ExplosionSquareAnimation.self, CircleAnimation.self,  XAnimation.self, PolygonFillAnimation.self, PolygonStrokeAnimation.self]
     
+    private var tipLabel: UILabel!
+    private var labelHidden = false
+    
     private var commandQueue: MTLCommandQueue?
     private var rps: MTLRenderPipelineState?
     private var semaphore: DispatchSemaphore!
@@ -28,6 +31,7 @@ class MetalView: MTKView {
     private var height: CGFloat { return bounds.size.height }
 
     private func initAnimation() {
+        animationType.shuffle()
         for i in 0..<32 {
             animation.append(animationType[i % animationType.count])
         }
@@ -50,6 +54,20 @@ class MetalView: MTKView {
         }
     }
     
+    private func initTipLabel() {
+        tipLabel = UILabel()
+        tipLabel.text = "TOUCH & SWIPE!"
+        tipLabel.font = UIFont(name: "Avenir", size: 34.0)
+        tipLabel.textColor = .white
+        addSubview(tipLabel)
+        
+        tipLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tipLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            tipLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+    }
+    
     private func commonInit() {
         semaphore = DispatchSemaphore(value: 3)
         device = MTLCreateSystemDefaultDevice()!
@@ -62,6 +80,7 @@ class MetalView: MTKView {
         initAnimation()
         initGesture()
         initFeedbackView()
+        initTipLabel()
     }
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
@@ -87,7 +106,7 @@ class MetalView: MTKView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         mouseCount += 1
-        for touch in touches {
+        if let touch = touches.first {
             currentAreaID = getTouchedAreaID(position: touch.location(in: self))
             addAnimation()
         }
@@ -113,6 +132,10 @@ class MetalView: MTKView {
         audio.play(id: id)
         feedbackView[id].flash()
         
+        if !labelHidden {
+            hideTipLabel()
+        }
+        
         if ongoingAnimation.count >= 13 || mouseCount > 15 {
             if ongoingAnimation.count >= 13 {
                 for _ in 0..<ongoingAnimation.count * 2 / 3 {
@@ -122,6 +145,20 @@ class MetalView: MTKView {
             mouseCount = 0
             ongoingAnimation.insert(TransitionAnimation(device: device!, width: width, height: height), at: 1)
         }
+    }
+    
+    private func hideTipLabel() {
+        UIView.transition(with: tipLabel, duration: 0.4, options: .transitionCrossDissolve, animations: {
+            self.tipLabel.textColor = .clear
+            self.labelHidden = true
+        }, completion: nil)
+    }
+    
+    private func showTipLabel() {
+        UIView.transition(with: tipLabel, duration: 0.4, options: .transitionCrossDissolve, animations: {
+            self.tipLabel.textColor = .white
+            self.labelHidden = false
+        }, completion: nil)
     }
 
     override func draw(_ dirtyRect: CGRect) {
@@ -147,6 +184,9 @@ class MetalView: MTKView {
                         backgroundClearColor = ColorPool.shared.getCurrentBackgroundColor()
                     }
                     ongoingAnimation.remove(at: i)
+                }
+                if ongoingAnimation.count == 1, labelHidden {
+                    showTipLabel()
                 }
                 
                 commandBuffer?.present(drawable)

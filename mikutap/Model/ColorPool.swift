@@ -17,9 +17,9 @@ class ColorPool {
     private var backgroundColorIndex = 0
     
     private var colorPool = [
+        Color(1.000, 1.000, 1.000, 1.000),
         Color(0.545, 0.800, 0.800, 1.000),
         Color(0.129, 0.667, 0.627, 1.000),
-        Color(1.000, 1.000, 1.000, 1.000),
         Color(0.561, 0.855, 0.925, 1.000),
         Color(0.965, 0.831, 0.800, 1.000),
         Color(0.831, 0.620, 0.627, 1.000),
@@ -54,7 +54,9 @@ class ColorPool {
     }
     
     func resetBackgroundColor() -> Color {
-        backgroundColorIndex = nextIndex()
+        var idx = nextIndex()
+        while idx == 0 { idx = nextIndex() }
+        backgroundColorIndex = idx
         return colorPool[backgroundColorIndex]
     }
     

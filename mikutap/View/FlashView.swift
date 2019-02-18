@@ -11,7 +11,7 @@ import UIKit
 class FlashView: UIView {
 
     private func commonInit() {
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
     }
     
     override init(frame: CGRect) {
@@ -27,7 +27,7 @@ class FlashView: UIView {
     func flash() {
         backgroundColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.5)
         UIView.animate(withDuration: 0.1) {
-            self.backgroundColor = UIColor.clear
+            self.backgroundColor = .clear
         }
     }
 }
