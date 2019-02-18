@@ -13,12 +13,12 @@ class Audio {
     static let shared = Audio()
     
     private var mainAudioPlayer = [AVAudioPlayer]()
-    private var trackAudioPlayer = [AVAudioPlayer]()
-    private var beatAudioPlayer = [[AVAudioPlayer]]()
+    private var trackAudioPlayer: AVAudioPlayer?
     private var player: AVAudioPlayer?
     
     private var trackIndex = 0
     private var canPlay = true
+    private var timer: Timer?
     
     init() {
         let mainString = mainBase64String
@@ -27,60 +27,37 @@ class Audio {
             return try! AVAudioPlayer(data: data)
         }
         
-        var playSequence = [Int]()
-        for i in stride(from: 3, through: 9, by: 2) {
-            for _ in 0..<4 {
-                playSequence.append(contentsOf: [i, i + 1, i + 1])
-            }
-            playSequence.append(contentsOf: [i, i + 1, i, i + 1])
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch let e {
+            print(e.localizedDescription)
         }
-        
-        let trackString = trackBase64String
-        for index in playSequence {
-            let data = Data(base64Encoded: trackString[index], options: .ignoreUnknownCharacters)!
-            trackAudioPlayer.append(try! AVAudioPlayer(data: data))
-        }
-        
-        let data = [
-            Data(base64Encoded: trackString[0], options: .ignoreUnknownCharacters)!,
-            Data(base64Encoded: trackString[1], options: .ignoreUnknownCharacters)!,
-            Data(base64Encoded: trackString[2], options: .ignoreUnknownCharacters)!
-        ]
-        
-        beatAudioPlayer = [
-            [try! AVAudioPlayer(data: data[0])],
-            [try! AVAudioPlayer(data: data[0]), try! AVAudioPlayer(data: data[1])],
-            [try! AVAudioPlayer(data: data[0]), try! AVAudioPlayer(data: data[2])],
-            [try! AVAudioPlayer(data: data[0]), try! AVAudioPlayer(data: data[1])]
-        ]
     }
     
     func playBackgroundMusic() {
-        Timer.scheduledTimer(withTimeInterval: 0.215, repeats: true, block: { _ in
-            DispatchQueue.global(qos: .userInteractive).async {
-                self.trackAudioPlayer[self.trackIndex].play()
-                let beatIndex = self.trackIndex % 4
-                for player in self.beatAudioPlayer[beatIndex] {
-                    player.volume = 0.3
-                    player.play()
-                }
-                self.trackIndex = (self.trackIndex + 1) % self.trackAudioPlayer.count
-            }
-        })
+        do {
+            guard let url = Bundle.main.url(forResource: "bgm", withExtension: "mp3") else { return }
+            trackAudioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            trackAudioPlayer?.numberOfLoops = -1
+            trackAudioPlayer?.play()
+        } catch let e {
+            print(e.localizedDescription)
+        }
     }
     
     func play(id: Int) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             if self.canPlay {
                 self.canPlay = false
                 if self.mainAudioPlayer[id].isPlaying {
-                    self.player?.pause()
+                    self.mainAudioPlayer[id].currentTime = 0
+                } else {
+                    self.mainAudioPlayer[id].play()
                 }
-                self.player = self.mainAudioPlayer[id]
-                self.player?.currentTime = 0
-                self.player?.play()
                 DispatchQueue.main.async {
-                    Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false, block: { _ in
+                    self.timer?.invalidate()
+                    self.timer = Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false, block: { _ in
                         self.canPlay = true
                     })
                 }

@@ -25,8 +25,8 @@ class FlashView: UIView {
     }
     
     func flash() {
-        backgroundColor = UIColor.white
-        UIView.animate(withDuration: 0.4) {
+        backgroundColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.5)
+        UIView.animate(withDuration: 0.1) {
             self.backgroundColor = UIColor.clear
         }
     }

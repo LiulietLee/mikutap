@@ -14,7 +14,6 @@ class ScaleAnimation: AbstractAnimation {
     private var indexBuffer: MTLBuffer!
     private var rotateBuffer: MTLBuffer!
     private var scaleBuffer: MTLBuffer!
-    private var widthBuffer: MTLBuffer!
     private var vertexData = [float4]()
     private var matrix = Matrix()
     
@@ -36,13 +35,7 @@ class ScaleAnimation: AbstractAnimation {
         var angle = Float.pi / 2
         let theta = 2 * Float.pi / Float(count)
         width = Float.random(in: 0.03...0.05) / cos(theta / 2)
-        
-        widthBuffer = device.makeBuffer(
-            bytes: &width,
-            length: MemoryLayout<Float>.stride,
-            options: []
-        )
-        
+
         let len: Float = 1.8
         for _ in 0..<count {
             var pos = float4(len * cos(angle), len * sin(angle), 0.0, 1.0)
@@ -105,7 +98,6 @@ class ScaleAnimation: AbstractAnimation {
             commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
             commandEncoder.setVertexBuffer(rotateBuffer, offset: 0, index: 1)
             commandEncoder.setVertexBuffer(scaleBuffer, offset: 0, index: 2)
-            commandEncoder.setVertexBuffer(widthBuffer, offset: 0, index: 3)
             commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: 0)
             commandEncoder.setVertexBytes(&aspect, length: MemoryLayout<Float>.stride, index: 4)
             commandEncoder.drawIndexedPrimitives(

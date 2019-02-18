@@ -13,7 +13,6 @@ class XAnimation: AbstractAnimation {
     private var vertexBuffer: MTLBuffer!
     private var indexBuffer: MTLBuffer!
     private var uniformBuffer: MTLBuffer!
-    private var rateBuffer: MTLBuffer!
     private var matrix: Matrix!
     private var vertexData: [Vertex]!
     
@@ -73,12 +72,7 @@ class XAnimation: AbstractAnimation {
             bytes: matrix.m,
             length: MemoryLayout<Float>.stride * 16,
             options: []
-        )
-        
-        rateBuffer = device.makeBuffer(
-            length: MemoryLayout<Float>.stride,
-            options: []
-        )
+        )        
     }
     
     private func update() -> Bool {
@@ -114,7 +108,6 @@ class XAnimation: AbstractAnimation {
         if flag {
             commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
             commandEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 1)
-            commandEncoder.setVertexBuffer(rateBuffer, offset: 0, index: 2)
             commandEncoder.setVertexBytes(&aspect, length: MemoryLayout<Float>.stride, index: 3)
             commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: 0)
             commandEncoder.drawIndexedPrimitives(

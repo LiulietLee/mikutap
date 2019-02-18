@@ -40,7 +40,6 @@ class MetalView: MTKView {
     }
     
     private func initFeedbackView() {
-//        print("\(width) \(height)")
         let viewWidth = UIScreen.main.bounds.size.width / 8
         let viewHeight = UIScreen.main.bounds.size.height / 4
         for i in 0..<32 {
@@ -58,7 +57,7 @@ class MetalView: MTKView {
         
         backgroundClearColor = ColorPool.shared.getCurrentBackgroundColor()
         ongoingAnimation.append(PlaceholderAnimation(device: device!))
-//        audio.playBackgroundMusic()
+        audio.playBackgroundMusic()
         
         initAnimation()
         initGesture()
@@ -111,12 +110,12 @@ class MetalView: MTKView {
         let id = id == -1 ? currentAreaID : id
         let currentAnimation = animation[id].init(device: device!, width: width, height: height)
         ongoingAnimation.append(currentAnimation)
-//        audio.play(id: id)
+        audio.play(id: id)
         feedbackView[id].flash()
         
         if ongoingAnimation.count >= 13 || mouseCount > 15 {
             if ongoingAnimation.count >= 13 {
-                for _ in 0..<ongoingAnimation.count / 2 {
+                for _ in 0..<ongoingAnimation.count * 2 / 3 {
                     ongoingAnimation.remove(at: 1)
                 }
             }
