@@ -14,8 +14,8 @@ class Audio {
     
     private var mainAudioPlayer = [AVAudioPlayer]()
     private var trackAudioPlayer: AVAudioPlayer?
-
-    private var register = -1
+    
+    private var register = -2
     private var trackIndex = 0
     private var canPlay = true
     private var timer: Timer?
@@ -35,7 +35,7 @@ class Audio {
         }
         
         alignmentTimer()
-        Timer.scheduledTimer(withTimeInterval: 13.76, repeats: true) { _ in
+        Timer.scheduledTimer(withTimeInterval: 13.72, repeats: true) { _ in
             self.alignmentTimer()
         }
     }
@@ -43,12 +43,18 @@ class Audio {
     private func alignmentTimer() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.2132, repeats: true) { _ in
-            if self.register >= 0 && self.register < 32 {
+            if self.register == -2 || (self.register >= 0 && self.register < 32) {
                 let id = self.register
-                if self.mainAudioPlayer[id].isPlaying {
-                    self.mainAudioPlayer[id].currentTime = 0
+                if id == -2 {
+                    self.mainAudioPlayer[0].volume = 0.0
+                    self.mainAudioPlayer[0].play()
                 } else {
-                    self.mainAudioPlayer[id].play()
+                    self.mainAudioPlayer[id].volume = 1.0
+                    if self.mainAudioPlayer[id].isPlaying {
+                        self.mainAudioPlayer[id].currentTime = 0
+                    } else {
+                        self.mainAudioPlayer[id].play()
+                    }
                 }
                 self.register = -1
             }

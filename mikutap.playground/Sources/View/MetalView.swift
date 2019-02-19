@@ -24,7 +24,7 @@ public class MetalView: MTKView {
     private var semaphore: DispatchSemaphore!
     private var backgroundClearColor: MTLClearColor!
     private var mouseCount = 0
-    private let audio = Audio.shared
+    private var audio: Audio!
     private var currentAreaID = -1
     
     private var width: CGFloat { return bounds.size.width }
@@ -82,7 +82,7 @@ public class MetalView: MTKView {
         NSLayoutConstraint.activate([
             tipLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             tipLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
-            ])
+        ])
     }
     
     private func commonInit() {
@@ -93,12 +93,14 @@ public class MetalView: MTKView {
         
         backgroundClearColor = ColorPool.shared.getCurrentBackgroundColor()
         ongoingAnimation.append(PlaceholderAnimation(device: device!))
-        audio.playBackgroundMusic()
         
         initAnimation()
         initGesture()
         initFeedbackView()
         initTipLabel()
+
+        audio = Audio.shared
+        audio.playBackgroundMusic()
     }
     
     override public init(frame frameRect: CGRect, device: MTLDevice?) {
