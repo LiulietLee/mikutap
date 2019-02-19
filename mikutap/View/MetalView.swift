@@ -9,7 +9,7 @@
 import UIKit
 import MetalKit
 
-class MetalView: MTKView {
+public class MetalView: MTKView {
     
     private var feedbackView = [FlashView]()
     private var ongoingAnimation = [AbstractAnimation]()
@@ -29,7 +29,7 @@ class MetalView: MTKView {
     
     private var width: CGFloat { return bounds.size.width }
     private var height: CGFloat { return bounds.size.height }
-
+    
     private func initAnimation() {
         animationType.shuffle()
         for i in 0..<32 {
@@ -44,14 +44,31 @@ class MetalView: MTKView {
     }
     
     private func initFeedbackView() {
-        let viewWidth = UIScreen.main.bounds.size.width / 8
-        let viewHeight = UIScreen.main.bounds.size.height / 4
+        var cons = [NSLayoutConstraint]()
         for i in 0..<32 {
             let row = CGFloat(i / 8), col = CGFloat(i % 8)
-            let view = FlashView(frame: CGRect(x: col * viewWidth, y: row * viewHeight, width: viewWidth, height: viewHeight))
+            let view = FlashView()
             feedbackView.append(view)
             addSubview(view)
+            
+            if row != 0 || col != 0 {
+                cons.append(contentsOf: [
+                    view.widthAnchor.constraint(equalTo: feedbackView[0].widthAnchor),
+                    view.heightAnchor.constraint(equalTo: feedbackView[0].heightAnchor)
+                    ])
+            }
+            
+            cons.append(view.topAnchor.constraint(equalTo: row == 0 ? topAnchor : feedbackView[i - 8].bottomAnchor))
+            cons.append(view.leadingAnchor.constraint(equalTo: col == 0 ? leadingAnchor : feedbackView[i - 1].trailingAnchor))
+            
+            if row == 3 {
+                cons.append(view.bottomAnchor.constraint(equalTo: bottomAnchor))
+            }
+            if col == 7 {
+                cons.append(view.trailingAnchor.constraint(equalTo: trailingAnchor))
+            }
         }
+        NSLayoutConstraint.activate(cons)
     }
     
     private func initTipLabel() {
@@ -65,10 +82,11 @@ class MetalView: MTKView {
         NSLayoutConstraint.activate([
             tipLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             tipLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
+            ])
     }
     
     private func commonInit() {
+        translatesAutoresizingMaskIntoConstraints = false
         semaphore = DispatchSemaphore(value: 3)
         device = MTLCreateSystemDefaultDevice()!
         commandQueue = device!.makeCommandQueue()
@@ -83,7 +101,7 @@ class MetalView: MTKView {
         initTipLabel()
     }
     
-    override init(frame frameRect: CGRect, device: MTLDevice?) {
+    override public init(frame frameRect: CGRect, device: MTLDevice?) {
         super.init(frame: frameRect, device: device)
         commonInit()
     }
@@ -104,7 +122,7 @@ class MetalView: MTKView {
         return row * 8 + col
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         mouseCount += 1
         if let touch = touches.first {
             currentAreaID = getTouchedAreaID(position: touch.location(in: self))
@@ -124,7 +142,7 @@ class MetalView: MTKView {
             break
         }
     }
-
+    
     private func addAnimation(withID id: Int = -1) {
         let id = id == -1 ? currentAreaID : id
         let currentAnimation = animation[id].init(device: device!, width: width, height: height)
@@ -160,8 +178,8 @@ class MetalView: MTKView {
             self.labelHidden = false
         }, completion: nil)
     }
-
-    override func draw(_ dirtyRect: CGRect) {
+    
+    public override func draw(_ dirtyRect: CGRect) {
         super.draw(dirtyRect)
         
         autoreleasepool {

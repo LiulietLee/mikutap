@@ -35,7 +35,7 @@ class Audio {
         }
         
         alignmentTimer()
-        Timer.scheduledTimer(withTimeInterval: 13.7601875, repeats: true) { _ in
+        Timer.scheduledTimer(withTimeInterval: 13.76, repeats: true) { _ in
             self.alignmentTimer()
         }
     }

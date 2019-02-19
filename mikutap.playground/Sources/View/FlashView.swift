@@ -14,6 +14,12 @@ class FlashView: UIView {
         backgroundColor = .clear
     }
     
+    init() {
+        super.init(frame: CGRect(origin: .zero, size: .zero))
+        translatesAutoresizingMaskIntoConstraints = false
+        commonInit()
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()

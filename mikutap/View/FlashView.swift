@@ -9,9 +9,15 @@
 import UIKit
 
 class FlashView: UIView {
-
+    
     private func commonInit() {
         backgroundColor = .clear
+    }
+    
+    init() {
+        super.init(frame: CGRect(origin: .zero, size: .zero))
+        translatesAutoresizingMaskIntoConstraints = false
+        commonInit()
     }
     
     override init(frame: CGRect) {
