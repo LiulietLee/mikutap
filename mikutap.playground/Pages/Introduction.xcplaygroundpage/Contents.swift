@@ -12,3 +12,9 @@
  */
 
 start()
+
+/*:
+ From the next page, we will make our own "Mikutap".
+ 
+ [Next](@next)
+ */

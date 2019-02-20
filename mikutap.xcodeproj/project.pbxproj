@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F09707E221D00F600BA7688 /* AnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F09707D221D00F600BA7688 /* AnimationDelegate.swift */; };
+		4F097080221D01C700BA7688 /* Geometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F09707F221D01C700BA7688 /* Geometric.swift */; };
+		4F097082221D387F00BA7688 /* CustomizedAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F097081221D387F00BA7688 /* CustomizedAnimation.swift */; };
+		4F097084221D422700BA7688 /* PresentationShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4F097083221D422700BA7688 /* PresentationShader.metal */; };
+		4F097086221D44A300BA7688 /* SampleAnimationClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F097085221D44A300BA7688 /* SampleAnimationClass.swift */; };
 		4FC6C14022182E5900908FD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6C13F22182E5900908FD1 /* AppDelegate.swift */; };
 		4FC6C14522182E5900908FD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FC6C14322182E5900908FD1 /* Main.storyboard */; };
 		4FC6C14722182E5A00908FD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FC6C14622182E5A00908FD1 /* Assets.xcassets */; };
@@ -51,6 +56,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F09707D221D00F600BA7688 /* AnimationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationDelegate.swift; sourceTree = "<group>"; };
+		4F09707F221D01C700BA7688 /* Geometric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geometric.swift; sourceTree = "<group>"; };
+		4F097081221D387F00BA7688 /* CustomizedAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizedAnimation.swift; sourceTree = "<group>"; };
+		4F097083221D422700BA7688 /* PresentationShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = PresentationShader.metal; sourceTree = "<group>"; };
+		4F097085221D44A300BA7688 /* SampleAnimationClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAnimationClass.swift; sourceTree = "<group>"; };
 		4FC6C13C22182E5900908FD1 /* mikutap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mikutap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC6C13F22182E5900908FD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FC6C14422182E5900908FD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -107,6 +117,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F09707C221D00AF00BA7688 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				4F09707D221D00F600BA7688 /* AnimationDelegate.swift */,
+				4F09707F221D01C700BA7688 /* Geometric.swift */,
+				4F097081221D387F00BA7688 /* CustomizedAnimation.swift */,
+				4F097083221D422700BA7688 /* PresentationShader.metal */,
+				4F097085221D44A300BA7688 /* SampleAnimationClass.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
 		4FC6C13322182E5900908FD1 = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +148,7 @@
 		4FC6C13E22182E5900908FD1 /* mikutap */ = {
 			isa = PBXGroup;
 			children = (
+				4F09707C221D00AF00BA7688 /* Presentation */,
 				4FC6C14322182E5900908FD1 /* Main.storyboard */,
 				4FC6C20B22182EF300908FD1 /* View */,
 				4FC6C1BE22182EEF00908FD1 /* Animation */,
@@ -443,12 +466,15 @@
 				4FC6C20522182EEF00908FD1 /* PlaceholderAnimation.swift in Sources */,
 				4FC6C1F622182EEF00908FD1 /* SegmentAnimation.swift in Sources */,
 				4FC6C1F022182EEF00908FD1 /* ScaleShader.metal in Sources */,
+				4F097086221D44A300BA7688 /* SampleAnimationClass.swift in Sources */,
 				4FC6C1F222182EEF00908FD1 /* DotAnimation.swift in Sources */,
 				4FC6C1BB22182EEA00908FD1 /* PolygonFactory.swift in Sources */,
 				4FC6C1F422182EEF00908FD1 /* SpiralDotAnimation.swift in Sources */,
 				4FC6C20222182EEF00908FD1 /* ExplosionShader.metal in Sources */,
 				4FC6C20622182EEF00908FD1 /* PlaceholderShader.metal in Sources */,
+				4F097080221D01C700BA7688 /* Geometric.swift in Sources */,
 				4FC6C1BA22182EEA00908FD1 /* MathUtils.swift in Sources */,
+				4F09707E221D00F600BA7688 /* AnimationDelegate.swift in Sources */,
 				4FC6C14022182E5900908FD1 /* AppDelegate.swift in Sources */,
 				4FC6C1B822182EEA00908FD1 /* mainAudio.swift in Sources */,
 				4FC6C20822182EEF00908FD1 /* CircleShader.metal in Sources */,
@@ -460,7 +486,9 @@
 				4FC6C20722182EEF00908FD1 /* CircleAnimation.swift in Sources */,
 				4FC6C20F221955DB00908FD1 /* FlashView.swift in Sources */,
 				4FC6C1F822182EEF00908FD1 /* PolygonFillShader.metal in Sources */,
+				4F097082221D387F00BA7688 /* CustomizedAnimation.swift in Sources */,
 				4FC6C20022182EEF00908FD1 /* RoundFenceAnimation.swift in Sources */,
+				4F097084221D422700BA7688 /* PresentationShader.metal in Sources */,
 				4FC6C1FB22182EEF00908FD1 /* PolygonStrokeShader.metal in Sources */,
 				4FC6C1FF22182EEF00908FD1 /* FenceAnimation.swift in Sources */,
 				4FC6C1F522182EEF00908FD1 /* DotShader.metal in Sources */,
