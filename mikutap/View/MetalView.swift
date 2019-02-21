@@ -9,7 +9,7 @@
 import UIKit
 import MetalKit
 
-public class MetalView: MTKView {
+class MetalView: MTKView {
     
     private var feedbackView = [FlashView]()
     private var ongoingAnimation = [AbstractAnimation]()
@@ -46,11 +46,6 @@ public class MetalView: MTKView {
         for i in 0..<32 {
             animationDelegate.append(delegate[i % delegate.count])
         }
-//        animationType = delegate.lazy.map({
-//            let animate = PresentationAnimation(device: self.device!, width: self.width, height: self.height, delegate: $0)
-//            return type(of: animate)
-//        })
-//        initAnimation()
     }
     
     private func initGesture() {
@@ -119,7 +114,7 @@ public class MetalView: MTKView {
         setDelegate([SampleAnimationClass.self])
     }
     
-    override public init(frame frameRect: CGRect, device: MTLDevice?) {
+    override init(frame frameRect: CGRect, device: MTLDevice?) {
         super.init(frame: frameRect, device: device)
         commonInit()
     }
@@ -140,7 +135,7 @@ public class MetalView: MTKView {
         return row * 8 + col
     }
     
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         mouseCount += 1
         if let touch = touches.first {
             currentAreaID = getTouchedAreaID(position: touch.location(in: self))
@@ -200,7 +195,7 @@ public class MetalView: MTKView {
         }, completion: nil)
     }
     
-    public override func draw(_ dirtyRect: CGRect) {
+    override func draw(_ dirtyRect: CGRect) {
         super.draw(dirtyRect)
         
         autoreleasepool {

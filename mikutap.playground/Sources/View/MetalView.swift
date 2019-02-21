@@ -9,12 +9,13 @@
 import UIKit
 import MetalKit
 
-public class MetalView: MTKView {
+class MetalView: MTKView {
     
     private var feedbackView = [FlashView]()
     private var ongoingAnimation = [AbstractAnimation]()
     private var animation = [AbstractAnimation.Type]()
     private var animationType = [RoundFenceAnimation.self, SquareFenceAnimation.self, ShakeDotAnimation.self, SpiralDotAnimation.self, ScaleAnimation.self, SegmentAnimation.self, ExplosionCircleAnimation.self, ExplosionSquareAnimation.self, CircleAnimation.self,  XAnimation.self, PolygonFillAnimation.self, PolygonStrokeAnimation.self]
+    private var animationDelegate = [AnimationDelegate.Type]()
     
     private var tipLabel: UILabel!
     private var labelHidden = false
@@ -24,8 +25,9 @@ public class MetalView: MTKView {
     private var semaphore: DispatchSemaphore!
     private var backgroundClearColor: MTLClearColor!
     private var mouseCount = 0
-    private var audio: Audio!
+//    private let audio = Audio.shared
     private var currentAreaID = -1
+    private var userCustomized = false
     
     private var width: CGFloat { return bounds.size.width }
     private var height: CGFloat { return bounds.size.height }
@@ -34,6 +36,15 @@ public class MetalView: MTKView {
         animationType.shuffle()
         for i in 0..<32 {
             animation.append(animationType[i % animationType.count])
+        }
+    }
+    
+    func setDelegate(_ delegate: [AnimationDelegate.Type]) {
+        if delegate.isEmpty { return }
+        userCustomized = true
+        let delegate = delegate.shuffled()
+        for i in 0..<32 {
+            animationDelegate.append(delegate[i % delegate.count])
         }
     }
     
@@ -55,7 +66,7 @@ public class MetalView: MTKView {
                 cons.append(contentsOf: [
                     view.widthAnchor.constraint(equalTo: feedbackView[0].widthAnchor),
                     view.heightAnchor.constraint(equalTo: feedbackView[0].heightAnchor)
-                ])
+                    ])
             }
             
             cons.append(view.topAnchor.constraint(equalTo: row == 0 ? topAnchor : feedbackView[i - 8].bottomAnchor))
@@ -82,7 +93,7 @@ public class MetalView: MTKView {
         NSLayoutConstraint.activate([
             tipLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             tipLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
+            ])
     }
     
     private func commonInit() {
@@ -93,17 +104,15 @@ public class MetalView: MTKView {
         
         backgroundClearColor = ColorPool.shared.getCurrentBackgroundColor()
         ongoingAnimation.append(PlaceholderAnimation(device: device!))
+//        audio.playBackgroundMusic()
         
         initAnimation()
         initGesture()
         initFeedbackView()
         initTipLabel()
-
-        audio = Audio.shared
-        audio.playBackgroundMusic()
     }
     
-    override public init(frame frameRect: CGRect, device: MTLDevice?) {
+    override init(frame frameRect: CGRect, device: MTLDevice?) {
         super.init(frame: frameRect, device: device)
         commonInit()
     }
@@ -124,7 +133,7 @@ public class MetalView: MTKView {
         return row * 8 + col
     }
     
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         mouseCount += 1
         if let touch = touches.first {
             currentAreaID = getTouchedAreaID(position: touch.location(in: self))
@@ -147,16 +156,19 @@ public class MetalView: MTKView {
     
     private func addAnimation(withID id: Int = -1) {
         let id = id == -1 ? currentAreaID : id
-        let currentAnimation = animation[id].init(device: device!, width: width, height: height)
+        let currentAnimation =
+            userCustomized
+                ? CustomizedAnimation(device: device!, width: width, height: height, delegate: animationDelegate[id])
+                : animation[id].init(device: device!, width: width, height: height)
         ongoingAnimation.append(currentAnimation)
-        audio.play(id: id)
+//        audio.play(id: id)
         feedbackView[id].flash()
         
         if !labelHidden {
             hideTipLabel()
         }
         
-        if ongoingAnimation.count >= 13 || mouseCount > 15 {
+        if !userCustomized && (ongoingAnimation.count >= 13 || mouseCount > 15) {
             if ongoingAnimation.count >= 13 {
                 for _ in 0..<ongoingAnimation.count * 2 / 3 {
                     ongoingAnimation.remove(at: 1)
@@ -181,7 +193,7 @@ public class MetalView: MTKView {
         }, completion: nil)
     }
     
-    public override func draw(_ dirtyRect: CGRect) {
+    override func draw(_ dirtyRect: CGRect) {
         super.draw(dirtyRect)
         
         autoreleasepool {

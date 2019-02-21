@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='raw' executeOnSourceChanges='false'>
+<playground version='6.0' target-platform='ios' display-mode='rendered' executeOnSourceChanges='false'>
     <pages>
         <page name='Introduction'/>
-        <page name='Own Mikutap'/>
+        <page name='Custom Animation'/>
+        <page name='Drawing a Polygon I'/>
+        <page name='Drawing a Polygon II'/>
+        <page name='Custom Animation Class'/>
+        <page name='Custom Audio'/>
+        <page name='What Next?'/>
     </pages>
 </playground>
