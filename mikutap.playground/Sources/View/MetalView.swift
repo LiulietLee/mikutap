@@ -25,7 +25,7 @@ class MetalView: MTKView {
     private var semaphore: DispatchSemaphore!
     private var backgroundClearColor: MTLClearColor!
     private var mouseCount = 0
-//    private let audio = Audio.shared
+    private let audio = Audio.shared
     private var currentAreaID = -1
     private var userCustomized = false
     
@@ -104,7 +104,7 @@ class MetalView: MTKView {
         
         backgroundClearColor = ColorPool.shared.getCurrentBackgroundColor()
         ongoingAnimation.append(PlaceholderAnimation(device: device!))
-//        audio.playBackgroundMusic()
+        audio.playBackgroundMusic()
         
         initAnimation()
         initGesture()
@@ -161,7 +161,7 @@ class MetalView: MTKView {
                 ? CustomizedAnimation(device: device!, width: width, height: height, delegate: animationDelegate[id])
                 : animation[id].init(device: device!, width: width, height: height)
         ongoingAnimation.append(currentAnimation)
-//        audio.play(id: id)
+        audio.play(id: id)
         feedbackView[id].flash()
         
         if !labelHidden {

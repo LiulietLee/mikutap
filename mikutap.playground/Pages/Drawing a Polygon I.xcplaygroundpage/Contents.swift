@@ -1,5 +1,5 @@
 /*:
- [Previous: Custom Animation](@previous)
+ [Previous: Introduction](@previous)
  
  All animations here are implemented by Metal, which is an interface for programming the Graphics Processing Unit(GPU).
  

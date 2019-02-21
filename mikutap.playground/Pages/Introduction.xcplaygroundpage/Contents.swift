@@ -16,5 +16,5 @@ start()
 /*:
  From the next page, we will make our own "Mikutap".
  
- [Next: Custom animation](@next)
+ [Next: Drawing a Polygon I](@next)
  */

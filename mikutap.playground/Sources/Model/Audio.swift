@@ -20,7 +20,31 @@ class Audio {
     private var canPlay = true
     private var timer: Timer?
     
+    private var bgmFileName = String()
+    private var audioFileName = [String]()
+    private var interval = 0.2132
+    
+    func setBGM(withFileName file: String) {
+        bgmFileName = file
+    }
+    
+    func setAudio(withFileNames file: [String], andTimeInterval interval: Double) {
+        self.interval = interval
+        mainAudioPlayer = []
+        for i in 0..<32 {
+            do {
+                guard let url = Bundle.main.url(forResource: file[i % file.count], withExtension: "mp3") else { return }
+                let player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+                mainAudioPlayer.append(player)
+            } catch let e {
+                print(e.localizedDescription)
+            }
+        }
+    }
+    
     init() {
+        bgmFileName = "bgm"
+        
         let mainString = mainBase64String
         mainAudioPlayer = mainString.lazy.map { string -> AVAudioPlayer in
             let data = Data(base64Encoded: string, options: .ignoreUnknownCharacters)!
@@ -33,16 +57,11 @@ class Audio {
         } catch let e {
             print(e.localizedDescription)
         }
-        
-        alignmentTimer()
-        Timer.scheduledTimer(withTimeInterval: 13.72, repeats: true) { _ in
-            self.alignmentTimer()
-        }
     }
     
     private func alignmentTimer() {
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.2132, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { _ in
             if self.register == -2 || (self.register >= 0 && self.register < 32) {
                 let id = self.register
                 if id == -2 {
@@ -63,13 +82,20 @@ class Audio {
     
     func playBackgroundMusic() {
         do {
-            guard let url = Bundle.main.url(forResource: "bgm", withExtension: "mp3") else { return }
+            guard let url = Bundle.main.url(forResource: bgmFileName, withExtension: "mp3") else { return }
             trackAudioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
             trackAudioPlayer?.numberOfLoops = -1
             trackAudioPlayer?.volume = 0.7
             trackAudioPlayer?.play()
         } catch let e {
             print(e.localizedDescription)
+        }
+        
+        if !mainAudioPlayer.isEmpty {
+            alignmentTimer()
+            Timer.scheduledTimer(withTimeInterval: 13.72, repeats: true) { _ in
+                self.alignmentTimer()
+            }
         }
     }
     
