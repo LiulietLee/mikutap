@@ -25,14 +25,22 @@ draw(rectangle)
 
 //: - Note: If you tap the "Run My Code" button now, you will get a white rectangle on the center of view.
  
-//: - Experiment: There is a challenge for you now. Can you draw a *pentagon* on the screen? When you finish, call `draw(pentagon)` to draw.
+/*:
+ - Experiment: There is a challenge for you now. Can you draw a *pentagon* on the screen? When you finish, call `draw(pentagon)` to draw.
+ */
 
-var pentagon: [Triangle] = [ /* Your triangles */ ]
+//#-editable-code Code for preparation
+
+//#-end-editable-code
+
+var pentagon: [Triangle] = [ /*#-editable-code Your triangles*//*#-end-editable-code*/ ]
 
 // draw(pentagon)
 
 /*:
- - Note: You can use the member functions of `struct Position` and `struct Triangle` introduced in the [previous page](@previous).
+ - Note: You can use the member functions of `struct Position` and `struct Triangle` introduced in the [previous page](@previous). The following is a segmentation way for reference.
+ 
+ ![](pentagon.png)
 
- [Next: Custom Animation Class](@next)
+ [Next: Custom Animation](@next)
  */

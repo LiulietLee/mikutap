@@ -9,7 +9,7 @@
 import simd
 
 public struct Position {
-    var location: float4
+    public var location: float4
     
     public init() { location = float4() }
     public init(x: Float, y: Float) { location = float4(x, y, 0.0, 1.0) }
@@ -65,5 +65,31 @@ public struct Triangle {
         matrix.rotationMatrix(float3(0.0, 0.0, angle))
         let mat = matrix.tofloat4x4()
         for i in 0..<3 { vertex[i].transform(mat) }
+    }
+}
+
+import UIKit
+
+extension Position: CustomPlaygroundDisplayConvertible {
+    public var playgroundDescription: Any {
+        return CGPoint(x: CGFloat(location.x), y: CGFloat(location.y))
+    }
+}
+
+extension Triangle: CustomPlaygroundDisplayConvertible {
+    func getPoint(index: Int) -> CGPoint {
+        return CGPoint(
+            x: CGFloat(vertex[index].location.x * 100),
+            y: CGFloat(-vertex[index].location.y * 100)
+        )
+    }
+    
+    public var playgroundDescription: Any {
+        let trianglePath = UIBezierPath()
+        trianglePath.move(to: getPoint(index: 0))
+        trianglePath.addLine(to: getPoint(index: 1))
+        trianglePath.addLine(to: getPoint(index: 2))
+        trianglePath.close()
+        return trianglePath
     }
 }

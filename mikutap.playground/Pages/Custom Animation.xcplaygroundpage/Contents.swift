@@ -6,7 +6,6 @@
  This is a sample class. Let's take a closer look at it.
  */
 
-//: - Note: Because we need to use `UIColor` to set the color of polygon, we have to import UIKit here.
 import UIKit
 
 //: - Important: Every custom animation needs to implement the `AnimationDelegate` protocol.
@@ -20,9 +19,8 @@ class SampleAnimation: AnimationDelegate {
     var triangle: [Triangle]
     var duration: Int
     var shaderColor: UIColor
-//: - Important: Remember to add the `required` keyword before `init()`.
-    required init() {
 //: - Note: Here you can initialize the above three variables or variables that you define yourself.
+    required init() {
         triangle = [
             Triangle(
                 Position(x: 0.0, y: 0.5),
@@ -40,6 +38,8 @@ class SampleAnimation: AnimationDelegate {
     }
 }
 
+var animations: [AnimationDelegate.Type] = [SampleAnimation.self]
+
 /*:
  - Experiment: It's your show time now. Complete the following class to create your own animation.
  */
@@ -50,19 +50,30 @@ class YourAnimation: AnimationDelegate {
     var duration: Int
     var shaderColor: UIColor
 
+    //#-editable-code Custom variables
+    
+    //#-end-editable-code
+
     required init() {
-        triangle = [ /* Your triangles */ ]
-        duration = 50           // Please reset this value
-        shaderColor = .white    // Please reset this value
+        //#-editable-code Initialization code
+        
+        //#-end-editable-code
+
+        triangle = [ /*#-editable-code Your triangles*//*#-end-editable-code*/ ]
+        duration = /*#-editable-code*/50/*#-end-editable-code*/
+        shaderColor = /*#-editable-code UIColor*/.white/*#-end-editable-code*/
     }
     
     func update(_ schedule: Float) {
-        // Type your code here
+        //#-editable-code Code
         
+        //#-end-editable-code
     }
 }
 
-let animations: [AnimationDelegate.Type] = [SampleAnimation.self, YourAnimation.self]
+// Uncomment this line when you are done.
+/*#-editable-code*/// animations = [YourAnimation.self]/*#-end-editable-code*/
+
 start(withAnimations: animations)
 
-//: [Next: Custom Audio](@next)
+//: [Next: Speed](@next)

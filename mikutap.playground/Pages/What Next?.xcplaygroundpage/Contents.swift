@@ -8,7 +8,11 @@
  I hope you like this playground. Have a nice day!
  */
 
+//#-editable-code code
+import UIKit
 
 
-let animations: [AnimationDelegate.Type] = [ /* Your animations */ ]
+//#-end-editable-code
+
+let animations: [AnimationDelegate.Type] = [ /*#-editable-code Your animations*//*#-end-editable-code*/ ]
 start(withAnimations: animations)

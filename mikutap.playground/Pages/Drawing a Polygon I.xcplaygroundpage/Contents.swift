@@ -50,10 +50,16 @@ p = triangle.vertex[0]
  */
 
 triangle = Triangle(
-    Position(x: 0.2, y: 0.5),
-    Position(x: 0.5, y: -0.5),
-    Position(x: -0.5, y: -0.5)
+    Position(x: /*#-editable-code Float*/0.0/*#-end-editable-code*/, y: /*#-editable-code Float*/0.5/*#-end-editable-code*/),
+    Position(x: /*#-editable-code Float*/0.5/*#-end-editable-code*/, y: /*#-editable-code Float*/-0.5/*#-end-editable-code*/),
+    Position(x: /*#-editable-code Float*/-0.5/*#-end-editable-code*/, y: /*#-editable-code Float*/-0.5/*#-end-editable-code*/)
 )
+
+//#-editable-code Code
+triangle.rotate(0.0)
+triangle.scale(1.0)
+triangle.translate(x: 0.0, y: 0.0)
+//#-end-editable-code
 
 draw([triangle])
 
