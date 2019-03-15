@@ -7,7 +7,7 @@
 		<string>Chapter1.playgroundchapter</string>
 	</array>
 	<key>ContentIdentifier</key>
-	<string>com.example.PlaygroundBook</string>
+	<string>com.Future-Code-Institute.mikutap</string>
 	<key>ContentVersion</key>
 	<string>1.0</string>
 	<key>DeploymentTarget</key>
@@ -17,7 +17,7 @@
 	<key>ImageReference</key>
 	<string>cover.png</string>
 	<key>Name</key>
-	<string>Name</string>
+	<string>mikutap</string>
 	<key>SwiftVersion</key>
 	<string>4.2</string>
 	<key>Version</key>

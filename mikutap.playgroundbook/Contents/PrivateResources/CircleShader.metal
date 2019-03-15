@@ -13,6 +13,7 @@ vertex float4 circle_vertex_func(constant float4 *vertices [[buffer(0)]],
                                  uint vid [[vertex_id]])
 {
     float4 out = vertices[vid];
+    out.x *= 1.6;
     return out;
 }
 

@@ -29,7 +29,7 @@ vertex float4 round_fence_vertex_func(constant float4 *vertex_array [[buffer(0)]
 {
     float4 in = vertex_array[vid];
     float4 out = uniforms * rotates * scale * in;
-    out.x *= aspect;
+    out.x /= aspect;
     return out;
 }
 

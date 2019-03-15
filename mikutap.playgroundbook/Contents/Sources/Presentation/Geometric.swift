@@ -11,6 +11,16 @@ import simd
 public struct Position {
     public var location: float4
     
+    public var x: Float {
+        get { return location.x }
+        set { location.x = newValue }
+    }
+
+    public var y: Float {
+        get { return location.y }
+        set { location.y = newValue }
+    }
+    
     public init() { location = float4() }
     public init(x: Float, y: Float) { location = float4(x, y, 0.0, 1.0) }
     
