@@ -3,9 +3,9 @@
  
  All animations here are implemented by Metal, which is an interface for programming the Graphics Processing Unit(GPU).
  
- As a low-level API, Metal only offers what GPUs are directly capable of. What we can draw on the screen directly are only triangles, fixed width lines and little dots. If we want to implement an animation, we need to calculate the position of each vertex in each frame.
+ As a low-level API, Metal only offers what GPUs are directly capable of. What we can draw on the screen directly are only triangles, fixed width lines, and little dots. If we want to implement animation, we need to calculate the position of each vertex in each frame.
  
- It’s a very tedious thing to implement an animation completely with Metal API in playground. In order to make things as simple as possible, I made some encapsulations. Let's forget Metal shading language and linear algebra, ignore program efficiency, just focus on Swift.
+ It’s a very tedious thing to implement an animation completely with Metal API in a playground. In order to make things as simple as possible, I made some encapsulations. Let's forget Metal shading language and linear algebra, ignore program efficiency, just focus on Swift.
  */
 
 /*:
@@ -20,7 +20,7 @@ var p = Position(x: 0.5, y: 0.5)
 // You can call `translate` function to move this position.
 p.translate(x: -0.1, y: 1.0)
 
-// Or you can also call `rotate` function to rotate this position around the origin.
+// Or you can also call `rotate` function to rotate this position counterclockwise around the origin.
 let angle = Float.pi / 2
 p.rotate(angle)
 

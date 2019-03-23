@@ -1,9 +1,9 @@
 /*:
  [Previous: Custom Animation](@previous)
  
- On the previous page we learned how to create an animation. But animations with constant speed from start to finish can be boring.
+ On the previous page, we learned how to create an animation. But animations with constant speed from start to finish can be boring.
  
- Here we can use mathematical formulas to gently change the speed of animation.
+ Here we can use mathematical formulas to gently change the speed of animations.
  */
 
 import UIKit

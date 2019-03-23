@@ -35,7 +35,8 @@ draw(rectangle)
 
 var pentagon: [Triangle] = [ /*#-editable-code Your triangles*//*#-end-editable-code*/ ]
 
-// draw(pentagon)
+// Uncomment this line below to draw your pentagon.
+/*#-editable-code*/// draw(pentagon)/*#-end-editable-code*/
 
 /*:
  - Note: You can use the member functions of `struct Position` and `struct Triangle` introduced in the [previous page](@previous). The following is a segmentation way for reference.

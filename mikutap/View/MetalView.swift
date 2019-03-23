@@ -14,7 +14,8 @@ class MetalView: MTKView {
     private var feedbackView = [FlashView]()
     private var ongoingAnimation = [AbstractAnimation]()
     private var animation = [AbstractAnimation.Type]()
-    private var animationType = [RoundFenceAnimation.self, SquareFenceAnimation.self, ShakeDotAnimation.self, SpiralDotAnimation.self, ScaleAnimation.self, SegmentAnimation.self, ExplosionCircleAnimation.self, ExplosionSquareAnimation.self, CircleAnimation.self,  XAnimation.self, PolygonFillAnimation.self, PolygonStrokeAnimation.self]
+    private var animationType = [SegmentAnimation.self]
+//    private var animationType = [RoundFenceAnimation.self, SquareFenceAnimation.self, ShakeDotAnimation.self, SpiralDotAnimation.self, ScaleAnimation.self, SegmentAnimation.self, ExplosionCircleAnimation.self, ExplosionSquareAnimation.self, CircleAnimation.self,  XAnimation.self, PolygonFillAnimation.self, PolygonStrokeAnimation.self]
     private var animationDelegate = [AnimationDelegate.Type]()
     
     private var tipLabel: UILabel!
@@ -111,7 +112,7 @@ class MetalView: MTKView {
         initFeedbackView()
         initTipLabel()
         
-        setDelegate([SampleAnimationClass.self])
+//        setDelegate([SampleAnimationClass.self])
     }
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {

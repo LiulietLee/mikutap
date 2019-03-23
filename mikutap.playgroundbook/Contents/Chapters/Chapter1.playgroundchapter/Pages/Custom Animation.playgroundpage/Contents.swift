@@ -13,8 +13,8 @@ class SampleAnimation: AnimationDelegate {
 /*:
  - Note: Every class needs to include these three variables.
  1. `triangle`: a triangle array. It will be passed to GPU to draw on the screen.
- 2. `duration`: count of frame of this animation. In most cases there are 60 frames per second.
- 3. `shaderColor`: color of triangles.
+ 2. `duration`: count of the frame of this animation. In most cases, there are 60 frames per second.
+ 3. `shaderColor`: the color of triangles.
  */
     var triangle: [Triangle]
     var duration: Int
