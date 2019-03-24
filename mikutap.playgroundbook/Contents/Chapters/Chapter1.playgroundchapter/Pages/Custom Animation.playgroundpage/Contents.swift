@@ -38,8 +38,6 @@ class SampleAnimation: AnimationDelegate {
     }
 }
 
-var animations: [AnimationDelegate.Type] = [SampleAnimation.self]
-
 /*:
  - Experiment: It's your show time now. Complete the following class to create your own animation.
  */
@@ -59,21 +57,26 @@ class YourAnimation: AnimationDelegate {
         
         //#-end-editable-code
         
-        triangle = [ /*#-editable-code Your triangles*//*#-end-editable-code*/ ]
+        triangle = [
+            /*#-editable-code Your triangles*//*#-end-editable-code*/
+        ]
         duration = /*#-editable-code*/50/*#-end-editable-code*/
         shaderColor = /*#-editable-code UIColor*/.white/*#-end-editable-code*/
     }
     
     func update(_ schedule: Float) {
         //#-editable-code Code
-        
+
         //#-end-editable-code
     }
 }
 
-// Uncomment this line when you are done.
-/*#-editable-code*/// animations = [YourAnimation.self]/*#-end-editable-code*/
+let animations: [AnimationDelegate.Type] = [YourAnimation.self]
 
+//#-hidden-code
+import PlaygroundSupport
+PlaygroundPage.current.liveView = UIView()
+//#-end-hidden-code
 start(withAnimations: animations, withoutAudio: true)
 
 //: [Next: Speed](@next)

@@ -1,0 +1,20 @@
+
+			
+#### An example solution:
+
+```
+let origin = Position(x: 0.0, y: 0.0)
+var point = Position(x: 0.0, y: 0.8)
+let angle = 2.0 * Float.pi / 5
+
+var pentagon: [Triangle] = [  ]
+for i in 0..<5 {
+    let tempPoint = point
+    point.rotate(angle)
+    pentagon.append(
+        Triangle(
+            origin, tempPoint, point
+        )
+    )
+}
+```

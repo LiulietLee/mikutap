@@ -56,7 +56,7 @@ triangle = Triangle(
 )
 
 //#-editable-code Code
-triangle.rotate(0.0)
+triangle.rotate(Float.pi)
 triangle.scale(1.0)
 triangle.translate(x: 0.0, y: 0.0)
 //#-end-editable-code

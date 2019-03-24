@@ -7,6 +7,7 @@
 //
 
 import AVFoundation
+import MediaPlayer
 
 class Audio {
     
@@ -15,36 +16,27 @@ class Audio {
     private var mainAudioPlayer = [AVAudioPlayer]()
     private var trackAudioPlayer: AVAudioPlayer?
     
+    let query = MPMediaQuery.songs()
+    var mediaPlayer: MPMusicPlayerController? = nil
+    var mediaPlayItem: MPMediaItem? = nil {
+        didSet {
+            if let item = mediaPlayItem {
+                let mediacollection = MPMediaItemCollection(items: [item])
+                mediaPlayer = MPMusicPlayerController.systemMusicPlayer
+                mediaPlayer?.repeatMode = .one
+                mediaPlayer?.setQueue(with: mediacollection)
+            }
+        }
+    }
+    
     private var register = -2
     private var trackIndex = 0
     private var canPlay = true
     private var timer: Timer?
     
-    private var bgmFileName = String()
-    private var audioFileName = [String]()
     private var interval = 0.2132
     
-    func setBGM(withFileName file: String) {
-        bgmFileName = file
-    }
-    
-    func setAudio(withFileNames file: [String], andTimeInterval interval: Double) {
-        self.interval = interval
-        mainAudioPlayer = []
-        for i in 0..<32 {
-            do {
-                guard let url = Bundle.main.url(forResource: file[i % file.count], withExtension: "mp3") else { return }
-                let player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
-                mainAudioPlayer.append(player)
-            } catch let e {
-                print(e.localizedDescription)
-            }
-        }
-    }
-    
     init() {
-        bgmFileName = "bgm"
-        
         let mainString = mainBase64String
         mainAudioPlayer = mainString.lazy.map { string -> AVAudioPlayer in
             let data = Data(base64Encoded: string, options: .ignoreUnknownCharacters)!
@@ -52,7 +44,7 @@ class Audio {
         }
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
         } catch let e {
             print(e.localizedDescription)
@@ -81,27 +73,33 @@ class Audio {
     }
     
     func playBackgroundMusic() {
-        do {
-            guard let url = Bundle.main.url(forResource: bgmFileName, withExtension: "mp3") else { return }
-            trackAudioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
-            trackAudioPlayer?.numberOfLoops = -1
-            trackAudioPlayer?.volume = 0.7
-            trackAudioPlayer?.play()
-        } catch let e {
-            print(e.localizedDescription)
+        if let mediaPlayer = self.mediaPlayer {
+            mediaPlayer.play()
+        } else {
+            do {
+                guard let url = Bundle.main.url(forResource: "bgm", withExtension: "mp3") else { return }
+                trackAudioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+                trackAudioPlayer?.numberOfLoops = -1
+                trackAudioPlayer?.volume = 0.7
+                trackAudioPlayer?.play()
+            } catch let e {
+                print(e.localizedDescription)
+            }
         }
         
-        if !mainAudioPlayer.isEmpty {
-            alignmentTimer()
-            Timer.scheduledTimer(withTimeInterval: 13.72, repeats: true) { _ in
-                self.alignmentTimer()
-            }
+        alignmentTimer()
+        Timer.scheduledTimer(withTimeInterval: 13.72, repeats: true) { _ in
+            self.alignmentTimer()
         }
     }
     
     func stopBackgroundMusic() {
-        trackAudioPlayer?.stop()
-        trackAudioPlayer = nil
+        if let mediaPlayer = self.mediaPlayer {
+            mediaPlayer.stop()
+        } else {
+            trackAudioPlayer?.stop()
+            trackAudioPlayer = nil
+        }
     }
     
     func play(id: Int) {

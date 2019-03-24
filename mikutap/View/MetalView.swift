@@ -18,6 +18,7 @@ class MetalView: MTKView {
     private var animationType = [RoundFenceAnimation.self, SquareFenceAnimation.self, ShakeDotAnimation.self, SpiralDotAnimation.self, ScaleAnimation.self, SegmentAnimation.self, ExplosionCircleAnimation.self, ExplosionSquareAnimation.self, CircleAnimation.self,  XAnimation.self, PolygonFillAnimation.self, PolygonStrokeAnimation.self]
     private var animationDelegate = [AnimationDelegate.Type]()
     
+    private var pauseButton: UIButton!
     private var tipLabel: UILabel!
     private var labelHidden = false
     
@@ -30,6 +31,17 @@ class MetalView: MTKView {
     private var currentAreaID = -1
     private var customAnimation = false
     private var customAudio = false
+    private var isAudioPlaying = true {
+        didSet {
+            if isAudioPlaying {
+                pauseButton.setTitle("ON", for: .normal)
+                audio.playBackgroundMusic()
+            } else {
+                pauseButton.setTitle("OFF", for: .normal)
+                audio.stopBackgroundMusic()
+            }
+        }
+    }
     
     private var width: CGFloat { return bounds.size.width }
     private var height: CGFloat { return bounds.size.height }
@@ -111,6 +123,27 @@ class MetalView: MTKView {
         ])
     }
     
+    private func initPauseButton() {
+        pauseButton = UIButton()
+        pauseButton.backgroundColor = .white
+        pauseButton.layer.masksToBounds = true
+        pauseButton.layer.cornerRadius = 32.0
+        pauseButton.alpha = 0.618
+        pauseButton.setTitleColor(.darkGray, for: .normal)
+        pauseButton.setTitle("ON", for: .normal)
+        pauseButton.addTarget(self, action: #selector(changeAudioState), for: .touchUpInside)
+        addSubview(pauseButton)
+        bringSubviewToFront(pauseButton)
+        
+        pauseButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pauseButton.widthAnchor.constraint(equalToConstant: 64.0),
+            pauseButton.heightAnchor.constraint(equalTo: pauseButton.widthAnchor),
+            pauseButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.0),
+            pauseButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32.0)
+        ])
+    }
+    
     private func commonInit() {
         translatesAutoresizingMaskIntoConstraints = false
         semaphore = DispatchSemaphore(value: 3)
@@ -124,6 +157,7 @@ class MetalView: MTKView {
         initGesture()
         initFeedbackView()
         initTipLabel()
+        initPauseButton()
         
         if customAudio {
             initSongSelector()
@@ -144,6 +178,10 @@ class MetalView: MTKView {
         super.init(coder: coder)
         customAudio = true
         commonInit()
+    }
+    
+    @objc private func changeAudioState() {
+        isAudioPlaying = !isAudioPlaying
     }
     
     private func inBound(_ pos: CGPoint) -> Bool {

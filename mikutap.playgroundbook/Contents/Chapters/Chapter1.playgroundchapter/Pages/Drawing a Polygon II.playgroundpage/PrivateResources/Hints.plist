@@ -2,11 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Name</key>
-	<string>Custom Background Music</string>
-	<key>LiveViewEdgeToEdge</key>
-	<true/>
-	<key>LiveViewMode</key>
-	<string>VisibleByDefault</string>
+    <key>Hints</key>
+    <array>
+        <dict>
+            <key>FileReference</key>
+            <string>hit.txt</string>
+        </dict>
+    </array>
 </dict>
 </plist>

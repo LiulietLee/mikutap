@@ -29,10 +29,13 @@ class Audio {
         }
     }
     
-    private var register = -1
+    private var register = -2
     private var trackIndex = 0
     private var canPlay = true
     private var timer: Timer?
+    private var alignment: Timer?
+    
+    private var interval = 0.2132
     
     init() {
         let mainString = mainBase64String
@@ -47,22 +50,23 @@ class Audio {
         } catch let e {
             print(e.localizedDescription)
         }
-        
-        alignmentTimer()
-        Timer.scheduledTimer(withTimeInterval: 13.7601875, repeats: true) { _ in
-            self.alignmentTimer()
-        }
     }
     
     private func alignmentTimer() {
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.2142, repeats: true) { _ in
-            if self.register >= 0 && self.register < 32 {
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { _ in
+            if self.register == -2 || (self.register >= 0 && self.register < 32) {
                 let id = self.register
-                if self.mainAudioPlayer[id].isPlaying {
-                    self.mainAudioPlayer[id].currentTime = 0
+                if id == -2 {
+                    self.mainAudioPlayer[0].volume = 0.0
+                    self.mainAudioPlayer[0].play()
                 } else {
-                    self.mainAudioPlayer[id].play()
+                    self.mainAudioPlayer[id].volume = 1.0
+                    if self.mainAudioPlayer[id].isPlaying {
+                        self.mainAudioPlayer[id].currentTime = 0
+                    } else {
+                        self.mainAudioPlayer[id].play()
+                    }
                 }
                 self.register = -1
             }
@@ -83,16 +87,21 @@ class Audio {
                 print(e.localizedDescription)
             }
         }
+        
+        alignmentTimer()
+        alignment = Timer.scheduledTimer(withTimeInterval: 13.72, repeats: true) { _ in
+            self.alignmentTimer()
+        }
     }
     
     func stopBackgroundMusic() {
         if let mediaPlayer = self.mediaPlayer {
             mediaPlayer.stop()
-            self.mediaPlayer = nil
         } else {
             trackAudioPlayer?.stop()
             trackAudioPlayer = nil
         }
+        alignment?.invalidate()
     }
     
     func play(id: Int) {

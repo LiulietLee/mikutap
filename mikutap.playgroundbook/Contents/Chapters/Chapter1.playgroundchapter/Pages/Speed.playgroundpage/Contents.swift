@@ -14,7 +14,7 @@ let centerTriangle = Triangle(
     Position(x: -0.5, y: -0.5)
 )
 
-//: - Note: This is an example. If you run the code now, you will get the effect of a triangle popping up from the screen.
+//: - Note: This is an example. If you tap the live view now, you will get an effect of a triangle popping up from the screen.
 class SampleAnimation: AnimationDelegate {
     
     var triangle: [Triangle]
@@ -39,8 +39,6 @@ class SampleAnimation: AnimationDelegate {
         triangle[0].scale(1 - exp(-6.0 * schedule) * cos(schedule * Float.pi * 7.0))
     }
 }
-
-var animations: [AnimationDelegate.Type] = [SampleAnimation.self]
 
 /*:
  Time-axis-based animations are inseparable from interpolation functions, essentially using various polynomial functions to construct a variety of curve segments. The definition fields are generally [0, 1].
@@ -69,16 +67,19 @@ class YourAnimation: AnimationDelegate {
     }
     
     func update(_ schedule: Float) {
-        // Write your code here.
-        
+        // Write your formula here.
+
     }
 }
 
-// Uncomment this line when you are done.
-// animations = [YourAnimation.self]
+let animations: [AnimationDelegate.Type] = [YourAnimation.self]
 
 //#-end-editable-code
 
+//#-hidden-code
+import PlaygroundSupport
+PlaygroundPage.current.liveView = UIView()
+//#-end-hidden-code
 start(withAnimations: animations, withoutAudio: true)
 
-//: [Next: Custom Audio](@next)
+//: [Next: Custom Background Music](@next)

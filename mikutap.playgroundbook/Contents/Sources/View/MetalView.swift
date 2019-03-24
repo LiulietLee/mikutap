@@ -14,9 +14,24 @@ class MetalView: MTKView {
     private var feedbackView = [FlashView]()
     private var ongoingAnimation = [AbstractAnimation]()
     private var animation = [AbstractAnimation.Type]()
-    private var animationType = [RoundFenceAnimation.self, SquareFenceAnimation.self, ShakeDotAnimation.self, SpiralDotAnimation.self, ScaleAnimation.self, SegmentAnimation.self, ExplosionCircleAnimation.self, ExplosionSquareAnimation.self, CircleAnimation.self,  XAnimation.self, PolygonFillAnimation.self, PolygonStrokeAnimation.self]
+    private var animationType = [
+        RoundFenceAnimation.self,
+        SquareFenceAnimation.self,
+        ShakeDotAnimation.self,
+        SpiralDotAnimation.self,
+        ScaleAnimation.self,
+        SegmentAnimation.self,
+        ExplosionCircleAnimation.self,
+        ExplosionSquareAnimation.self,
+        CircleAnimation.self,
+        XAnimation.self,
+        PolygonFillAnimation.self,
+        PolygonStrokeAnimation.self
+    ]
+    
     private var animationDelegate = [AnimationDelegate.Type]()
     
+    private var pauseButton: UIButton!
     private var tipLabel: UILabel!
     private var labelHidden = false
     
@@ -27,8 +42,20 @@ class MetalView: MTKView {
     private var mouseCount = 0
     private let audio = Audio.shared
     private var currentAreaID = -1
-    private var userCustomized = false
+    private var customAnimation = false
+    private var customAudio = false
     private var withoutAudio = false
+    private var isAudioPlaying = true {
+        didSet {
+            if isAudioPlaying {
+                pauseButton.setTitle("ON", for: .normal)
+                audio.playBackgroundMusic()
+            } else {
+                pauseButton.setTitle("OFF", for: .normal)
+                audio.stopBackgroundMusic()
+            }
+        }
+    }
     
     private var width: CGFloat { return bounds.size.width }
     private var height: CGFloat { return bounds.size.height }
@@ -42,7 +69,7 @@ class MetalView: MTKView {
     
     func setDelegate(_ delegate: [AnimationDelegate.Type]) {
         if delegate.isEmpty { return }
-        userCustomized = true
+        customAnimation = true
         let delegate = delegate.shuffled()
         for i in 0..<32 {
             animationDelegate.append(delegate[i % delegate.count])
@@ -97,6 +124,40 @@ class MetalView: MTKView {
             ])
     }
     
+    private func initSongSelector() {
+        let selector = SongSelector()
+        addSubview(selector)
+        
+        selector.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            selector.centerXAnchor.constraint(equalTo: centerXAnchor),
+            selector.centerYAnchor.constraint(equalTo: centerYAnchor),
+            selector.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+            selector.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8)
+            ])
+    }
+    
+    private func initPauseButton() {
+        pauseButton = UIButton()
+        pauseButton.backgroundColor = .white
+        pauseButton.layer.masksToBounds = true
+        pauseButton.layer.cornerRadius = 24.0
+        pauseButton.alpha = 0.618
+        pauseButton.setTitleColor(.darkGray, for: .normal)
+        pauseButton.setTitle("ON", for: .normal)
+        pauseButton.addTarget(self, action: #selector(changeAudioState), for: .touchUpInside)
+        addSubview(pauseButton)
+        bringSubviewToFront(pauseButton)
+        
+        pauseButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pauseButton.widthAnchor.constraint(equalToConstant: 48.0),
+            pauseButton.heightAnchor.constraint(equalTo: pauseButton.widthAnchor),
+            pauseButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.0),
+            pauseButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20.0)
+            ])
+    }
+    
     private func commonInit() {
         translatesAutoresizingMaskIntoConstraints = false
         semaphore = DispatchSemaphore(value: 3)
@@ -104,26 +165,37 @@ class MetalView: MTKView {
 
         backgroundClearColor = ColorPool.shared.getCurrentBackgroundColor()
         ongoingAnimation.append(PlaceholderAnimation(device: device!))
-        
-        if !withoutAudio {
-            audio.playBackgroundMusic()
-        }
 
         initAnimation()
         initGesture()
         initFeedbackView()
         initTipLabel()
+        
+        if !withoutAudio {
+            initPauseButton()
+        }
+        
+        if customAudio {
+            initSongSelector()
+        } else if !withoutAudio {
+            audio.playBackgroundMusic()
+        }
     }
     
-    init(frame frameRect: CGRect, device: MTLDevice, withoutAudio: Bool = false) {
+    init(frame frameRect: CGRect, device: MTLDevice, withoutAudio: Bool = false, customAudio: Bool = false) {
         super.init(frame: frameRect, device: device)
         self.withoutAudio = withoutAudio
+        self.customAudio = customAudio
         commonInit()
     }
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
+    }
+    
+    @objc private func changeAudioState() {
+        isAudioPlaying = !isAudioPlaying
     }
     
     private func inBound(_ pos: CGPoint) -> Bool {
@@ -161,7 +233,7 @@ class MetalView: MTKView {
     private func addAnimation(withID id: Int = -1) {
         let id = id == -1 ? currentAreaID : id
         let currentAnimation =
-            userCustomized
+            customAnimation
                 ? CustomizedAnimation.init(device: device!, width: width, height: height, delegate: animationDelegate[id])
                 : animation[id].init(device: device!, width: width, height: height)
         ongoingAnimation.append(currentAnimation)
@@ -176,7 +248,7 @@ class MetalView: MTKView {
             hideTipLabel()
         }
         
-        if !userCustomized && (ongoingAnimation.count >= 13 || mouseCount > 15) {
+        if !customAnimation && (ongoingAnimation.count >= 13 || mouseCount > 15) {
             if ongoingAnimation.count >= 13 {
                 for _ in 0..<ongoingAnimation.count * 2 / 3 {
                     ongoingAnimation.remove(at: 1)
