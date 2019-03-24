@@ -7,6 +7,7 @@
 //
 
 import AVFoundation
+import MediaPlayer
 
 class Audio {
     
@@ -14,7 +15,20 @@ class Audio {
     
     private var mainAudioPlayer = [AVAudioPlayer]()
     private var trackAudioPlayer: AVAudioPlayer?
-
+    
+    let query = MPMediaQuery.songs()
+    var mediaPlayer: MPMusicPlayerController? = nil
+    var mediaPlayItem: MPMediaItem? = nil {
+        didSet {
+            if let item = mediaPlayItem {
+                let mediacollection = MPMediaItemCollection(items: [item])
+                mediaPlayer = MPMusicPlayerController.systemMusicPlayer
+                mediaPlayer?.repeatMode = .one
+                mediaPlayer?.setQueue(with: mediacollection)
+            }
+        }
+    }
+    
     private var register = -1
     private var trackIndex = 0
     private var canPlay = true
@@ -28,7 +42,7 @@ class Audio {
         }
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
         } catch let e {
             print(e.localizedDescription)
@@ -56,20 +70,29 @@ class Audio {
     }
     
     func playBackgroundMusic() {
-        do {
-            guard let url = Bundle.main.url(forResource: "bgm", withExtension: "mp3") else { return }
-            trackAudioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
-            trackAudioPlayer?.numberOfLoops = -1
-            trackAudioPlayer?.volume = 0.7
-            trackAudioPlayer?.play()
-        } catch let e {
-            print(e.localizedDescription)
+        if let mediaPlayer = self.mediaPlayer {
+            mediaPlayer.play()
+        } else {
+            do {
+                guard let url = Bundle.main.url(forResource: "bgm", withExtension: "mp3") else { return }
+                trackAudioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+                trackAudioPlayer?.numberOfLoops = -1
+                trackAudioPlayer?.volume = 0.7
+                trackAudioPlayer?.play()
+            } catch let e {
+                print(e.localizedDescription)
+            }
         }
     }
     
     func stopBackgroundMusic() {
-        trackAudioPlayer?.stop()
-        trackAudioPlayer = nil
+        if let mediaPlayer = self.mediaPlayer {
+            mediaPlayer.stop()
+            self.mediaPlayer = nil
+        } else {
+            trackAudioPlayer?.stop()
+            trackAudioPlayer = nil
+        }
     }
     
     func play(id: Int) {

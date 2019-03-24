@@ -63,29 +63,29 @@ class SegmentAnimation: AbstractAnimation {
     }
     
     private func update() -> Bool {
-        path = [
-            float2(-1.0, 0.0),
-            float2(0.0, 0.0),
-            float2(0.1, 1.0),
-            float2(0.8, 0.5)
-        ]
-        
-        for i in 0..<path.count {
-            path[i].x += 0.1
-            path[i].y -= 0.2
-        }
-        
-        width = 0.05
-        
-        (vertexData, indexData) = PolygonFactory.getSegments(path: path, width: width)
-        
-        indexBuffer = device.makeBuffer(
-            bytes: indexData,
-            length: MemoryLayout<UInt16>.stride * indexData.count,
-            options: []
-        )
-
-        return true
+//        path = [
+//            float2(-1.0, 0.0),
+//            float2(0.0, 0.0),
+//            float2(0.1, 1.0),
+//            float2(0.8, 0.5)
+//        ]
+//
+//        for i in 0..<path.count {
+//            path[i].x += 0.1
+//            path[i].y -= 0.2
+//        }
+//
+//        width = 0.05
+//
+//        (vertexData, indexData) = PolygonFactory.getSegments(path: path, width: width)
+//
+//        indexBuffer = device.makeBuffer(
+//            bytes: indexData,
+//            length: MemoryLayout<UInt16>.stride * indexData.count,
+//            options: []
+//        )
+//
+//        return true
 
         timer += 1
         var d = Float(timer) / Float(step)

@@ -14,8 +14,8 @@ class MetalView: MTKView {
     private var feedbackView = [FlashView]()
     private var ongoingAnimation = [AbstractAnimation]()
     private var animation = [AbstractAnimation.Type]()
-    private var animationType = [SegmentAnimation.self]
-//    private var animationType = [RoundFenceAnimation.self, SquareFenceAnimation.self, ShakeDotAnimation.self, SpiralDotAnimation.self, ScaleAnimation.self, SegmentAnimation.self, ExplosionCircleAnimation.self, ExplosionSquareAnimation.self, CircleAnimation.self,  XAnimation.self, PolygonFillAnimation.self, PolygonStrokeAnimation.self]
+//    private var animationType = [SegmentAnimation.self]
+    private var animationType = [RoundFenceAnimation.self, SquareFenceAnimation.self, ShakeDotAnimation.self, SpiralDotAnimation.self, ScaleAnimation.self, SegmentAnimation.self, ExplosionCircleAnimation.self, ExplosionSquareAnimation.self, CircleAnimation.self,  XAnimation.self, PolygonFillAnimation.self, PolygonStrokeAnimation.self]
     private var animationDelegate = [AnimationDelegate.Type]()
     
     private var tipLabel: UILabel!
@@ -28,7 +28,8 @@ class MetalView: MTKView {
     private var mouseCount = 0
     private let audio = Audio.shared
     private var currentAreaID = -1
-    private var userCustomized = false
+    private var customAnimation = false
+    private var customAudio = false
     
     private var width: CGFloat { return bounds.size.width }
     private var height: CGFloat { return bounds.size.height }
@@ -42,7 +43,7 @@ class MetalView: MTKView {
     
     func setDelegate(_ delegate: [AnimationDelegate.Type]) {
         if delegate.isEmpty { return }
-        userCustomized = true
+        customAnimation = true
         let delegate = delegate.shuffled()
         for i in 0..<32 {
             animationDelegate.append(delegate[i % delegate.count])
@@ -97,6 +98,19 @@ class MetalView: MTKView {
         ])
     }
     
+    private func initSongSelector() {
+        let selector = SongSelector()
+        addSubview(selector)
+        
+        selector.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            selector.centerXAnchor.constraint(equalTo: centerXAnchor),
+            selector.centerYAnchor.constraint(equalTo: centerYAnchor),
+            selector.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+            selector.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8)
+        ])
+    }
+    
     private func commonInit() {
         translatesAutoresizingMaskIntoConstraints = false
         semaphore = DispatchSemaphore(value: 3)
@@ -105,23 +119,30 @@ class MetalView: MTKView {
         
         backgroundClearColor = ColorPool.shared.getCurrentBackgroundColor()
         ongoingAnimation.append(PlaceholderAnimation(device: device!))
-        audio.playBackgroundMusic()
         
         initAnimation()
         initGesture()
         initFeedbackView()
         initTipLabel()
         
+        if customAudio {
+            initSongSelector()
+        } else {
+            audio.playBackgroundMusic()
+        }
+        
 //        setDelegate([SampleAnimationClass.self])
     }
     
-    override init(frame frameRect: CGRect, device: MTLDevice?) {
+    init(frame frameRect: CGRect, device: MTLDevice?, customAudio: Bool = false) {
         super.init(frame: frameRect, device: device)
+        self.customAudio = customAudio
         commonInit()
     }
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
+        customAudio = true
         commonInit()
     }
     
@@ -160,7 +181,7 @@ class MetalView: MTKView {
     private func addAnimation(withID id: Int = -1) {
         let id = id == -1 ? currentAreaID : id
         let currentAnimation =
-            userCustomized
+            customAnimation
                 ? CustomizedAnimation(device: device!, width: width, height: height, delegate: animationDelegate[id])
                 : animation[id].init(device: device!, width: width, height: height)
         ongoingAnimation.append(currentAnimation)
