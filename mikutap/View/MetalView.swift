@@ -176,7 +176,7 @@ class MetalView: MTKView {
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
-        customAudio = true
+//        customAudio = true
         commonInit()
     }
     
